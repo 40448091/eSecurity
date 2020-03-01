@@ -135,7 +135,7 @@ class Crypto:
   def DH(self):
     print CryptoMath.sieve_for_primes_to(5500)
     p=input("Select Prime (N) p=")
-    print "Valid Generator values:"
+    print "Recommended Generator values (though this can be higher than p):"
     print CryptoMath.DHGenerator(p)
     g=input("Select Generator g=")
     x=input("enter (Random) value for x:")
