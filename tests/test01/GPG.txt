@@ -1,0 +1,14 @@
+GPG PGP
+-------
+
+Create a key pair with (RSA and 2,048-bit keys):
+$ gpg --gen-key
+
+Export the new key
+$ gpg --export -a "Paul Haines" > mypub.key
+
+Import another key
+$ gpg --import theirpublickey.key
+
+$ gpg -e -a -u "Your Name" -r "Your Lab Partner Name" hello.txt
+
