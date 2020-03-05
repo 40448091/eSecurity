@@ -1,0 +1,15 @@
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\RestClientTest.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\RestClientTest.pdb
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\RestClientLib.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\RestClientLib.pdb
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\obj\Debug\RestClientTest.csprojAssemblyReference.cache
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\obj\Debug\RestClientTest.csproj.CopyComplete
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\obj\Debug\RestClientTest.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientTest\obj\Debug\RestClientTest.pdb

@@ -8,3 +8,11 @@ C:\Users\paul_\source\repos\blockchain\csharp\BlockChain\obj\Debug\BlockChain.cs
 C:\Users\paul_\source\repos\blockchain\csharp\BlockChain\obj\Debug\BlockChain.csproj.CopyComplete
 C:\Users\paul_\source\repos\blockchain\csharp\BlockChain\obj\Debug\BlockChainDemo.dll
 C:\Users\paul_\source\repos\blockchain\csharp\BlockChain\obj\Debug\BlockChainDemo.pdb
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\bin\Debug\BlockChainDemo.dll
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\bin\Debug\BlockChainDemo.pdb
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\bin\Debug\Newtonsoft.Json.dll
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\bin\Debug\TinyWebServer.dll
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\bin\Debug\Newtonsoft.Json.xml
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\obj\Debug\BlockChain.csproj.CopyComplete
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\obj\Debug\BlockChainDemo.dll
+C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\obj\Debug\BlockChainDemo.pdb

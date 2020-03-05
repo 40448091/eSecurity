@@ -1,0 +1,4 @@
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\bin\Debug\RestClientLib.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\bin\Debug\RestClientLib.pdb
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\obj\Debug\RestClientLib.dll
+C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\obj\Debug\RestClientLib.pdb

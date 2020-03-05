@@ -1,0 +1,5 @@
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\ICryptoProvider\ICryptoProvider\bin\Debug\ICryptoProvider.dll
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\ICryptoProvider\ICryptoProvider\bin\Debug\ICryptoProvider.pdb
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\ICryptoProvider\ICryptoProvider\obj\Debug\ICryptoProvider.dll
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\ICryptoProvider\ICryptoProvider\obj\Debug\ICryptoProvider.pdb
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\ICryptoProvider\ICryptoProvider\obj\Debug\ICryptoProvider.csprojAssemblyReference.cache
