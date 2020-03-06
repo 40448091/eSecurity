@@ -16,3 +16,11 @@ C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\bin\Debug\Newtonsoft.Json.
 C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\obj\Debug\BlockChain.csproj.CopyComplete
 C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\obj\Debug\BlockChainDemo.dll
 C:\Users\phaines\Desktop\blockchain\csharp\BlockChain\obj\Debug\BlockChainDemo.pdb
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\obj\Debug\BlockChainDemo.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\obj\Debug\BlockChainDemo.pdb
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\bin\Debug\BlockChainDemo.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\bin\Debug\BlockChainDemo.pdb
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\bin\Debug\Newtonsoft.Json.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\bin\Debug\TinyWebServer.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\bin\Debug\Newtonsoft.Json.xml
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain\obj\Debug\BlockChain.csproj.CopyComplete

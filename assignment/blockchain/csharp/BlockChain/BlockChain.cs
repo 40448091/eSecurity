@@ -154,7 +154,7 @@ namespace BlockChainDemo
         {
             int proof = CreateProofOfWork(_lastBlock.Proof, _lastBlock.PreviousHash);
 
-            CreateTransaction(sender: "0", recipient: NodeId, amount: 1);
+            CreateTransaction(sender: "0", recipient: NodeId, amount: 1, "{initial block}");    //Do I sign this with the node ID?
             Block block = CreateNewBlock(proof /*, _lastBlock.PreviousHash*/);
 
             var response = new
@@ -209,13 +209,14 @@ namespace BlockChainDemo
             return JsonConvert.SerializeObject(response);
         }
 
-        internal int CreateTransaction(string sender, string recipient, int amount)
+        internal int CreateTransaction(string sender, string recipient, int amount, string signature)
         {
             var transaction = new Transaction
             {
-                Sender = sender,
-                Recipient = recipient,
-                Amount = amount
+                Sender = sender,            //should be public key of sender / or structure containing public key of sender
+                Recipient = recipient,      //should be public key of receiver / or structure containing id and public key of receiver
+                Amount = amount,
+                Signature = signature       //added signature created by sender (using their private key)
             };
 
             _currentTransactions.Add(transaction);

@@ -23,3 +23,15 @@ C:\Users\phaines\Desktop\blockchain\csharp\BlockChain.Console\obj\Debug\BlockCha
 C:\Users\phaines\Desktop\blockchain\csharp\BlockChain.Console\obj\Debug\BlockChain.Console.csproj.CopyComplete
 C:\Users\phaines\Desktop\blockchain\csharp\BlockChain.Console\obj\Debug\BlockChainDemo.Console.exe
 C:\Users\phaines\Desktop\blockchain\csharp\BlockChain.Console\obj\Debug\BlockChainDemo.Console.pdb
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\BlockChainDemo.Console.exe.config
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\BlockChainDemo.Console.exe
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\BlockChainDemo.Console.pdb
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\BlockChainDemo.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\TinyWebServer.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\Newtonsoft.Json.dll
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\BlockChainDemo.pdb
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\bin\Debug\Newtonsoft.Json.xml
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\obj\Debug\BlockChain.Console.csprojAssemblyReference.cache
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\obj\Debug\BlockChain.Console.csproj.CopyComplete
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\obj\Debug\BlockChainDemo.Console.exe
+C:\repos\40448091\eSecurity\assignment\BlockChain\csharp\BlockChain.Console\obj\Debug\BlockChainDemo.Console.pdb
