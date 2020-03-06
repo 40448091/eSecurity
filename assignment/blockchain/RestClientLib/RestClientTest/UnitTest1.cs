@@ -9,6 +9,7 @@ namespace RestClientTest
         public int Amount { get; set; }
         public string Recipient { get; set; }
         public string Sender { get; set; }
+        public string Signature { get; set; }
     }
 
     public class Mine
@@ -41,9 +42,13 @@ namespace RestClientTest
         [TestMethod]
         public void TestAddTransaction()
         {
-            Transaction t = new Transaction { Sender = "abc123", Recipient = "xyz987", Amount = 10 };
+            Transaction t = new Transaction { Sender = "abc123", Recipient = "xyz987", Amount = 10, Signature = "" };   //TODO: Consider putting a serial number or something in the pre-signed signature field
 
+            //First serialize the transaction
             string json = json_serializer.Serialize(t);
+
+            
+
 
             RestClientLib.RestClient client = new RestClientLib.RestClient();
             string jsonResult = client.Post("http://localhost:12345/transactions/new", json);
