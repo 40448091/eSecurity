@@ -1,0 +1,8 @@
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\obj\Debug\Test.csprojAssemblyReference.cache
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\bin\Debug\Test.exe
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\bin\Debug\Test.pdb
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\bin\Debug\RLWEEngine.dll
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\bin\Debug\RLWEEngine.pdb
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\obj\Debug\Test.csproj.CopyComplete
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\obj\Debug\Test.exe
+C:\repos\40448091\eSecurity\assignment\RingLWE-NET\Test\obj\Debug\Test.pdb

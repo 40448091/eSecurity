@@ -8,17 +8,17 @@ namespace CryptoProvider
 {
     public interface ICryptoProvider
     {
-        IKeyPair GenerateKeyPair();
-        IKeyPair LoadKeyPair(string filepath);
-        IPublicKey LoadPublicKey(string filepath);
-        string SignMessage(string messate, IPrivateKey privateKey);
-        string CheckMessage(string message, IPublicKey publicKey);
-    }
+        bool IsInitialized();
+        bool GenerateKeyPair();
+        bool ImportKeyPair(string filepath);
+        void ExportKeyPair(string filepath);
 
-    public interface IKeyPair
-    {
-        IPublicKey GetPublicKey();
-        IPrivateKey GetPrivateKey();
+        string ExportPublicKey();
+        void ExportPublicKey(string filepath);
+
+        IPublicKey LoadPublicKey(string filepath);
+        string SignMessage(string message);
+        bool VerifySignature(string message, string signature, IPublicKey publicKey);
     }
 
     public interface IPublicKey

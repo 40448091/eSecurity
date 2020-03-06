@@ -15,111 +15,44 @@ namespace CryptoProvider
             _KeyValue = value;
         }
 
-        public byte[] KeyValue
+        public byte[] Bytes
         {
-            set
-            {
-                _KeyValue = value;
-            }
-
-            get
-            {
-                return _KeyValue;
-            }
-        }
-
-
-        public override string ToString()
-        {
-            return Convert.ToBase64String(_KeyValue);
+            get { return _KeyValue; }
+            set { _KeyValue = value; }
         }
     }
 
     public class PrivateKey : CryptoProvider.IPrivateKey
     {
-        byte[] _KeyValue { get; set; }
+        byte[] _KeyValue = null;
 
         public PrivateKey(byte[] value = null)
         {
-            if(value == null)
-            {
-                var seed = new Random().Next();
-                var rnd = new Random(seed);
-                var _privateKeyBytes = Enumerable.Range(0, 32).Select(x => (byte)rnd.Next(256)).ToArray();
-            }
             _KeyValue = value;
         }
 
-        public byte[] KeyValue
+        public byte[] Bytes
         {
-            set
-            {
-                _KeyValue = value;
-            }
-
-            get
-            {
-                return _KeyValue;
-            }
-        }
-
-        public override string ToString()
-        {
-            return Convert.ToBase64String(_KeyValue);
+            get { return _KeyValue; }
+            set { _KeyValue = value; }
         }
     }
 
     public class ED25519_Provider : CryptoProvider.ICryptoProvider
     {
- 
-        public string CheckMessage(string message, IPublicKey publicKey)
-        {
-            throw new NotImplementedException();
-        }
+        PrivateKey _privateKey = null;
+        PublicKey _publicKey = null;
 
-        public IKeyPair GenerateKeyPair()
+        public bool GenerateKeyPair()
         {
-            IPublicKey PublicKey = new PublicKey();
-
             var seed = new Random().Next();
             var rnd = new Random(seed);
 
             var _privateKeyBytes = Enumerable.Range(0, 32).Select(x => (byte)rnd.Next(256)).ToArray();
-            PrivateKey privateKey = new PrivateKey(_privateKeyBytes);
-            
+            _privateKey = new PrivateKey(_privateKeyBytes);
+            _publicKey = new PublicKey(Cryptographic.Ed25519.PublicKey(_privateKeyBytes));
 
-            byte[] publicKey = Cryptographic.Ed25519.PublicKey(_privateKeyBytes);
-
-            IKeyPair = new 
-
-            byte[] message = Encoding.UTF8.GetBytes("This is a secret message");
-            byte[] signature = Ed25519.Signature(message, signingKey, publicKey);
-            bool signatureValid = Ed25519.CheckValid(signature, message, publicKey);
-            Assert.IsTrue(signatureValid, "Test with random seed {0} failed", seed);
-
-            message[0] = (byte)(message[0] ^ 1);
-            var signatureValidAfterChange = Ed25519.CheckValid(signature, message, publicKey);
-            Assert.IsFalse(signatureValidAfterChange, "Test with random seed {0} failed", seed);
-
-
-
-
-            throw new NotImplementedException();
-        }
-
-        public IKeyPair LoadKeyPair(string filepath)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPublicKey LoadPublicKey(string filepath)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string SignMessage(string messate, IPrivateKey privateKey)
-        {
-            throw new NotImplementedException();
+            return true;
         }
 
         /* -------------------------- */
@@ -141,5 +74,89 @@ namespace CryptoProvider
             return hex.ToString();
         }
 
+        public bool ImportKeyPair(string filepath)
+        {
+            if (System.IO.File.Exists(filepath))
+            {
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(filepath))
+                {
+                    string b64 = sr.ReadLine();
+                    _privateKey = new PrivateKey(Convert.FromBase64String(b64));
+                    b64 = sr.ReadLine();
+                    _publicKey = new PublicKey(Convert.FromBase64String(b64));
+                    sr.Close();
+                }
+                return true;
+            }
+            else
+                throw new System.IO.FileNotFoundException("File not found: " + filepath);
+        }
+
+        public void ExportKeyPair(string filepath)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
+            {
+                string b64 = Convert.ToBase64String(_privateKey.Bytes);
+                sw.WriteLine(b64);
+                b64 = Convert.ToBase64String(_publicKey.Bytes);
+                sw.WriteLine(b64);
+                sw.Close();
+            }
+        }
+
+        public string ExportPublicKey()
+        {
+            string b64 = Convert.ToBase64String(_publicKey.Bytes);
+            return b64;
+        }
+
+        public void ExportPublicKey(string filepath)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
+            {
+                string b64 = Convert.ToBase64String(_publicKey.Bytes);
+                sw.Write(b64);
+                sw.Close();
+            }
+        }
+
+        public IPublicKey LoadPublicKey(string filepath)
+        {
+            PublicKey pubKey = null;
+            if (System.IO.File.Exists(filepath))
+            {
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(filepath))
+                {
+                    string b64 = sr.ReadLine();
+                    pubKey = new PublicKey(Convert.FromBase64String(b64));
+                    sr.Close();
+                }
+                return pubKey;
+            }
+            else
+                throw new System.IO.FileNotFoundException("File not found: " + filepath);
+        }
+
+        public string SignMessage(string message)
+        {
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            byte[] signature = Cryptographic.Ed25519.Signature(messageBytes, _privateKey.Bytes, _publicKey.Bytes);
+            return Convert.ToBase64String(signature);
+        }
+
+        public bool VerifySignature(string message, string signature, IPublicKey publicKey)
+        {
+            byte[] signatureBytes = Convert.FromBase64String(signature);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            bool signatureValid = Cryptographic.Ed25519.CheckValid(signatureBytes, messageBytes, _publicKey.Bytes);
+            return signatureValid;
+        }
+
+        public bool IsInitialized()
+        {
+            bool isInitialized = (_privateKey != null) && (_privateKey is PrivateKey) && (_privateKey.Bytes != null);
+            isInitialized = isInitialized &&  (_publicKey != null) && (_publicKey is PublicKey) && (_publicKey.Bytes != null);
+            return isInitialized;
+        }
     }
 }
