@@ -8,6 +8,7 @@ namespace CryptoProvider
 {
     public interface ICryptoProvider
     {
+        string ProviderName();
         bool IsInitialized();
         bool GenerateKeyPair();
         bool ImportKeyPair(string filepath);

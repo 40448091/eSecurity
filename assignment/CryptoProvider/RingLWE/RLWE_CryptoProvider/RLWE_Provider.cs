@@ -84,7 +84,12 @@ namespace CryptoProvider
     {
         PublicKey _publicKey = null;
         PrivateKey _privateKey = null;
-       
+
+        public string ProviderName()
+        {
+            return "RLWE";
+        }
+
         public void ExportKeyPair(string filepath)
         {
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))

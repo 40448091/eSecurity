@@ -53,6 +53,11 @@ namespace CryptoProvider
         PrivateKey _privateKey = null;
         PublicKey _publicKey = null;
 
+        public string ProviderName()
+        {
+            return "ED25519";
+        }
+
         public bool GenerateKeyPair()
         {
             var seed = new Random().Next();
