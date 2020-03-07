@@ -17,17 +17,20 @@ namespace CryptoProvider
         void ExportPublicKey(string filepath);
 
         IPublicKey LoadPublicKey(string filepath);
+        IPublicKey PublicKey_FromBase64String(string base64);
+        IPrivateKey PrivateKey_FromBase64String(string base64);
+
         string SignMessage(string message);
         bool VerifySignature(string message, string signature, IPublicKey publicKey);
     }
 
     public interface IPublicKey
     {
-
+        string ToBase64String();
     }
 
     public interface IPrivateKey
     {
-
+        string ToBase64String();
     }
 }

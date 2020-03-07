@@ -7,11 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using CryptoProvider;
 
 namespace BlockChainDemo
 {
     public class BlockChain
     {
+        ICryptoProvider _cryptoProvider = null;
+
         private List<Transaction> _currentTransactions = new List<Transaction>();
         private List<Block> _chain = new List<Block>();
         private List<Node> _nodes = new List<Node>();
@@ -20,10 +23,11 @@ namespace BlockChainDemo
         public string NodeId { get; private set; }
 
         //ctor
-        public BlockChain()
+        public BlockChain(CryptoProvider.ICryptoProvider cryptoProvider = null)
         {
             NodeId = Guid.NewGuid().ToString().Replace("-", "");
             CreateNewBlock(proof: 100, previousHash: "1"); //genesis block
+            _cryptoProvider = cryptoProvider;
         }
 
         //private functionality
@@ -154,7 +158,7 @@ namespace BlockChainDemo
         {
             int proof = CreateProofOfWork(_lastBlock.Proof, _lastBlock.PreviousHash);
 
-            CreateTransaction(sender: "0", recipient: NodeId, amount: 1, "{initial block}");    //Do I sign this with the node ID?
+            CreateTransaction(id: Guid.NewGuid(), sender: "0", recipient: NodeId, amount: 1, "{initial block}");    //Do I sign this with the node ID?
             Block block = CreateNewBlock(proof /*, _lastBlock.PreviousHash*/);
 
             var response = new
@@ -209,19 +213,19 @@ namespace BlockChainDemo
             return JsonConvert.SerializeObject(response);
         }
 
-        internal int CreateTransaction(string sender, string recipient, int amount, string signature)
+        internal int CreateTransaction(Guid id, string sender, string recipient, int amount, string signature)
         {
-            var transaction = new Transaction
-            {
-                Sender = sender,            //should be public key of sender / or structure containing public key of sender
-                Recipient = recipient,      //should be public key of receiver / or structure containing id and public key of receiver
-                Amount = amount,
-                Signature = signature       //added signature created by sender (using their private key)
-            };
+            Transaction tx = new Transaction { id = id, Sender = sender, Recipient = recipient, Amount = amount, Signature = signature };
 
-            _currentTransactions.Add(transaction);
+            bool signatureIsValid = tx.VerifySignature(_cryptoProvider);
+
+            if (signatureIsValid)
+                _currentTransactions.Add(tx);
+            else
+                throw new Exception("Message does not match signature");
 
             return _lastBlock != null ? _lastBlock.Index + 1 : 0;
         }
+
     }
 }

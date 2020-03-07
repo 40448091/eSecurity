@@ -2,3 +2,8 @@ C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\bin\Debug\RestCl
 C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\bin\Debug\RestClientLib.pdb
 C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\obj\Debug\RestClientLib.dll
 C:\Users\phaines\Desktop\RestClient\RestClientLib\RestClientLib\obj\Debug\RestClientLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\RestClientLib\RestClientLib\bin\Debug\RestClientLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\RestClientLib\RestClientLib\bin\Debug\RestClientLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\RestClientLib\RestClientLib\obj\Debug\RestClientLib.csprojAssemblyReference.cache
+C:\repos\40448091\eSecurity\assignment\blockchain\RestClientLib\RestClientLib\obj\Debug\RestClientLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\RestClientLib\RestClientLib\obj\Debug\RestClientLib.pdb

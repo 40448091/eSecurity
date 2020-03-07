@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICryptoProvider">
+    <Reference Include="ICryptoProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ICryptoProvider\ICryptoProvider\bin\Debug\ICryptoProvider.dll</HintPath>
     </Reference>
     <Reference Include="System" />

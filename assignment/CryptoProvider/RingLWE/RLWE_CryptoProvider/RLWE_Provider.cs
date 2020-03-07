@@ -37,6 +37,11 @@ namespace CryptoProvider
             get { return _keyValue.ToBytes(); }
             set { _keyValue = RLWEPrivateKey.From(value); }
         }
+
+        public string ToBase64String()
+        {
+            return Convert.ToBase64String(Bytes);
+        }
     }
 
     public class PrivateKey : CryptoProvider.IPrivateKey
@@ -67,6 +72,11 @@ namespace CryptoProvider
             get { return _keyValue.ToBytes(); }
             set { _keyValue = RLWEPublicKey.From(value); }
         }
+
+        public string ToBase64String()
+        {
+            return Convert.ToBase64String(Bytes);
+        }
     }
 
 
@@ -79,28 +89,35 @@ namespace CryptoProvider
         {
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
             {
-                string b64 = Convert.ToBase64String(_privateKey.Bytes);
-                sw.WriteLine(b64);
-                b64 = Convert.ToBase64String(_publicKey.Bytes);
-                sw.WriteLine(b64);
+                sw.WriteLine(_privateKey.ToBase64String());
+                sw.WriteLine(_publicKey.ToBase64String());
                 sw.Close();
             }
         }
 
         public string ExportPublicKey()
         {
-            string b64 = Convert.ToBase64String(_publicKey.Bytes);
-            return b64;
+            return _publicKey.ToBase64String(); 
         }
 
         public void ExportPublicKey(string filepath)
         {
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
             {
-                string b64 = Convert.ToBase64String(_publicKey.Bytes);
-                sw.Write(b64);
+                //string b64 = Convert.ToBase64String(_publicKey.Bytes);
+                sw.Write(_publicKey.ToBase64String());
                 sw.Close();
             }
+        }
+
+        public IPublicKey PublicKey_FromBase64String(string b64)
+        {
+            return  new PublicKey(Convert.FromBase64String(b64));
+        }
+
+        public IPrivateKey PrivateKey_FromBase64String(string b64)
+        {
+            return new PrivateKey(Convert.FromBase64String(b64));
         }
 
         public bool GenerateKeyPair()
@@ -126,9 +143,9 @@ namespace CryptoProvider
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(filepath))
                 {
                     string b64 = sr.ReadLine();
-                    _privateKey = new PrivateKey(Convert.FromBase64String(b64));
+                    _privateKey = (PrivateKey)PrivateKey_FromBase64String(b64);     //new PrivateKey(Convert.FromBase64String(b64));
                     b64 = sr.ReadLine();
-                    _publicKey = new PublicKey(Convert.FromBase64String(b64));
+                    _publicKey = (PublicKey)PublicKey_FromBase64String(b64);        //new PublicKey(Convert.FromBase64String(b64));
                     sr.Close();
                 }
                 return true;
@@ -150,7 +167,7 @@ namespace CryptoProvider
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(filepath))
                 {
                     string b64 = sr.ReadLine();
-                    pubKey = new PublicKey(Convert.FromBase64String(b64));
+                    pubKey = (PublicKey)PublicKey_FromBase64String(b64);        //  new PublicKey(Convert.FromBase64String(b64));
                     sr.Close();
                 }
                 return pubKey;

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockChain", "BlockChain\BlockChain.csproj", "{E06FC4CE-77D0-4A64-94A6-32A08920E481}"
 EndProject
@@ -27,17 +27,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FB3650B-CAFB-4A71-940B-0CA6F0377422}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://devfire.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = BlockChain\\BlockChain.csproj
-		SccProjectName1 = BlockChain
-		SccLocalPath1 = BlockChain
-		SccProjectUniqueName2 = BlockChain.Console\\BlockChain.Console.csproj
-		SccProjectName2 = BlockChain.Console
-		SccLocalPath2 = BlockChain.Console
 	EndGlobalSection
 EndGlobal

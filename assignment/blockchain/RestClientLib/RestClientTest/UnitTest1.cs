@@ -6,10 +6,22 @@ namespace RestClientTest
 {
     public class Transaction
     {
+        public Guid id { get; set; }
         public int Amount { get; set; }
         public string Recipient { get; set; }
         public string Sender { get; set; }
         public string Signature { get; set; }
+
+        public Transaction(string recipient, int amount, CryptoProvider.ICryptoProvider cryptoProvider)
+        {
+            id = Guid.NewGuid();
+            Sender = cryptoProvider.ExportPublicKey();
+            Recipient = recipient;
+            Amount = amount;
+
+            string message = $"{id}~{Sender}~{Recipient}~{Amount}";
+            Signature = cryptoProvider.SignMessage(message);
+        }
     }
 
     public class Mine
@@ -42,14 +54,20 @@ namespace RestClientTest
         [TestMethod]
         public void TestAddTransaction()
         {
-            Transaction t = new Transaction { Sender = "abc123", Recipient = "xyz987", Amount = 10, Signature = "" };   //TODO: Consider putting a serial number or something in the pre-signed signature field
+            //CryptoProvider.ED25519_Provider cryptoProvider = new CryptoProvider.ED25519_Provider();
+            CryptoProvider.RLWE_Provider cryptoProvider = new CryptoProvider.RLWE_Provider();
+            cryptoProvider.GenerateKeyPair();
 
+            Transaction t = new Transaction("Paul Haines",10, cryptoProvider);   //TODO: Consider putting a serial number or something in the pre-signed signature field
+  
             //First serialize the transaction
             string json = json_serializer.Serialize(t);
+            //t.Signature = cryptoProvider.SignMessage(json);
 
+            //add the signature
+            //json = json_serializer.Serialize(t);
             
-
-
+            //send
             RestClientLib.RestClient client = new RestClientLib.RestClient();
             string jsonResult = client.Post("http://localhost:12345/transactions/new", json);
 

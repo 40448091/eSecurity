@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>BlockChainDemo.Console</RootNamespace>
     <AssemblyName>BlockChainDemo.Console</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <SccProjectName>SAK</SccProjectName>
@@ -37,6 +37,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ED25519_CryptoProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CryptoProvider\ed25519\ED25519_CryptoProvider\bin\Debug\ED25519_CryptoProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="ICryptoProvider">
+      <HintPath>..\..\..\CryptoProvider\ICryptoProvider\ICryptoProvider\bin\Debug\ICryptoProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="RLWE_CryptoProvider">
+      <HintPath>..\..\..\CryptoProvider\RingLWE\RLWE_CryptoProvider\bin\Debug\RLWE_CryptoProvider.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

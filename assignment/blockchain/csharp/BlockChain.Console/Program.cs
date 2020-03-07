@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-            var chain = new BlockChain();
+            //CryptoProvider.ICryptoProvider cryptoProvider = new CryptoProvider.ED25519_Provider();
+            CryptoProvider.ICryptoProvider cryptoProvider = new CryptoProvider.RLWE_Provider();
+
+            var chain = new BlockChain(cryptoProvider);
             var server = new WebServer(chain);
             System.Console.Read();
         }
