@@ -164,7 +164,7 @@ class Crypto:
 
     print "Bob Calculates:"
     keyB = (B**x) % p
-    print "  keyA = (B**x) % p = ({}**{} % {}) = {}".format(B,x,p,keyB)
+    print "  keyB = (B**x) % p = ({}**{} % {}) = {}".format(B,x,p,keyB)
     print "  KeyB = {}".format(hashlib.sha256(str(keyB)).hexdigest())
 
 
