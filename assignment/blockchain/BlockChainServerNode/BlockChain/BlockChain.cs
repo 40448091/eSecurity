@@ -390,9 +390,8 @@ namespace BlockChain
         {
             string host = System.Configuration.ConfigurationManager.AppSettings["host"];
             string port = System.Configuration.ConfigurationManager.AppSettings["port"];
-            string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
-
-            System.Console.WriteLine(string.Format("NodeId={0}, Host={1}, Port={2}, CryptoProvider=",NodeId,host,port, cryptoProvider));
+            
+            System.Console.WriteLine(string.Format("NodeId={0}, Host={1}, Port={2}, CryptoProvider={3}",NodeId,host,port, _cryptoProvider.ProviderName()));
             System.Console.WriteLine(string.Format("Current Transactions={0}", _currentTransactions.Count()));
             System.Console.WriteLine(string.Format("Blocks in Chain={0}", _chain.Count()));
         }
