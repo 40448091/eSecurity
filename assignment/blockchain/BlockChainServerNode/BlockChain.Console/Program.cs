@@ -1,4 +1,4 @@
-﻿namespace BlockChainDemo.Console
+﻿namespace BlockChain.Console
 {
     class Program
     {
@@ -15,6 +15,8 @@
             server = new WebServer(chain);
 
             System.Console.WriteLine("BlockChainServerNode initialized with an empty chain");
+            chain.Rollback();
+            chain.status();
             System.Console.WriteLine("enter help for a list of commands");
 
             bool exit = false;
@@ -36,6 +38,7 @@
                         rollback(cmdArgs);
                         break;
                     case "exit":
+                        checkpoint(cmdArgs);
                         exit = true;
                         break;
                     case "init":
@@ -64,6 +67,8 @@
             System.Console.WriteLine("  checkpoint      : saves the BlockChain to the specified file");
             System.Console.WriteLine("  load {filename} : loads the BlockChain from the specified file");
             System.Console.WriteLine("  init            : Re-initialize with an empty BlockChain");
+            System.Console.WriteLine("  list tran       : list pending transactions");
+            System.Console.WriteLine("  list blocks     : list blocks");
         }
 
         static void checkpoint(string[] cmdArgs)
@@ -105,11 +110,14 @@
         {
             switch(cmdArgs[1])
             {
-                case "transactions":
+                case "tran":
                     chain.list_currentTransactions();
                     break;
                 case "blocks":
                     chain.list_blocks();
+                    break;
+                default:
+                    System.Console.WriteLine("list tran|blocks");
                     break;
             }
         }

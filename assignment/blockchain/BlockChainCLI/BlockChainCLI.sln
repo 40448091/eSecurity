@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockChainCLI", "RestClientLib\BlockChainCLI.csproj", "{FEBD1404-A18C-4388-BAE4-EBC88AD5F858}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient", "RestClientLib\RestClient.csproj", "{FEBD1404-A18C-4388-BAE4-EBC88AD5F858}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockChainCLITest", "RestClientTest\BlockChainCLITest.csproj", "{C8E9CF7B-2056-4D3F-8F66-F2B44301A481}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockChainClient", "BlockChainClient\BlockChainClient.csproj", "{E66080A3-A27B-49D0-AF6B-FA52449D13DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockChainClassLib", "BlockChainClassLib\BlockChainClassLib.csproj", "{948388E6-3643-48AE-A31F-0385B15FABC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{C8E9CF7B-2056-4D3F-8F66-F2B44301A481}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8E9CF7B-2056-4D3F-8F66-F2B44301A481}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8E9CF7B-2056-4D3F-8F66-F2B44301A481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E66080A3-A27B-49D0-AF6B-FA52449D13DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66080A3-A27B-49D0-AF6B-FA52449D13DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66080A3-A27B-49D0-AF6B-FA52449D13DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66080A3-A27B-49D0-AF6B-FA52449D13DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{948388E6-3643-48AE-A31F-0385B15FABC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948388E6-3643-48AE-A31F-0385B15FABC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948388E6-3643-48AE-A31F-0385B15FABC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948388E6-3643-48AE-A31F-0385B15FABC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

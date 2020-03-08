@@ -1,0 +1,7 @@
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\bin\Debug\BlockChainTypeLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\bin\Debug\BlockChainTypeLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\bin\Debug\ICryptoProvider.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\bin\Debug\ICryptoProvider.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\obj\Debug\BlockChainTypeLib.csproj.CopyComplete
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\obj\Debug\BlockChainTypeLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChainTypeLib\obj\Debug\BlockChainTypeLib.pdb

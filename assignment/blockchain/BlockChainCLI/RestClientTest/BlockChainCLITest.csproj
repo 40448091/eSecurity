@@ -39,10 +39,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BlockChainTypeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BlockChainServerNode\BlockChainTypeLib\bin\Debug\BlockChainTypeLib.dll</HintPath>
+    </Reference>
     <Reference Include="ED25519_CryptoProvider">
       <HintPath>..\..\..\CryptoProvider\ed25519\ED25519_CryptoProvider\bin\Debug\ED25519_CryptoProvider.dll</HintPath>
     </Reference>
-    <Reference Include="ICryptoProvider">
+    <Reference Include="ICryptoProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CryptoProvider\ICryptoProvider\ICryptoProvider\bin\Debug\ICryptoProvider.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -66,9 +71,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RestClientLib\BlockChainCLI.csproj">
+    <ProjectReference Include="..\BlockChainClassLib\BlockChainClassLib.csproj">
+      <Project>{948388e6-3643-48ae-a31f-0385b15fabc8}</Project>
+      <Name>BlockChainClassLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlockChainClient\BlockChainClient.csproj">
+      <Project>{e66080a3-a27b-49d0-af6b-fa52449d13de}</Project>
+      <Name>BlockChainClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestClientLib\RestClient.csproj">
       <Project>{febd1404-a18c-4388-bae4-ebc88ad5f858}</Project>
-      <Name>BlockChainCLI</Name>
+      <Name>RestClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

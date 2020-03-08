@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 
-namespace BlockChainDemo
+namespace BlockChain
 {
     public class WebServer
     {
@@ -13,6 +13,8 @@ namespace BlockChainDemo
             var settings = ConfigurationManager.AppSettings;
             string host = settings["host"]?.Length > 1 ? settings["host"] : "localhost";
             string port = settings["port"]?.Length > 1 ? settings["port"] : "12345";
+
+            Logger.Log($"Web Service Listening on port: {port}");
 
             var server = new TinyWebServer.WebServer(request =>
                 {

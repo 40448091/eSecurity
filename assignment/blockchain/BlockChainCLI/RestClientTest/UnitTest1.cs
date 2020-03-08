@@ -4,6 +4,7 @@ using System.Web.Script.Serialization; //System.Web.Extensions.dll
 
 namespace RestClientTest
 {
+    /*
     public class Transaction
     {
         public Guid id { get; set; }
@@ -32,6 +33,7 @@ namespace RestClientTest
         public int Proof { get; set; }
         public string PreviousHash { get; set; }
     }
+    */
 
     [TestClass]
     public class UnitTest1
@@ -39,46 +41,39 @@ namespace RestClientTest
         JavaScriptSerializer json_serializer = new JavaScriptSerializer();
 
         [TestMethod]
-        public void TestMine()
+        public void TestED25519()
         {
-            CryptoProvider.RLWE_Provider cryptoProvider = new CryptoProvider.RLWE_Provider();
-            cryptoProvider.GenerateKeyPair();
-
-            RestClientLib.BlockChainCLI client = new RestClientLib.BlockChainCLI();
-
-            string url = "http://localhost:12345/Mine?" + cryptoProvider.ExportPublicKey();
-            string json = client.Get(url);
-            Mine result = json_serializer.Deserialize<Mine>(json);
-
-            Console.WriteLine(result.ToString());
-
-            Assert.IsTrue(result != null);
+            string[] args = {"ED25519"};
+            BlockChainClient.Program.Main(args);
         }
 
         [TestMethod]
-        public void TestAddTransaction()
+        public void TestRLWE()
         {
-            //CryptoProvider.ED25519_Provider cryptoProvider = new CryptoProvider.ED25519_Provider();
-            CryptoProvider.RLWE_Provider cryptoProvider = new CryptoProvider.RLWE_Provider();
-            cryptoProvider.GenerateKeyPair();
-
-            Transaction t = new Transaction("Paul Haines",10, cryptoProvider);   //TODO: Consider putting a serial number or something in the pre-signed signature field
-  
-            //First serialize the transaction
-            string json = json_serializer.Serialize(t);
-            //t.Signature = cryptoProvider.SignMessage(json);
-
-            //add the signature
-            //json = json_serializer.Serialize(t);
-            
-            //send
-            RestClientLib.BlockChainCLI client = new RestClientLib.BlockChainCLI();
-            string jsonResult = client.Post("http://localhost:12345/transactions/new", json);
-
-            Console.WriteLine(jsonResult);
-
-            Assert.IsTrue(jsonResult != "");
+            string[] args = { "RLWE" };
+            BlockChainClient.Program.Main(args);
         }
+
+        [TestMethod]
+        public void TestCommandLib_RLWE()
+        {
+            BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor("RLWE","localhost","12345");
+            cmdProc.transaction("Paul", 100);
+            cmdProc.transaction("Simon", 20);
+            cmdProc.transaction("Joanne", 30);
+            cmdProc.mine();
+        }
+
+        [TestMethod]
+        public void TestCommandLib_ED25519()
+        {
+            BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor("ED25519", "localhost", "12345");
+            cmdProc.transaction("Alice", 200);
+            cmdProc.transaction("Bob", 20);
+            cmdProc.transaction("Trent", 30);
+            cmdProc.mine();
+        }
+
 
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace BlockChainDemo
+namespace BlockChain
 {
     public static class Logger
     {

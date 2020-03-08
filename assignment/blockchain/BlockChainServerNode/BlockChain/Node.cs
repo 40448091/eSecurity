@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlockChainDemo
+namespace BlockChain
 {
     public class Node
     {

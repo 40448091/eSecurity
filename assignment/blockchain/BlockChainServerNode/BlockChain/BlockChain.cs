@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using CryptoProvider;
 
-namespace BlockChainDemo
+namespace BlockChain
 {
     public class BlockChain
     {
@@ -383,7 +383,11 @@ namespace BlockChainDemo
 
         public void status()
         {
-            System.Console.WriteLine(string.Format("NodeId={0}",NodeId));
+            string host = System.Configuration.ConfigurationManager.AppSettings["host"];
+            string port = System.Configuration.ConfigurationManager.AppSettings["port"];
+
+
+            System.Console.WriteLine(string.Format("NodeId={0}, Host={1}, Port={2}",NodeId,host,port));
             System.Console.WriteLine(string.Format("Current Transactions={0}", _currentTransactions.Count()));
             System.Console.WriteLine(string.Format("Blocks in Chain={0}", _chain.Count()));
         }

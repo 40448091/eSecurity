@@ -1,6 +1,6 @@
-﻿namespace BlockChainDemo
+﻿namespace BlockChain
 {
-    public class Transaction
+    public class Transaction : ITransaction
     {
         public System.Guid id { get; set; }
         public string Sender { get; set; }

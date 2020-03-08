@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlockChainDemo
+namespace BlockChain
 {
     public class Block
     {
