@@ -41,8 +41,10 @@ namespace BlockChain
             CreateNewBlock(proof: 100, previousHash: "1"); //genesis block
             _cryptoProvider = cryptoProvider;
 
+            string cp = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
+
             //create or load keys
-            string filename = Path.Combine(appDir, "node.key");
+            string filename = Path.Combine(appDir, cp + ".key");
             if (File.Exists(filename))
                 _cryptoProvider.ImportKeyPair(filename);
             else
@@ -333,8 +335,11 @@ namespace BlockChain
             string checkpointDir = Path.Combine(this.appDir, "checkpoints");
             string[] files = Directory.GetFiles(checkpointDir);
 
-            if (filename == "")
+            if ((filename == "") && files.Count()>0)
                 filename = files.OrderBy(x => x).Reverse().First();
+
+            if (string.IsNullOrEmpty(filename))
+                return false;
 
             string filepath = Path.Combine(checkpointDir, filename);
 
@@ -385,9 +390,9 @@ namespace BlockChain
         {
             string host = System.Configuration.ConfigurationManager.AppSettings["host"];
             string port = System.Configuration.ConfigurationManager.AppSettings["port"];
+            string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
 
-
-            System.Console.WriteLine(string.Format("NodeId={0}, Host={1}, Port={2}",NodeId,host,port));
+            System.Console.WriteLine(string.Format("NodeId={0}, Host={1}, Port={2}, CryptoProvider=",NodeId,host,port, cryptoProvider));
             System.Console.WriteLine(string.Format("Current Transactions={0}", _currentTransactions.Count()));
             System.Console.WriteLine(string.Format("Blocks in Chain={0}", _chain.Count()));
         }

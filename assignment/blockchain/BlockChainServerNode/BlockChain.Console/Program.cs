@@ -1,17 +1,42 @@
-﻿namespace BlockChain.Console
+﻿using System.IO;
+using System;
+using System.Linq;
+
+namespace BlockChain.Console
 {
     class Program
     {
         static WebServer server = null;
-        static CryptoProvider.ICryptoProvider cryptoProvider = null;
+        static CryptoProvider.ICryptoProvider _cryptoProvider = null;
         static BlockChain chain = null;
+        static string appDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         static void Main(string[] args)
         {
-            //CryptoProvider.ICryptoProvider cryptoProvider = new CryptoProvider.ED25519_Provider();
-            cryptoProvider = new CryptoProvider.RLWE_Provider();
+            string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
 
-            chain = new BlockChain(cryptoProvider);
+            string cryptoProviderFilename = Path.Combine(appDir, cryptoProvider + "_CryptoProvider.dll");
+            string keyFilename = Path.Combine(appDir, cryptoProvider + ".key");
+
+            if (File.Exists(cryptoProviderFilename))
+                _cryptoProvider = LoadCryptoProvider(cryptoProviderFilename);
+            else
+                throw new Exception(string.Format("Crypto Provider not found : {0}", cryptoProviderFilename));
+
+            if (File.Exists(keyFilename))
+                _cryptoProvider.ImportKeyPair(keyFilename);
+            else
+            {
+                _cryptoProvider.GenerateKeyPair();
+                _cryptoProvider.ExportKeyPair(keyFilename);
+                Logger.Log("Key pair generated");
+            }
+
+
+            //CryptoProvider.ICryptoProvider cryptoProvider = new CryptoProvider.ED25519_Provider();
+            //cryptoProvider = new CryptoProvider.RLWE_Provider();
+
+            chain = new BlockChain(_cryptoProvider);
             server = new WebServer(chain);
 
             System.Console.WriteLine("BlockChainServerNode initialized with an empty chain");
@@ -88,7 +113,7 @@
             string response = System.Console.ReadLine().Trim().ToLower();
             if(response.StartsWith("y"))
             {
-                chain = new BlockChain(cryptoProvider);
+                chain = new BlockChain(_cryptoProvider);
                 System.Console.WriteLine("Initialized with an empty BlockChain");
             }
         }
@@ -127,6 +152,20 @@
             chain.ExportPublicKey();
         }
 
+        private static CryptoProvider.ICryptoProvider LoadCryptoProvider(string assemblyPath)
+        {
+            string assembly = Path.GetFullPath(assemblyPath);
+            System.Reflection.Assembly ptrAssembly = System.Reflection.Assembly.LoadFile(assembly);
+            foreach (Type item in ptrAssembly.GetTypes())
+            {
+                if (!item.IsClass) continue;
+                if (item.GetInterfaces().Contains(typeof(CryptoProvider.ICryptoProvider)))
+                {
+                    return (CryptoProvider.ICryptoProvider)Activator.CreateInstance(item);
+                }
+            }
+            throw new Exception("Invalid DLL, Interface not found!");
+        }
 
     }
 }
