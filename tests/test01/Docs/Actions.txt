@@ -1,0 +1,10 @@
+Actions:
+
+List Symetric Key encryption methods
+List block encryption methods (ECB, CBC, OFB)
+
+Key Entropy:
+Key Entropy = log2(Phrases) = log10(Phrases) / log10(2) 
+Key Entropy = log2(Phrases) = log2(26^8) / log10(2) = 37.6 bits
+
+List common prefixes for Encryption methods 
