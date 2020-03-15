@@ -133,6 +133,7 @@ namespace BlockChainClient
 
             ListWalletEntries(cmdProc);
 
+            System.Console.Write("Enter Address List (aaa,bbb,ccc): ");
             string line = System.Console.ReadLine();
             line = line.Replace(" ", "");
             string[] addresses = line.Split(',');
@@ -145,9 +146,10 @@ namespace BlockChainClient
 
             System.Console.WriteLine("Enter address for the change (or blank to create a new one");
             string changeAddress = System.Console.ReadLine();
-            if(changeAddress == "")
+            if(changeAddress.Trim() == "")
             {
                 changeAddress = cmdProc.Wallet_CreateAddress();
+                cmdProc.Wallet_Save();
                 System.Console.WriteLine("Address added to your wallet: " + changeAddress);
             }
 
