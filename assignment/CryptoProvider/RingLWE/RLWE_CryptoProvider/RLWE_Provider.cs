@@ -90,37 +90,43 @@ namespace CryptoProvider
             return "RLWE";
         }
 
-        public void ExportKeyPair(string filepath)
-        {
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
-            {
-                sw.WriteLine(_privateKey.ToBase64String());
-                sw.WriteLine(_publicKey.ToBase64String());
-                sw.Close();
-            }
-        }
 
         public string ExportPublicKey()
         {
             return _publicKey.ToBase64String(); 
         }
 
-        public void ExportPublicKey(string filepath)
+        public void ImportPublicKey(string base64)
         {
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
-            {
-                //string b64 = Convert.ToBase64String(_publicKey.Bytes);
-                sw.Write(_publicKey.ToBase64String());
-                sw.Close();
-            }
+            _publicKey = new PublicKey(Convert.FromBase64String(base64));
         }
 
-        public IPublicKey PublicKey_FromBase64String(string b64)
+        public IPrivateKey GetPrivateKey()
+        {
+            return _privateKey;
+        }
+
+        public string ExportPrivateKey()
+        {
+            return _privateKey.ToBase64String();
+        }
+
+        public void ImportPrivateKey(string base64)
+        {
+            _privateKey = new PrivateKey(Convert.FromBase64String(base64));
+        }
+
+        public IPublicKey GetPublicKey()
+        {
+            return _publicKey;
+        }
+
+        public IPublicKey PublicKeyFromBase64(string b64)
         {
             return  new PublicKey(Convert.FromBase64String(b64));
         }
 
-        public IPrivateKey PrivateKey_FromBase64String(string b64)
+        public IPrivateKey PrivateKeyFromBase64(string b64)
         {
             return new PrivateKey(Convert.FromBase64String(b64));
         }
@@ -141,16 +147,26 @@ namespace CryptoProvider
             return true;
         }
 
-        public bool ImportKeyPair(string filepath)
+        public void ExportKeyPairToFile(string filepath)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath))
+            {
+                sw.WriteLine(_privateKey.ToBase64String());
+                sw.WriteLine(_publicKey.ToBase64String());
+                sw.Close();
+            }
+        }
+
+        public bool ImportKeyPairFromFile(string filepath)
         {
             if (System.IO.File.Exists(filepath))
             {
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(filepath))
                 {
                     string b64 = sr.ReadLine();
-                    _privateKey = (PrivateKey)PrivateKey_FromBase64String(b64);     //new PrivateKey(Convert.FromBase64String(b64));
+                    _privateKey = (PrivateKey)PrivateKeyFromBase64(b64);     //new PrivateKey(Convert.FromBase64String(b64));
                     b64 = sr.ReadLine();
-                    _publicKey = (PublicKey)PublicKey_FromBase64String(b64);        //new PublicKey(Convert.FromBase64String(b64));
+                    _publicKey = (PublicKey)PublicKeyFromBase64(b64);        //new PublicKey(Convert.FromBase64String(b64));
                     sr.Close();
                 }
                 return true;
@@ -162,23 +178,6 @@ namespace CryptoProvider
         public bool IsInitialized()
         {
             return _privateKey != null && _publicKey != null; 
-        }
-
-        public IPublicKey LoadPublicKey(string filepath)
-        {
-            PublicKey pubKey = null;
-            if (System.IO.File.Exists(filepath))
-            {
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(filepath))
-                {
-                    string b64 = sr.ReadLine();
-                    pubKey = (PublicKey)PublicKey_FromBase64String(b64);        //  new PublicKey(Convert.FromBase64String(b64));
-                    sr.Close();
-                }
-                return pubKey;
-            }
-            else
-                throw new System.IO.FileNotFoundException("File not found: " + filepath);
         }
 
         public string SignMessage(string message)

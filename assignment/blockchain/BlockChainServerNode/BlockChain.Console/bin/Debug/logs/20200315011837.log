@@ -1,0 +1,40 @@
+15/03/2020 01:18:37 : Creating new block
+15/03/2020 01:18:37 : Block added Index=0, previous hash=1
+15/03/2020 01:18:37 : BlockChain Initialized : NodeId=68b80d57dea84dabaff1350e00d2ec4e
+15/03/2020 01:18:37 : Web Service Listening on port: 12345
+15/03/2020 01:20:18 : Request:/transactions/new
+15/03/2020 01:20:22 : Adding Transaction id=37ade2d2-320c-465a-a4a2-dba079dd823e 
+15/03/2020 01:20:22 : Signature is valid, Transaction added id=37ade2d2-320c-465a-a4a2-dba079dd823e
+15/03/2020 01:20:43 : Request:/mine?65ba8625050ea7124465dffa24acec91428cfe14
+15/03/2020 01:20:46 : Mining for new block for ID=65ba8625050ea7124465dffa24acec91428cfe14
+15/03/2020 01:21:01 : Adding Transaction id=6f111ba6-1627-43a0-aa08-483244ac4db7 
+15/03/2020 01:21:01 : Signature is valid, Transaction added id=6f111ba6-1627-43a0-aa08-483244ac4db7
+15/03/2020 01:21:02 : Creating new block
+15/03/2020 01:21:02 : Block added Index=1, previous hash=b1b5e2c7287cd7e5547f3fef984b3721ec1b5035d73353ec62c91a4693442b50
+15/03/2020 01:21:04 : Mined new block Index=1, Proof=14342, previous Hash=b1b5e2c7287cd7e5547f3fef984b3721ec1b5035d73353ec62c91a4693442b50
+15/03/2020 01:23:06 : Saving checkpoint
+15/03/2020 01:23:06 : Checkpoint saved : 20200315012306.chk
+15/03/2020 01:23:34 : Request:/transactions/new
+15/03/2020 01:23:38 : Adding Transaction id=9f563f10-5a7f-42fa-bebf-0deb849590a2 
+15/03/2020 01:23:38 : Signature is valid, Transaction added id=9f563f10-5a7f-42fa-bebf-0deb849590a2
+15/03/2020 01:23:38 : Request:/mine?d11cb40c7719b5567ec18b7c3c022682e03c1827
+15/03/2020 01:23:43 : Mining for new block for ID=d11cb40c7719b5567ec18b7c3c022682e03c1827
+15/03/2020 01:23:43 : Adding Transaction id=e6375636-b693-4f9b-9512-e90842c4c2a8 
+15/03/2020 01:23:43 : Signature is valid, Transaction added id=e6375636-b693-4f9b-9512-e90842c4c2a8
+15/03/2020 01:23:43 : Creating new block
+15/03/2020 01:23:43 : Block added Index=2, previous hash=73b5f444e40ca5afa7835b91a7a0421ee5be763cc26a59cd4a8f21c665108165
+15/03/2020 01:23:43 : Mined new block Index=2, Proof=4315, previous Hash=73b5f444e40ca5afa7835b91a7a0421ee5be763cc26a59cd4a8f21c665108165
+15/03/2020 01:24:04 : Request:/transactions/new
+15/03/2020 01:24:04 : Adding Transaction id=4f8a80d5-f9c8-4c6b-8f7d-ef08fb57c84d 
+15/03/2020 01:24:04 : Signature is valid, Transaction added id=4f8a80d5-f9c8-4c6b-8f7d-ef08fb57c84d
+15/03/2020 01:24:04 : Request:/mine?13b240468bb48f663d214ebb7290b660057c710d
+15/03/2020 01:24:04 : Mining for new block for ID=13b240468bb48f663d214ebb7290b660057c710d
+15/03/2020 01:24:05 : Adding Transaction id=ec9c5c9e-70ac-482a-b226-bc8016184238 
+15/03/2020 01:24:05 : Signature is valid, Transaction added id=ec9c5c9e-70ac-482a-b226-bc8016184238
+15/03/2020 01:24:05 : Creating new block
+15/03/2020 01:24:05 : Block added Index=3, previous hash=7f6935c3118e9e61bce9f30e9d8628e66d16660521773f0bfeb8de772829302c
+15/03/2020 01:24:05 : Mined new block Index=3, Proof=17965, previous Hash=7f6935c3118e9e61bce9f30e9d8628e66d16660521773f0bfeb8de772829302c
+15/03/2020 01:25:49 : Saving checkpoint
+15/03/2020 01:25:49 : Checkpoint saved : 20200315012549.chk
+15/03/2020 01:25:58 : Saving checkpoint
+15/03/2020 01:25:58 : Checkpoint saved : 20200315012558.chk

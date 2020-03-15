@@ -5,27 +5,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 
 namespace BlockChainClassLib
 {
-    public class Transaction : BlockChain.ITransaction
+    public class Transaction
     {
-        public Guid id { get; set; }
-        public int Amount { get; set; }
-        public string Recipient { get; set; }
-        public string Sender { get; set; }
-        public string Signature { get; set; }
+        public string id { get; set; }
+        public List<Input> InputAddressList = new List<Input>();
+        public List<Output> OutputList = new List<Output>();
+    }
 
-        public Transaction(string recipient, int amount, CryptoProvider.ICryptoProvider cryptoProvider)
+    public class Input
+    {
+        public string address { get; set; }
+        public string signature { get; set; }
+        public string base64PublicKey { get; set; }
+
+        public Input(string address, string signature, string base64PublicKey)
         {
-            id = Guid.NewGuid();
-            Sender = cryptoProvider.ExportPublicKey();
-            Recipient = recipient;
-            Amount = amount;
+            this.address = address;
+            this.signature = signature;
+            this.base64PublicKey = base64PublicKey;
+        }
 
-            string message = $"{id}~{Sender}~{Recipient}~{Amount}";
-            Signature = cryptoProvider.SignMessage(message);
+        public bool HasValidSignature(CryptoProvider.ICryptoProvider provider)
+        {
+            return CryptoProvider.AddressEncoder.Verify(address, signature, base64PublicKey, provider);
+        }
+    }
+
+    public class Output
+    {
+        public string address { get; set; }
+        public int amount { get; set; }
+
+        public Output(string address, int amount)
+        {
+            this.address = address;
+            this.amount = amount;
         }
     }
 
@@ -43,7 +62,8 @@ namespace BlockChainClassLib
         CryptoProvider.ICryptoProvider _cryptoProvider = null; 
         string appDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         string rootUrl = "http://{host}:{port}";
-
+        string _walletFilePath = "";
+        WalletLib.Wallet _wallet = new WalletLib.Wallet();
 
         public CommandProcessor(string cryptoProviderName, string host, string port)
         {
@@ -52,24 +72,17 @@ namespace BlockChainClassLib
             //Look for the name of the CryptoProvider in the first argument
             //and use this to derive the dll name and key file names
             string cryptoProviderFilename = Path.Combine(appDir, cryptoProviderName + "_CryptoProvider.dll");
-            string keyFilename = Path.Combine(appDir, cryptoProviderName + ".key");
+            //string keyFilename = Path.Combine(appDir, cryptoProviderName + ".key");
+            _walletFilePath = Path.Combine(appDir, cryptoProviderName + ".wal");
 
+            //load the crypto provider dll
             if (File.Exists(cryptoProviderFilename))
                 _cryptoProvider = LoadCryptoProvider(cryptoProviderFilename);
             else
                 throw new Exception(string.Format("Crypto Provider not found : {0}", cryptoProviderFilename));
 
-            //CryptoProvider.ED25519_Provider cryptoProvider = new CryptoProvider.ED25519_Provider();
-
-            //Load the key file if it exists
-            if (File.Exists(keyFilename))
-                _cryptoProvider.ImportKeyPair(keyFilename);
-            else
-            {  //if not create a key pair and save
-                _cryptoProvider.GenerateKeyPair();
-                _cryptoProvider.ExportKeyPair(keyFilename);
-                _cryptoProvider.ExportPublicKey(Path.Combine(appDir, cryptoProviderName + ".pub"));
-            }
+            //load the wallet if it exists
+            Wallet_Load();
 
         }
 
@@ -88,15 +101,9 @@ namespace BlockChainClassLib
             throw new Exception("Invalid DLL, Interface not found!");
         }
 
-        public void transaction(string recipient, int amount)
+        public void transaction(Transaction t)
         {
-            Transaction t = new Transaction(recipient, amount, _cryptoProvider);   //TODO: Consider putting a serial number or something in the pre-signed signature field
-
-            var json_serializer = new JavaScriptSerializer();
-
-            //First serialize the transaction
-            string json = json_serializer.Serialize(t);
-            //t.Signature = cryptoProvider.SignMessage(json);
+            string json = JsonConvert.SerializeObject(t);
 
             string url = rootUrl + "/transactions/new";
             //send
@@ -106,11 +113,11 @@ namespace BlockChainClassLib
             Console.WriteLine(jsonResult);
         }
 
-        public void mine()
+        public void mine(string address)
         {
             RestClientLib.RestClient client = new RestClientLib.RestClient();
 
-            string url = rootUrl + "/Mine?" + _cryptoProvider.ExportPublicKey();
+            string url = rootUrl + "/Mine?" + address;
             string json = client.Get(url);
 
             var json_serializer = new JavaScriptSerializer();
@@ -141,6 +148,64 @@ namespace BlockChainClassLib
         }
 
 
+        public bool Wallet_SelectAddress(int index)
+        {
+            bool result = false;
+
+            if (_wallet.WalletEntries.Count() > index)
+            {
+                WalletLib.WalletEntry we = _wallet.WalletEntries[index];
+                _cryptoProvider.ImportPublicKey(we.publicKey);
+                _cryptoProvider.ImportPrivateKey(we.privateKey);
+            }
+            else
+                result = false;
+
+            return result;
+        }
+
+        public int Wallet_CreateAddress()
+        {
+            _cryptoProvider.GenerateKeyPair();
+            string privateKey = _cryptoProvider.ExportPrivateKey();
+            string publicKey = _cryptoProvider.ExportPublicKey();
+            string address = CryptoProvider.AddressEncoder.CreateAddress(publicKey);
+            WalletLib.WalletEntry we = new WalletLib.WalletEntry(address, publicKey, privateKey, 0);
+
+            _wallet.WalletEntries.Add(we);
+
+            return _wallet.WalletEntries.Count()-1;
+        }
+
+        public List<WalletLib.WalletEntry> Wallet_ListEntries()
+        {
+            return _wallet.WalletEntries;
+        }
+
+        public void Wallet_Save()
+        {
+            _wallet.Save(_walletFilePath);
+        }
+
+        public bool Wallet_Load()
+        {
+            //load the wallet if it exists
+            if (File.Exists(_walletFilePath))
+            {
+                _wallet.Load(_walletFilePath);
+                Wallet_SelectAddress(0);
+            } else
+            {
+                Wallet_CreateAddress();
+                Wallet_Save();
+            }
+            return true;
+        }
+
+        public string SelectedAddress()
+        {
+            return CryptoProvider.AddressEncoder.CreateAddress(_cryptoProvider.ExportPublicKey());
+        }
 
     }
 

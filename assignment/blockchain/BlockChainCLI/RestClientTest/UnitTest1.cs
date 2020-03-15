@@ -57,21 +57,35 @@ namespace RestClientTest
         [TestMethod]
         public void TestCommandLib_RLWE()
         {
+            CryptoProvider.RLWE_Provider provider = new CryptoProvider.RLWE_Provider();
+            provider.GenerateKeyPair();
+
+            string publicKey = provider.ExportPublicKey();
+            string address = CryptoProvider.AddressEncoder.CreateAddress(publicKey);
+            string signature = CryptoProvider.AddressEncoder.SignAddress(address, provider);
+
+            BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
+            t.id = Guid.NewGuid().ToString();
+
+
+            t.InputAddressList.Add(new BlockChainClassLib.Input(address, signature, publicKey));
+            t.OutputList.Add(new BlockChainClassLib.Output("paul", 1));
+
             BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor("RLWE","localhost","12345");
-            cmdProc.transaction("Paul", 100);
-            cmdProc.transaction("Simon", 20);
-            cmdProc.transaction("Joanne", 30);
-            cmdProc.mine();
+            //string json = Newtonsoft.Json.JsonConvert.SerializeObject(t);
+
+            cmdProc.transaction(t);
+            cmdProc.mine(address);
         }
 
         [TestMethod]
         public void TestCommandLib_ED25519()
         {
             BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor("ED25519", "localhost", "12345");
-            cmdProc.transaction("Alice", 200);
-            cmdProc.transaction("Bob", 20);
-            cmdProc.transaction("Trent", 30);
-            cmdProc.mine();
+            //cmdProc.transaction("Alice", 200);
+            //cmdProc.transaction("Bob", 20);
+            //cmdProc.transaction("Trent", 30);
+            //cmdProc.mine();
         }
 
 

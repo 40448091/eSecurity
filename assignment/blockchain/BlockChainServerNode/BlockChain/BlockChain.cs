@@ -46,11 +46,11 @@ namespace BlockChain
             //create or load keys
             string filename = Path.Combine(appDir, cp + ".key");
             if (File.Exists(filename))
-                _cryptoProvider.ImportKeyPair(filename);
+                _cryptoProvider.ImportKeyPairFromFile(filename);
             else
             {
                 _cryptoProvider.GenerateKeyPair();
-                _cryptoProvider.ExportKeyPair(filename);
+                _cryptoProvider.ExportKeyPairToFile(filename);
             }
 
             Logger.Log(String.Format("BlockChain Initialized : NodeId={0}", NodeId));
@@ -194,21 +194,22 @@ namespace BlockChain
         }
 
         //web server calls
-        internal string Mine(string Recipient)      //miner is the public key of the client mining
+        public string Mine(string address)      //miner is the public key of the client mining
         {
-            Logger.Log(string.Format("Mining for new block for ID={0}", Recipient));
+            Logger.Log(string.Format("Mining for new block for ID={0}", address));
 
             int proof = CreateProofOfWork(_lastBlock.Proof, _lastBlock.PreviousHash);
 
             //need to sign this with the node credentials
-            Guid id = Guid.NewGuid();
-            string Sender = _cryptoProvider.ExportPublicKey();
-            int Amount = 1;
-            string message = $"{id}~{Sender}~{Recipient}~{Amount}";
-            string Signature = _cryptoProvider.SignMessage(message);
+            Transaction tx = new Transaction();
+            tx.id = Guid.NewGuid().ToString();
+            tx.InputAddressList = new List<Input>();
+            tx.OutputList = new List<Output>();
 
-            CreateTransaction(id, Sender, Recipient, Amount, Signature);
-            Block block = CreateNewBlock(proof /*, _lastBlock.PreviousHash*/);
+            tx.OutputList.Add(new Output(address, 5));
+
+            CreateTransaction(tx);
+            Block block = CreateNewBlock(proof);
 
             var response = new
             {
@@ -264,22 +265,19 @@ namespace BlockChain
             return JsonConvert.SerializeObject(response);
         }
 
-        internal int CreateTransaction(Guid id, string sender, string recipient, int amount, string signature)
+        internal int CreateTransaction(Transaction trx)
         {
-            Logger.Log(string.Format("Adding Transaction id={0}, sender={1}, recipient={2}, amount={3}, signature={4}", id,sender,recipient,amount,signature));
+            Logger.Log(string.Format("Adding Transaction id={0} ", trx.id));
 
-            Transaction tx = new Transaction { id = id, Sender = sender, Recipient = recipient, Amount = amount, Signature = signature };
 
-            bool signatureIsValid = tx.VerifySignature(_cryptoProvider);
-
-            if (signatureIsValid)
+            if (trx.HasValidInputSignatures(_cryptoProvider))
             {
-                Logger.Log(string.Format("Signature is valid, Transaction added id={0}", id));
-                _currentTransactions.Add(tx);
+                Logger.Log(string.Format("Signature is valid, Transaction added id={0}", trx.id));
+                _currentTransactions.Add(trx);
             }
             else
             {
-                Logger.Log(string.Format("Signature validation failed, transaction rejected id={0}", id));
+                Logger.Log(string.Format("Signature validation failed, transaction rejected id={0}", trx.id));
                 throw new Exception("Message does not match signature");
             }
 
@@ -325,7 +323,7 @@ namespace BlockChain
             string line;
             foreach (Transaction tx in txs)
             {
-                line = string.Join("|", tx.id, tx.Sender, tx.Recipient, tx.Amount, tx.Signature);
+                line = JsonConvert.SerializeObject(tx);
                 writer.WriteLine(line);
             }
         }
@@ -347,43 +345,17 @@ namespace BlockChain
 
             using (StreamReader sr = File.OpenText(filepath))
             {
-                string line = sr.ReadLine();
-                string[] fields = line.Split('|');
-                NodeId = fields[0];
-                _currentTransactions = RollbackTransactions(int.Parse(fields[2]),sr);
-
-                _chain = new List<Block>();
-                line = sr.ReadLine();
-                int blockCount = int.Parse(line);
-                for(int i=0;i<blockCount;i++)
+                while(!sr.EndOfStream)
                 {
-                    line = sr.ReadLine();
-                    fields = line.Split('|');
-                    Block b = new Block { Index = int.Parse(fields[0]), Timestamp = DateTime.Parse(fields[1]), Proof = int.Parse(fields[2]), PreviousHash = fields[3], Transactions = new List<Transaction>() };
-                    int txCount = int.Parse(fields[4]);
-                    b.Transactions = RollbackTransactions(txCount, sr);
-                    _chain.Add(b);
+                    string line = sr.ReadLine();
+                    JsonConvert.DeserializeObject(line);
                 }
+                sr.Close();
             }
 
             Logger.Log("Rolling complete");
 
             return false;
-        }
-
-        private List<Transaction> RollbackTransactions(int txCount, StreamReader reader)
-        {
-            List<Transaction> txs = new List<Transaction>();
-            string line;
-            string[] fields;
-            for (int i = 0; i < txCount; i++)
-            {
-                line = reader.ReadLine();
-                fields = line.Split('|');
-                Transaction tx = new Transaction { id = Guid.Parse(fields[0]), Sender = fields[1], Recipient = fields[2], Amount = int.Parse(fields[3]), Signature = fields[4] };
-                txs.Add(tx);
-            }
-            return txs;
         }
 
         public void status()
@@ -400,7 +372,8 @@ namespace BlockChain
         {
             foreach(Transaction tx in _currentTransactions)
             {
-                System.Console.WriteLine("id={0}, Sender={1}, Recpiient={2}, Amount={3}, Signature={4}", tx.id, tx.Sender, tx.Recipient, tx.Amount, tx.Signature);
+                string line = JsonConvert.SerializeObject(tx);
+                System.Console.WriteLine(line);
             }
         }
 
@@ -408,11 +381,8 @@ namespace BlockChain
         {
             foreach (Block b in _chain)
             {
-                System.Console.WriteLine("Block: Index={0}, Timestamp={1}, proof={2}, previousHash={3}",b.Index,b.Timestamp,b.Proof,b.PreviousHash);
-                foreach (Transaction tx in b.Transactions)
-                {
-                    System.Console.WriteLine(" Transaction: id={0}, Sender={1}, Recpiient={2}, Amount={3}, Signature={4}", tx.id, tx.Sender, tx.Recipient, tx.Amount, tx.Signature);
-                }
+                string line = JsonConvert.SerializeObject(b);
+                System.Console.WriteLine(line);
             }
         }
 

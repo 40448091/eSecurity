@@ -1,0 +1,10 @@
+15/03/2020 00:19:03 : Creating new block
+15/03/2020 00:19:03 : Block added Index=0, previous hash=1
+15/03/2020 00:19:03 : BlockChain Initialized : NodeId=2bf8ebf4530b4ac9880dad3848d3d47b
+15/03/2020 00:19:03 : Web Service Listening on port: 12345
+15/03/2020 00:19:13 : Mining for new block for ID=8f7390b6edaddc5900459f75364ee1b67dabcfaa
+15/03/2020 00:19:37 : Adding Transaction id=7f97b7f9-4660-4c25-95df-ed5d95b6ee2a 
+15/03/2020 00:20:05 : Signature is valid, Transaction added id=7f97b7f9-4660-4c25-95df-ed5d95b6ee2a
+15/03/2020 00:20:23 : Creating new block
+15/03/2020 00:21:31 : Block added Index=1, previous hash=d56c7d64b3916ef975475a5924ee38011937842252f7a06e4d326f87139276ec
+15/03/2020 00:21:47 : Mined new block Index=1, Proof=14342, previous Hash=d56c7d64b3916ef975475a5924ee38011937842252f7a06e4d326f87139276ec

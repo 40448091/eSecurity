@@ -1,0 +1,17 @@
+C:\Users\paul_\source\repos\WalletLib\WalletLib\bin\Debug\WalletLib.dll
+C:\Users\paul_\source\repos\WalletLib\WalletLib\bin\Debug\WalletLib.pdb
+C:\Users\paul_\source\repos\WalletLib\WalletLib\bin\Debug\ICryptoProvider.dll
+C:\Users\paul_\source\repos\WalletLib\WalletLib\bin\Debug\ICryptoProvider.pdb
+C:\Users\paul_\source\repos\WalletLib\WalletLib\obj\Debug\WalletLib.csprojAssemblyReference.cache
+C:\Users\paul_\source\repos\WalletLib\WalletLib\obj\Debug\WalletLib.csproj.CopyComplete
+C:\Users\paul_\source\repos\WalletLib\WalletLib\obj\Debug\WalletLib.dll
+C:\Users\paul_\source\repos\WalletLib\WalletLib\obj\Debug\WalletLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\WalletLib\WalletLib\obj\Debug\WalletLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\WalletLib\WalletLib\obj\Debug\WalletLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\WalletLib\WalletLib\bin\Debug\WalletLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\WalletLib\WalletLib\bin\Debug\WalletLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\WalletLib\bin\Debug\WalletLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\WalletLib\bin\Debug\WalletLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\WalletLib\obj\Debug\WalletLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\WalletLib\obj\Debug\WalletLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\WalletLib\obj\Debug\WalletLib.csprojAssemblyReference.cache

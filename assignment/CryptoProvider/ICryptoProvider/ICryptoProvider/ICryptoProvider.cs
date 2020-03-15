@@ -11,19 +11,24 @@ namespace CryptoProvider
         string ProviderName();
         bool IsInitialized();
         bool GenerateKeyPair();
-        bool ImportKeyPair(string filepath);
-        void ExportKeyPair(string filepath);
+        bool ImportKeyPairFromFile(string filepath);
+        void ExportKeyPairToFile(string filepath);
 
-        string ExportPublicKey();
-        void ExportPublicKey(string filepath);
+        string ExportPublicKey();                   //exports public key to base 64
+        void ImportPublicKey(string base64);        //imports public key from base 64
+        string ExportPrivateKey();                  //exports private key to base 64
+        void ImportPrivateKey(string base64);       //imports private key from base 64
 
-        IPublicKey LoadPublicKey(string filepath);
-        IPublicKey PublicKey_FromBase64String(string base64);
-        IPrivateKey PrivateKey_FromBase64String(string base64);
+        IPublicKey GetPublicKey();                  //returns the internal public key
+        IPublicKey PublicKeyFromBase64(string base64);     //returns the public key from base64 string
+        IPrivateKey GetPrivateKey();                //returns the internal private key
+        IPrivateKey PrivateKeyFromBase64(string base64);   //returns the private key from base64
+       
 
         string SignMessage(string message);
         bool VerifySignature(string message, string signature, IPublicKey publicKey);
-    }
+        
+}
 
     public interface IPublicKey
     {

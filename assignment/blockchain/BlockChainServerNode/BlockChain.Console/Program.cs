@@ -24,11 +24,11 @@ namespace BlockChain.Console
                 throw new Exception(string.Format("Crypto Provider not found : {0}", cryptoProviderFilename));
 
             if (File.Exists(keyFilename))
-                _cryptoProvider.ImportKeyPair(keyFilename);
+                _cryptoProvider.ImportKeyPairFromFile(keyFilename);
             else
             {
                 _cryptoProvider.GenerateKeyPair();
-                _cryptoProvider.ExportKeyPair(keyFilename);
+                _cryptoProvider.ExportKeyPairToFile(keyFilename);
                 Logger.Log("Key pair generated");
             }
 
@@ -81,6 +81,9 @@ namespace BlockChain.Console
                     case "publickey":
                         publicKey(cmdArgs);
                         break;
+                    case "mine":
+                        Mine(cmdArgs);
+                        break;
                 }
             }
         }
@@ -89,8 +92,8 @@ namespace BlockChain.Console
         {
             System.Console.WriteLine("  help            : This message ");
             System.Console.WriteLine("  exit            : Shut down the service ");
-            System.Console.WriteLine("  checkpoint      : saves the BlockChain to the specified file");
-            System.Console.WriteLine("  load {filename} : loads the BlockChain from the specified file");
+            System.Console.WriteLine("  checkpoint      : saves the BlockChain state to new checkpoint file");
+            System.Console.WriteLine("  rollback        : rolls-back the blockChain to the last checkpoint");
             System.Console.WriteLine("  init            : Re-initialize with an empty BlockChain");
             System.Console.WriteLine("  list tran       : list pending transactions");
             System.Console.WriteLine("  list blocks     : list blocks");
@@ -165,6 +168,11 @@ namespace BlockChain.Console
                 }
             }
             throw new Exception("Invalid DLL, Interface not found!");
+        }
+
+        static void Mine(string[] cmdArgs)
+        {
+            chain.Mine(cmdArgs[1]);
         }
 
     }

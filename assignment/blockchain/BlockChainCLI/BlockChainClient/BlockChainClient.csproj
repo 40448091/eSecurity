@@ -39,6 +39,9 @@
     <Reference Include="ED25519_CryptoProvider">
       <HintPath>..\..\..\CryptoProvider\ed25519\ED25519_CryptoProvider\bin\Debug\ED25519_CryptoProvider.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RLWE_CryptoProvider">
       <HintPath>..\..\..\CryptoProvider\RingLWE\RLWE_CryptoProvider\bin\Debug\RLWE_CryptoProvider.dll</HintPath>
     </Reference>
@@ -58,11 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlockChainClassLib\BlockChainClassLib.csproj">
       <Project>{948388e6-3643-48ae-a31f-0385b15fabc8}</Project>
       <Name>BlockChainClassLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WalletLib\WalletLib.csproj">
+      <Project>{18fce404-9401-4525-a04e-7c1b9781a587}</Project>
+      <Name>WalletLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

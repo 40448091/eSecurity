@@ -23,7 +23,7 @@ namespace RLWE_CryptoProvider_Tests
             p.GenerateKeyPair();
             if (p.IsInitialized())
             {
-                p.ExportKeyPair("C:\\temp\\keyPair.rle");
+                p.ExportKeyPairToFile("C:\\temp\\keyPair.rle");
             }
         }
 
@@ -33,33 +33,11 @@ namespace RLWE_CryptoProvider_Tests
             CryptoProvider.RLWE_Provider p = new CryptoProvider.RLWE_Provider();
             if (!p.IsInitialized())
             {
-                p.ImportKeyPair("C:\\temp\\keyPair.rle");
+                p.ImportKeyPairFromFile("C:\\temp\\keyPair.rle");
                 Assert.IsTrue(p.IsInitialized());
             }
         }
 
-        [TestMethod]
-        public void ExportPublicKey()
-        {
-            CryptoProvider.RLWE_Provider p = new CryptoProvider.RLWE_Provider();
-            p.ImportKeyPair("C:\\temp\\keyPair.rle");
-            if (p.IsInitialized())
-            {
-                p.ExportPublicKey("C:\\temp\\pubKey.rle");
-            }
-        }
-
-        [TestMethod]
-        public void LoadPublicKey()
-        {
-            CryptoProvider.RLWE_Provider p = new CryptoProvider.RLWE_Provider();
-            p.ImportKeyPair("C:\\temp\\keyPair.rle");
-            if (p.IsInitialized())
-            {
-                IPublicKey pubKey = p.LoadPublicKey("C:\\temp\\pubKey.rle");
-                Assert.IsTrue(pubKey != null);
-            }
-        }
 
         [TestMethod]
         public void SignMessage()
@@ -67,7 +45,7 @@ namespace RLWE_CryptoProvider_Tests
             string Message = "This is a test message";
 
             CryptoProvider.RLWE_Provider p = new CryptoProvider.RLWE_Provider();
-            p.ImportKeyPair("C:\\temp\\keyPair.rle");
+            p.ImportKeyPairFromFile("C:\\temp\\keyPair.rle");
 
             Assert.IsTrue(p.IsInitialized());
 
@@ -77,7 +55,7 @@ namespace RLWE_CryptoProvider_Tests
 
             Console.WriteLine(signature);
 
-            IPublicKey pubKey = p.LoadPublicKey("C:\\temp\\pubKey.rle");
+            IPublicKey pubKey = p.GetPublicKey();
 
             Assert.IsTrue(pubKey != null);
 
@@ -88,6 +66,19 @@ namespace RLWE_CryptoProvider_Tests
             isValid = p.VerifySignature("This message has been tampered with", signature, pubKey);
 
             Assert.IsFalse(isValid);
+        }
+
+        [TestMethod]
+        public void CreateAddress()
+        {
+            CryptoProvider.RLWE_Provider p = new CryptoProvider.RLWE_Provider();
+            p.ImportKeyPairFromFile("C:\\temp\\keyPair.rle");
+            string b64PublicKey = p.ExportPublicKey();
+            string address = CryptoProvider.AddressEncoder.CreateAddress(b64PublicKey);
+            string signature = CryptoProvider.AddressEncoder.SignAddress(address, p);
+            bool verify = CryptoProvider.AddressEncoder.Verify(address, signature, b64PublicKey, p);
+
+            Assert.IsTrue(verify);
         }
     }
 }

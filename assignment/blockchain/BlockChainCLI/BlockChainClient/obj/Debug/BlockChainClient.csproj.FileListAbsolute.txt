@@ -21,3 +21,7 @@ C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient
 C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\RLWE_CryptoProvider.pdb
 C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\Ed25519.pdb
 C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\RLWEEngine.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\WalletLib.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\WalletLib.pdb
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\Newtonsoft.Json.dll
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClient\bin\Debug\Newtonsoft.Json.xml

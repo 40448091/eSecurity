@@ -11,4 +11,3 @@ C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\bin\Debug\RLWEEngi
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\bin\Debug\RLWEEngine.pdb
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\obj\Debug\RLWEEngine.dll
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\obj\Debug\RLWEEngine.pdb
-C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\obj\Debug\RLWEEngine.csprojAssemblyReference.cache
