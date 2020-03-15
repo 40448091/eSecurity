@@ -47,8 +47,14 @@ namespace BlockChain
 
                             json = new StreamReader(request.InputStream).ReadToEnd();
                             Transaction trx = JsonConvert.DeserializeObject<Transaction>(json);
-                            int blockId = chain.CreateTransaction(trx);
-                            return $"Your transaction will be included in block {blockId}";
+                            try
+                            {
+                                int blockId = chain.CreateTransaction(trx,false);
+                                return $"Your transaction will be included in block {blockId}";
+                            } catch (System.Exception ex)
+                            {
+                                return ex.Message;
+                            }
 
                         //GET: http://localhost:12345/chain
                         case "/chain":

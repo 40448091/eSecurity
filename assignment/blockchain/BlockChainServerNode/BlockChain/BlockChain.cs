@@ -209,7 +209,7 @@ namespace BlockChain
 
             tx.OutputList.Add(new Output(address, 5));
 
-            CreateTransaction(tx);
+            CreateTransaction(tx,true);
             Block block = CreateNewBlock(proof);
 
             var response = new
@@ -266,7 +266,7 @@ namespace BlockChain
             return JsonConvert.SerializeObject(response);
         }
 
-        internal int CreateTransaction(Transaction trx)
+        internal int CreateTransaction(Transaction trx, bool isMining = false)
         {
             Logger.Log(string.Format("Adding Transaction id={0} ", trx.id));
 
@@ -279,17 +279,26 @@ namespace BlockChain
 
                 //TODO : check to see if any of these addresses are in the current transaction list, of so reject transaction or remove them from the list
 
-                //Now check the balances for the input addresses
-                List<Output> inputBalances = GetBalance(inputAddresses);
-
-                int total = inputBalances.Sum(x => x.amount);
-                int amount = trx.OutputList.First().amount;
-                if (total >= amount)
+                if(!isMining)
                 {
-                    //set the change
-                    trx.OutputList[1].amount = total - amount;
+                    //Now check the balances for the input addresses
+                    List<Output> inputBalances = GetBalance(inputAddresses);
+
+                    int total = inputBalances.Sum(x => x.amount);
+                    int amount = trx.OutputList.First().amount;
+                    if (total >= amount)
+                    {
+                        //set the change
+                        trx.OutputList[1].amount = total - amount;
+                        _currentTransactions.Add(trx);
+                    }
+                    else
+                    {
+                        Logger.Log(string.Format("Signature validation failed, transaction rejected id={0}", trx.id));
+                        throw new Exception("Message does not match signature");
+                    }
+                } else //we're mining, so just add the new transaction
                     _currentTransactions.Add(trx);
-                }
             }
             else
             {
@@ -485,6 +494,7 @@ namespace BlockChain
                             ubo.amount += mo.amount;
                     }
 
+
                     //process the debits
                     IEnumerable<string> matchingInputs = allBlockInputAddresses.Where(x => x == ubo.address);
                     //if we have any matching inputs, the address was used, so set it's balance to zero
@@ -492,12 +502,34 @@ namespace BlockChain
                         ubo.amount = 0;             
                 }
 
-                //remove any zero balances from the unBalanced list
-                //unBalanced = addressBalances.Where(a => a.amount != 0).ToList();
                 //if (unBalanced.Count() == 0)
                 //    break;
             }
-            
+
+            //now zero any balances for addresses as input to pending transactions
+            List<string> pendingInputs = new List<string>();
+            List<Output> pendingOutputs = new List<Output>();
+            foreach (Transaction t in _currentTransactions)
+            {
+                pendingInputs.AddRange(t.InputAddressList.Select(x => x.address));
+                pendingOutputs.AddRange(t.OutputList);
+            }
+            foreach(Output b in addressBalances)
+            {
+                IEnumerable<Output> matchingPendingOutputs = pendingOutputs.Where(x => x.address == b.address);
+                foreach(Output mo in matchingPendingOutputs)
+                {
+                    if (b.amount < 0)
+                        b.amount = mo.amount;
+                    else
+                        b.amount += mo.amount;
+                }
+
+                IEnumerable<string> matchingPendingInputs = pendingInputs.Where(x => x == b.address);
+                if (matchingPendingInputs.Count() > 0)
+                    b.amount = 0;
+            }
+
             return addressBalances;
         }
     }
