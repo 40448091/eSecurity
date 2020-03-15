@@ -454,6 +454,58 @@ namespace BlockChain
 
         public List<Output> GetBalance(List<string> addressList)
         {
+            List<Output> balanceList = new List<Output>();
+            foreach (string addr in addressList)
+            {
+                balanceList.Add(new Output(addr, 0));
+            }
+
+            //first process all the blocks
+            foreach (Block b in _chain)
+            {
+                GetTransactionListBalances(b.Transactions,balanceList);
+            }
+
+            //next process the current transactions
+            GetTransactionListBalances(_currentTransactions, balanceList);
+
+            return balanceList;
+        }
+
+        void GetTransactionListBalances(List<Transaction> txList, List<Output> balancesList)
+        {
+            //Extracts and applies all credits and debits in transaction order
+            //for all addresses in the block
+            Dictionary<string, int> txBalances = new Dictionary<string, int>();
+
+            List<Transaction> ordered = txList.OrderBy(x => x.TimeStamp).ToList<Transaction>();
+            foreach (Transaction t in ordered)
+            {
+                foreach (Input i in t.InputAddressList)
+                {
+                    txBalances[i.address] = 0;
+                }
+                foreach (Output o in t.OutputList)
+                {
+                    if (txBalances.ContainsKey(o.address))
+                        txBalances[o.address] += o.amount;
+                    else
+                        txBalances[o.address] = o.amount;
+                }
+            }
+
+            //extract only the one's we're interested in and update those balances
+            //in the list provided
+            foreach (Output o in balancesList)
+            {
+                if(txBalances.ContainsKey(o.address))
+                    o.amount = txBalances[o.address];
+            }
+        }
+
+        /*
+        public List<Output> GetBalance_old(List<string> addressList)
+        {
             List<Output> addressBalances = new List<Output>();
 
             //Initialize the addressBalances list using the list provided
@@ -539,5 +591,6 @@ namespace BlockChain
 
             return addressBalances;
         }
+        */
     }
 }

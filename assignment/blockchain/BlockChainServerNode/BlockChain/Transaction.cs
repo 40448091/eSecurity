@@ -5,6 +5,7 @@ namespace BlockChain
     public class Transaction
     {
         public string id { get; set; }
+        public System.DateTime TimeStamp = System.DateTime.Now;
         public List<Input> InputAddressList = new List<Input>();
         public List<Output> OutputList = new List<Output>();
  
