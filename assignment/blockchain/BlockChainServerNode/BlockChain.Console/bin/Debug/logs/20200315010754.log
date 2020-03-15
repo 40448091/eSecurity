@@ -1,6 +1,0 @@
-15/03/2020 01:07:54 : Creating new block
-15/03/2020 01:07:54 : Block added Index=0, previous hash=1
-15/03/2020 01:07:54 : BlockChain Initialized : NodeId=6b7afa06263c482f9f06b5ed4e16c15e
-15/03/2020 01:07:54 : Web Service Listening on port: 12345
-15/03/2020 01:08:32 : Request:/transactions/new
-15/03/2020 01:08:58 : Adding Transaction id=ca5dc83c-5f4a-450d-b79e-ebbb760715a6 

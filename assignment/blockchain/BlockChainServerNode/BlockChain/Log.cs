@@ -10,11 +10,17 @@ namespace BlockChain
     public static class Logger
     {
         public static bool echo { get; set; }
-        static string logDir = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "logs");
-        static string logFilename =Path.Combine(logDir, System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".log");
+        static string logDir = "";
+        static string logFilename = "";
         
         static Logger()
         {
+            string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
+            logDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            logDir = Path.Combine(logDir,cryptoProvider,"logs");
+
+            logFilename = Path.Combine(logDir, System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".log");
+
             if (!Directory.Exists(logDir))
                 Directory.CreateDirectory(logDir);
         }

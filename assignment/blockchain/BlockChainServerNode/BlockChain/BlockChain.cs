@@ -312,8 +312,8 @@ namespace BlockChain
         public string CheckPoint()
         {
             Logger.Log("Saving checkpoint");
-
-            string checkpointDir = Path.Combine(this.appDir, "checkpoints");
+            
+            string checkpointDir = Path.Combine(this.appDir,_cryptoProvider.ProviderName(), "checkpoints");
             if (!Directory.Exists(checkpointDir))
                 Directory.CreateDirectory(checkpointDir);
 
@@ -355,7 +355,11 @@ namespace BlockChain
 
         public bool Rollback(string filename = "")
         {
-            string checkpointDir = Path.Combine(this.appDir, "checkpoints");
+            string checkpointDir = Path.Combine(this.appDir, _cryptoProvider.ProviderName(), "checkpoints");
+
+            if (!Directory.Exists(checkpointDir))
+                return false;
+
             string[] files = Directory.GetFiles(checkpointDir);
 
             if ((filename == "") && files.Count() > 0)
@@ -364,7 +368,7 @@ namespace BlockChain
             if (string.IsNullOrEmpty(filename))
                 return false;
 
-            string filepath = Path.Combine(checkpointDir, filename);
+            string filepath = Path.Combine(checkpointDir,_cryptoProvider.ProviderName(), filename);
 
             Logger.Log($"Rolling back, loading previous : {filepath}");
 
@@ -509,13 +513,15 @@ namespace BlockChain
             //now zero any balances for addresses as input to pending transactions
             List<string> pendingInputs = new List<string>();
             List<Output> pendingOutputs = new List<Output>();
+
             foreach (Transaction t in _currentTransactions)
             {
                 pendingInputs.AddRange(t.InputAddressList.Select(x => x.address));
                 pendingOutputs.AddRange(t.OutputList);
             }
-            foreach(Output b in addressBalances)
+            foreach (Output b in addressBalances)
             {
+                //
                 IEnumerable<Output> matchingPendingOutputs = pendingOutputs.Where(x => x.address == b.address);
                 foreach(Output mo in matchingPendingOutputs)
                 {
@@ -528,6 +534,7 @@ namespace BlockChain
                 IEnumerable<string> matchingPendingInputs = pendingInputs.Where(x => x == b.address);
                 if (matchingPendingInputs.Count() > 0)
                     b.amount = 0;
+
             }
 
             return addressBalances;
