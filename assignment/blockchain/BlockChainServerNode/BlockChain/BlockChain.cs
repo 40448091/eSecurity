@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using CryptoProvider;
+using System.Linq;
 
 namespace BlockChain
 {
@@ -273,7 +274,22 @@ namespace BlockChain
             if (trx.HasValidInputSignatures(_cryptoProvider))
             {
                 Logger.Log(string.Format("Signature is valid, Transaction added id={0}", trx.id));
-                _currentTransactions.Add(trx);
+
+                List<string> inputAddresses = trx.InputAddressList.Select(x => x.address).ToList();
+
+                //TODO : check to see if any of these addresses are in the current transaction list, of so reject transaction or remove them from the list
+
+                //Now check the balances for the input addresses
+                List<Output> inputBalances = GetBalance(inputAddresses);
+
+                int total = inputBalances.Sum(x => x.amount);
+                int amount = trx.OutputList.First().amount;
+                if (total >= amount)
+                {
+                    //set the change
+                    trx.OutputList[1].amount = total - amount;
+                    _currentTransactions.Add(trx);
+                }
             }
             else
             {
@@ -328,12 +344,12 @@ namespace BlockChain
             }
         }
 
-        public bool Rollback(string filename="")
+        public bool Rollback(string filename = "")
         {
             string checkpointDir = Path.Combine(this.appDir, "checkpoints");
             string[] files = Directory.GetFiles(checkpointDir);
 
-            if ((filename == "") && files.Count()>0)
+            if ((filename == "") && files.Count() > 0)
                 filename = files.OrderBy(x => x).Reverse().First();
 
             if (string.IsNullOrEmpty(filename))
@@ -345,17 +361,42 @@ namespace BlockChain
 
             using (StreamReader sr = File.OpenText(filepath))
             {
-                while(!sr.EndOfStream)
+                string line = sr.ReadLine();
+                string[] fields = line.Split('|');
+                NodeId = fields[0];
+                _currentTransactions = RollbackTransactions(int.Parse(fields[2]), sr);
+
+                _chain = new List<Block>();
+                line = sr.ReadLine();
+                int blockCount = int.Parse(line);
+                for (int i = 0; i < blockCount; i++)
                 {
-                    string line = sr.ReadLine();
-                    JsonConvert.DeserializeObject(line);
+                    line = sr.ReadLine();
+                    fields = line.Split('|');
+                    Block b = new Block { Index = int.Parse(fields[0]), Timestamp = DateTime.Parse(fields[1]), Proof = int.Parse(fields[2]), PreviousHash = fields[3], Transactions = new List<Transaction>() };
+                    int txCount = int.Parse(fields[4]);
+                    b.Transactions = RollbackTransactions(txCount, sr);
+                    _chain.Add(b);
                 }
-                sr.Close();
             }
 
             Logger.Log("Rolling complete");
 
             return false;
+        }
+
+        private List<Transaction> RollbackTransactions(int txCount, StreamReader reader)
+        {
+            List<Transaction> txs = new List<Transaction>();
+            string line;
+            string[] fields;
+            for (int i = 0; i < txCount; i++)
+            {
+                line = reader.ReadLine();
+                Transaction tx = JsonConvert.DeserializeObject<Transaction>(line);
+                txs.Add(tx);
+            }
+            return txs;
         }
 
         public void status()
@@ -389,6 +430,75 @@ namespace BlockChain
         public void ExportPublicKey()
         {
             System.Console.WriteLine(string.Format("Public Key={0}", _cryptoProvider.ExportPublicKey()));
+        }
+
+        public string Balance(string json)
+        {
+            List<string> al = JsonConvert.DeserializeObject<List<string>>(json);
+            List<Output> result = GetBalance(al);
+            return JsonConvert.SerializeObject(result);
+        }
+
+        public List<Output> GetBalance(List<string> addressList)
+        {
+            List<Output> addressBalances = new List<Output>();
+
+            //Initialize the addressBalances list using the list provided
+            foreach (string a in addressList)
+            {   //build a list of Address Balances. A value of -1 means that it hasn't yet been fully balanced
+                addressBalances.Add(new Output(a, -1));    
+            }
+
+            //Initialize the unBalanced list
+            List<Output> unBalanced = addressBalances.Where(a => a.amount == -1).ToList();
+
+            //now we iterate through the blocks, looking for Credits (Outputs) and Debits(Inputs)
+            //If a Debit is found before any credits (ie. it was spent), 
+            //then since all of the address balance is spent when used as an Input transaction,
+            //we can set it's balance to zero and remove it from the unBalanced list as soon as it's.
+            //However, an address could receive input from a number of transactions, so if a credit 
+            //is found first (ie. the address appears in an Output List), then we Output list, 
+            //we must continue to process until either it is found in an input (at which point, 
+            //we can determine that the address has been used again), or we've reached the last block
+            //in the chain (ie. the address has not been used as an Input)
+
+            foreach(Block blk in _chain)
+            {
+                List<Output> allBlockOutputAddresses = new List<Output>();
+                List<string> allBlockInputAddresses = new List<string>();
+                //iterate all the transactions in the block to extract the Inputs (debits) and outputs (credits)
+                foreach(Transaction t in blk.Transactions)
+                {
+                    allBlockInputAddresses.AddRange(t.InputAddressList.Select(x => x.address).ToList());
+                    allBlockOutputAddresses.AddRange(t.OutputList);
+                }
+
+                foreach(Output ubo in unBalanced)
+                {
+                    //process credits first
+                    IEnumerable<Output> matchingOutputs = allBlockOutputAddresses.Where(x => x.address == ubo.address);
+                    foreach(Output mo in matchingOutputs)
+                    {
+                        if (ubo.amount < 0)
+                            ubo.amount = mo.amount;
+                        else
+                            ubo.amount += mo.amount;
+                    }
+
+                    //process the debits
+                    IEnumerable<string> matchingInputs = allBlockInputAddresses.Where(x => x == ubo.address);
+                    //if we have any matching inputs, the address was used, so set it's balance to zero
+                    if (matchingInputs.Count() > 0)
+                        ubo.amount = 0;             
+                }
+
+                //remove any zero balances from the unBalanced list
+                //unBalanced = addressBalances.Where(a => a.amount != 0).ToList();
+                //if (unBalanced.Count() == 0)
+                //    break;
+            }
+            
+            return addressBalances;
         }
     }
 }

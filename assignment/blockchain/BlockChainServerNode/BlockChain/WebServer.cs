@@ -68,6 +68,16 @@ namespace BlockChain
                         //GET: http://localhost:12345/nodes/resolve
                         case "/nodes/resolve":
                             return chain.Consensus();
+
+                        case "/balance":
+                            if (request.HttpMethod != HttpMethod.Post.Method)
+                                return $"{new HttpResponseMessage(HttpStatusCode.MethodNotAllowed)}";
+
+                            json = new StreamReader(request.InputStream).ReadToEnd();
+
+                            return chain.Balance(json);
+
+                            //return chain.Mine(query);
                     }
 
                     return "";
@@ -76,7 +86,8 @@ namespace BlockChain
                 $"http://{host}:{port}/transactions/new/",
                 $"http://{host}:{port}/chain/",
                 $"http://{host}:{port}/nodes/register/",
-                $"http://{host}:{port}/nodes/resolve/"
+                $"http://{host}:{port}/nodes/resolve/",
+                $"http://{host}:{port}/balance/"
             );
 
             server.Run();

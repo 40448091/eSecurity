@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace BlockChain.Console
 {
@@ -83,6 +84,9 @@ namespace BlockChain.Console
                         break;
                     case "mine":
                         Mine(cmdArgs);
+                        break;
+                    case "balance":
+                        Balance(cmdArgs);
                         break;
                 }
             }
@@ -168,6 +172,16 @@ namespace BlockChain.Console
                 }
             }
             throw new Exception("Invalid DLL, Interface not found!");
+        }
+
+        private static void Balance(string[] cmdArgs)
+        {
+            string[] addresses = cmdArgs[1].Split(',');
+            List<Output> balances = chain.GetBalance(addresses.ToList());
+            foreach(Output o in balances)
+            {
+                System.Console.WriteLine(o.address + " = " + o.amount);
+            }
         }
 
         static void Mine(string[] cmdArgs)

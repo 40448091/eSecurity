@@ -41,6 +41,11 @@ namespace BlockChainClassLib
         public string address { get; set; }
         public int amount { get; set; }
 
+        public Output()
+        {
+
+        }
+
         public Output(string address, int amount)
         {
             this.address = address;
@@ -164,7 +169,7 @@ namespace BlockChainClassLib
             return result;
         }
 
-        public int Wallet_CreateAddress()
+        public string Wallet_CreateAddress()
         {
             _cryptoProvider.GenerateKeyPair();
             string privateKey = _cryptoProvider.ExportPrivateKey();
@@ -174,7 +179,7 @@ namespace BlockChainClassLib
 
             _wallet.WalletEntries.Add(we);
 
-            return _wallet.WalletEntries.Count()-1;
+            return we.address;
         }
 
         public List<WalletLib.WalletEntry> Wallet_ListEntries()
@@ -202,11 +207,60 @@ namespace BlockChainClassLib
             return true;
         }
 
+        public WalletLib.WalletEntry Wallet_FindEntry(string address)
+        {
+            return _wallet.WalletEntries.Where(x => x.address == address).FirstOrDefault();
+        }
+
+        public string CreateAddress(string publicKey)
+        {
+            return CryptoProvider.AddressEncoder.CreateAddress(publicKey);
+        }
+
+        public string SignAddress(string address, string publicKey, string privateKey)
+        {
+            //initialize public and private keys for the crypto provider
+            _cryptoProvider.ImportPublicKey(publicKey);
+            _cryptoProvider.ImportPrivateKey(privateKey);
+            return CryptoProvider.AddressEncoder.SignAddress(address, _cryptoProvider);
+        }
+
+        public void Wallet_Balance()
+        {
+            var json_serializer = new JavaScriptSerializer();
+
+            List<string> addressList = _wallet.WalletEntries.Select(x => x.address).ToList();
+            string addresses = json_serializer.Serialize(addressList);
+
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            string url = rootUrl + "/balance";
+            string jsonResult = client.Post(url, addresses);
+
+            List<Output> balances = json_serializer.Deserialize<List<Output>>(jsonResult);
+            
+            foreach(Output o in balances)
+            {
+                WalletLib.WalletEntry we = _wallet.WalletEntries.Where(x => x.address == o.address).FirstOrDefault();
+                if (we != null)
+                    if (o.amount < 0)
+                        we.amount = 0;
+                    else
+                        we.amount = o.amount;
+            }
+
+            Wallet_Save();
+        }
+
         public string SelectedAddress()
         {
             return CryptoProvider.AddressEncoder.CreateAddress(_cryptoProvider.ExportPublicKey());
         }
 
+        public string GetAddress(string publicKey)
+        {
+            return CryptoProvider.AddressEncoder.CreateAddress(publicKey);
+        }
     }
 
 }
