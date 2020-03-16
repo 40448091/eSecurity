@@ -1,0 +1,29 @@
+16/03/2020 18:14:19 : Creating new block
+16/03/2020 18:14:19 : Block added Index=0, previous hash=1
+16/03/2020 18:14:19 : BlockChain Initialized : NodeId=5a607a6614984531b98dae178ac81df0
+16/03/2020 18:14:19 : Web Service Listening on port: 12345
+16/03/2020 18:14:57 : Request:/balance
+16/03/2020 18:15:14 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 18:15:14 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 18:15:15 : Adding Transaction id=388123ee-5600-41ec-a4de-0142eb5a9ae7 
+16/03/2020 18:15:15 : Signature is valid, Transaction added id=388123ee-5600-41ec-a4de-0142eb5a9ae7
+16/03/2020 18:15:15 : Creating new block
+16/03/2020 18:15:15 : Block added Index=1, previous hash=4ee2216911c523c9e168d26ff227a1fb76e1309cdb1234e4dda46fcf12e1877b
+16/03/2020 18:15:15 : Mined new block Index=1, Proof=14342, previous Hash=4ee2216911c523c9e168d26ff227a1fb76e1309cdb1234e4dda46fcf12e1877b
+16/03/2020 18:15:20 : Request:/balance
+16/03/2020 18:15:53 : Request:/transactions/new
+16/03/2020 18:15:53 : Adding Transaction id=f56b3b02-e849-4e0d-910d-fd4b35445f17 
+16/03/2020 18:15:53 : Signature is valid, Transaction added id=f56b3b02-e849-4e0d-910d-fd4b35445f17
+16/03/2020 18:15:57 : Request:/balance
+16/03/2020 18:16:13 : Saving checkpoint
+16/03/2020 18:16:13 : Checkpoint saved : 20200316181613.chk
+16/03/2020 18:17:00 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 18:17:00 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 18:17:00 : Adding Transaction id=1555423a-b32d-43a6-aaab-4515909f9957 
+16/03/2020 18:17:00 : Signature is valid, Transaction added id=1555423a-b32d-43a6-aaab-4515909f9957
+16/03/2020 18:17:00 : Creating new block
+16/03/2020 18:17:00 : Block added Index=2, previous hash=930cc297ec3b8d8f91caa6201f8fe0f201a4d031ac66a28ab9191ab5b95ee5aa
+16/03/2020 18:17:00 : Mined new block Index=2, Proof=18842, previous Hash=930cc297ec3b8d8f91caa6201f8fe0f201a4d031ac66a28ab9191ab5b95ee5aa
+16/03/2020 18:17:05 : Request:/balance
+16/03/2020 18:18:08 : Saving checkpoint
+16/03/2020 18:18:08 : Checkpoint saved : 20200316181808.chk

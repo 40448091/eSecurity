@@ -64,6 +64,12 @@ namespace BlockChain
             Logger.Log(String.Format("Node Registered : {0}", address));
         }
 
+        private void DeregisterNode(string address)
+        {
+            Node n = _nodes.Where(x => x.Address.ToString() == address).FirstOrDefault();
+            _nodes.Remove(n);
+        }
+
         private bool IsValidChain(List<Block> chain)
         {
             Block block = null;
@@ -104,27 +110,35 @@ namespace BlockChain
 
                 var url = new Uri(node.Address, "/chain");
                 var request = (HttpWebRequest)WebRequest.Create(url);
-                var response = (HttpWebResponse)request.GetResponse();
 
-                if (response.StatusCode == HttpStatusCode.OK)
+                try
                 {
-                    var model = new
-                    {
-                        chain = new List<Block>(),
-                        length = 0
-                    };
-                    string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                    var data = JsonConvert.DeserializeAnonymousType(json, model);
+                    var response = (HttpWebResponse)request.GetResponse();
 
-                    bool validChain = IsValidChain(data.chain);
-                    if (!validChain)
-                        Logger.Log("  Chain validation failed");
-
-                    if (data.chain.Count > _chain.Count && validChain)
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        maxLength = data.chain.Count;
-                        newChain = data.chain;
+                        var model = new
+                        {
+                            chain = new List<Block>(),
+                            length = 0
+                        };
+                        string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                        var data = JsonConvert.DeserializeAnonymousType(json, model);
+
+                        bool validChain = IsValidChain(data.chain);
+                        if (!validChain)
+                            Logger.Log("  Chain validation failed");
+
+                        if (data.chain.Count > _chain.Count && validChain)
+                        {
+                            maxLength = data.chain.Count;
+                            newChain = data.chain;
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    _nodes.Remove(node);
                 }
             }
 
@@ -144,7 +158,7 @@ namespace BlockChain
             var block = new Block
             {
                 Index = _chain.Count,
-                Timestamp = DateTime.UtcNow,
+                Timestamp = DateTime.UtcNow.Ticks,
                 Transactions = _currentTransactions.ToList(),
                 Proof = proof,
                 PreviousHash = previousHash ?? GetHash(_chain.Last())
@@ -208,6 +222,8 @@ namespace BlockChain
             tx.OutputList = new List<Output>();
 
             tx.OutputList.Add(new Output(address, 5));
+
+            Consensus();
 
             CreateTransaction(tx,true);
             Block block = CreateNewBlock(proof);
@@ -386,7 +402,7 @@ namespace BlockChain
                 {
                     line = sr.ReadLine();
                     fields = line.Split('|');
-                    Block b = new Block { Index = int.Parse(fields[0]), Timestamp = DateTime.Parse(fields[1]), Proof = int.Parse(fields[2]), PreviousHash = fields[3], Transactions = new List<Transaction>() };
+                    Block b = new Block { Index = int.Parse(fields[0]), Timestamp = long.Parse(fields[1]), Proof = int.Parse(fields[2]), PreviousHash = fields[3], Transactions = new List<Transaction>() };
                     int txCount = int.Parse(fields[4]);
                     b.Transactions = RollbackTransactions(txCount, sr);
                     _chain.Add(b);
@@ -499,7 +515,12 @@ namespace BlockChain
             foreach (Output o in balancesList)
             {
                 if(txBalances.ContainsKey(o.address))
-                    o.amount = txBalances[o.address];
+                {
+                    if (txBalances[o.address] > 0)
+                        o.amount += txBalances[o.address];
+                    else
+                        o.amount = 0;
+                }
             }
         }
 

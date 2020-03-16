@@ -1,0 +1,5 @@
+16/03/2020 19:05:13 : Creating new block
+16/03/2020 19:05:13 : Block added Index=0, previous hash=1
+16/03/2020 19:05:13 : BlockChain Initialized : NodeId=7fd2aff7c27d45e392e4be7488628a56
+16/03/2020 19:05:13 : Web Service Listening on port: 12345
+16/03/2020 19:05:14 : Rolling back, loading previous : C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChain.Console\bin\Debug\RLWE\checkpoints\20200316181808.chk
