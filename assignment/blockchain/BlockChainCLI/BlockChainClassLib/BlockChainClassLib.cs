@@ -152,6 +152,21 @@ namespace BlockChainClassLib
             throw new Exception("not yet implemented");
         }
 
+        public void history(string address)
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            string url = rootUrl + "/history?" + address;
+            string json = client.Get(url);
+
+            var json_serializer = new JavaScriptSerializer();
+            List<string> result = json_serializer.Deserialize<List<string>>(json);
+            foreach(string tx in result)
+            {
+                Console.WriteLine(tx);
+            }
+        }
+
 
         public bool Wallet_SelectAddress(int index)
         {

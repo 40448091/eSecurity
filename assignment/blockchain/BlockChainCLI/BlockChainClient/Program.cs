@@ -30,51 +30,57 @@ namespace BlockChainClient
             string cmd = "";
             while (!exit)
             {
-                System.Console.Write(">");
-                cmd = System.Console.ReadLine().Trim().ToLower();
-                string[] cmdArgs = cmd.Split(' ');
-                switch (cmdArgs[0])
+                try
                 {
-                    case "help":
-                        help();
-                        break;
-                    case "mine":
-                        cmdProc.mine(cmdArgs[1]);
-                        break;
-                    case "transaction":
-                        CreateTransaction(cmdArgs,cmdProc);
-                        break;
-                    case "exit":
-                        exit = true;
-                        break;
-                    case "chain":
-                        cmdProc.chain();
-                        break;
-                    case "wallet":
-                        Wallet(cmdArgs, cmdProc);
-                        break;
-                    case "address":
-                        string address = cmdProc.SelectedAddress();
-                        System.Console.WriteLine("Selected Address = " + address);
-                        break;
+                    System.Console.Write(">");
+                    cmd = System.Console.ReadLine().Trim().ToLower();
+                    string[] cmdArgs = cmd.Split(' ');
+                    switch (cmdArgs[0])
+                    {
+                        case "help":
+                            help();
+                            break;
+                        case "mine":
+                            cmdProc.mine(cmdArgs[1]);
+                            break;
+                        case "transaction":
+                            CreateTransaction(cmdArgs, cmdProc);
+                            break;
+                        case "exit":
+                            exit = true;
+                            break;
+                        case "chain":
+                            cmdProc.chain();
+                            break;
+                        case "wallet":
+                            Wallet(cmdArgs, cmdProc);
+                            break;
+                        case "history":
+                            cmdProc.history(cmdArgs[1]);
+                            break;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    System.Console.WriteLine(ex);
                 }
             }
         }
 
         static void help()
         {
-            System.Console.WriteLine("help           : this message");
-            System.Console.WriteLine("exit           : close the client");
-            System.Console.WriteLine("transaction    : create a new transaction ");
-            System.Console.WriteLine("mine           : mine a new block");
-            System.Console.WriteLine("chain          : get the chain");
-            System.Console.WriteLine("address        : display selected address");
-            System.Console.WriteLine("wallet add     : creates a new address and adds to the wallet");
-            System.Console.WriteLine("wallet list    : lists addresses in the wallet");
-            System.Console.WriteLine("wallet load    : load wallet file");
-            System.Console.WriteLine("wallet save    : save wallet file");
-            System.Console.WriteLine("wallet balance : save wallet file");
-
+            System.Console.WriteLine("help              : this message");
+            System.Console.WriteLine("exit              : close the client");
+            System.Console.WriteLine("transaction       : create a new transaction ");
+            System.Console.WriteLine("mine {address}    : mine a new block place coins in {address}");
+            System.Console.WriteLine("chain             : get the chain");
+            System.Console.WriteLine("wallet add        : creates a new address and adds to the wallet");
+            System.Console.WriteLine("wallet list       : lists addresses in the wallet");
+            System.Console.WriteLine("wallet load       : load wallet file");
+            System.Console.WriteLine("wallet save       : save wallet file");
+            System.Console.WriteLine("wallet balance    : save wallet file");
+            System.Console.WriteLine("history {address} : list transaction history for {address}");
         }
 
         static void Wallet(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
@@ -87,7 +93,7 @@ namespace BlockChainClient
                     List<WalletLib.WalletEntry> entries = cmdProc.Wallet_ListEntries();
                     foreach (WalletLib.WalletEntry wa in entries)
                     {
-                        System.Console.WriteLine(i.ToString("000") + ") " + wa.address + ", " + wa.amount);
+                        System.Console.WriteLine(i.ToString("000") + ") " + wa.address + " = " + wa.amount);
                         i++;
                     }
                     System.Console.WriteLine("");
@@ -108,6 +114,7 @@ namespace BlockChainClient
                 case "balance":
                     cmdProc.Wallet_Balance();
                     break;
+
             }
         }
 
@@ -118,7 +125,7 @@ namespace BlockChainClient
             List<WalletLib.WalletEntry> entries = cmdProc.Wallet_ListEntries();
             foreach (WalletLib.WalletEntry wa in entries)
             {
-                System.Console.WriteLine(i.ToString("000") + ") " + wa.address + ", " + wa.amount);
+                System.Console.WriteLine(i.ToString("000") + ") " + wa.address + " = " + wa.amount);
                 i++;
             }
             System.Console.WriteLine("");
@@ -131,22 +138,58 @@ namespace BlockChainClient
             System.Console.WriteLine("Select Addresses from your Wallet (separate with commas):");
 
 
-            ListWalletEntries(cmdProc);
+            //ListWalletEntries(cmdProc);
 
-            System.Console.Write("Enter Address List (aaa,bbb,ccc): ");
-            string line = System.Console.ReadLine();
-            line = line.Replace(" ", "");
-            string[] addresses = line.Split(',');
+            List<string> addressList = new List<string>();
+            int i = 1;
+            string line = "";
+            do
+            {
+                System.Console.Write(string.Format("Enter Source Address ({0})=", i));
+                line = System.Console.ReadLine().Trim();
 
-            System.Console.Write("Enter payment address: ");
-            string paymentAddress = System.Console.ReadLine();
+                if (line == "")
+                    break;
 
-            System.Console.Write("Enter payment amount: ");
-            string paymentAmount = System.Console.ReadLine();
+                WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(line);
+                if(we != null)
+                {
+                    addressList.Add(line);
+                    i++;
+                } else
+                {
+                    System.Console.WriteLine("address not found");
+                }
+            } while (line != "");
 
-            System.Console.WriteLine("Enter address for the change (or blank to create a new one");
-            string changeAddress = System.Console.ReadLine();
-            if(changeAddress.Trim() == "")
+            if (addressList.Count() == 0)
+                return;
+
+            System.Console.Write("Enter payment address=");
+            string paymentAddress = System.Console.ReadLine().Trim();
+
+            if (paymentAddress == "")
+                return;
+
+            string paymentAmount = "";
+            int amount = 0;
+            do
+            {
+                System.Console.Write("Enter payment amount=");
+                paymentAmount = System.Console.ReadLine().Trim();
+
+                if (paymentAmount == "")
+                    return;
+            } while (!int.TryParse(paymentAmount, out amount));
+                
+
+            System.Console.Write("Enter change address (new to create one)=");
+            string changeAddress = System.Console.ReadLine().Trim();
+
+            if (changeAddress == "")
+                return;
+
+            if(changeAddress.Trim() == "new")
             {
                 changeAddress = cmdProc.Wallet_CreateAddress();
                 cmdProc.Wallet_Save();
@@ -157,14 +200,12 @@ namespace BlockChainClient
             BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
             t.id = Guid.NewGuid().ToString();
 
-            foreach(string addr in addresses)
+            foreach(string address in addressList)
             {
-                WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(addr);
-
+                WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(address);
                 string publicKey = we.publicKey;
-                //string address = cmdProc.CreateAddress(publicKey);
-                string signature = cmdProc.SignAddress(addr, we.publicKey, we.privateKey);
-                t.InputAddressList.Add(new BlockChainClassLib.Input(addr, signature, publicKey));
+                string signature = cmdProc.SignAddress(address, we.publicKey, we.privateKey);
+                t.InputAddressList.Add(new BlockChainClassLib.Input(address, signature, publicKey));
             }
 
             //add the primary payment address

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace BlockChain
 {
@@ -83,7 +84,9 @@ namespace BlockChain
 
                             return chain.Balance(json);
 
-                            //return chain.Mine(query);
+                        case "/history":
+                            List<string> history = chain.TransactionHistory(query);
+                            return JsonConvert.SerializeObject(history);
                     }
 
                     return "";
@@ -93,7 +96,8 @@ namespace BlockChain
                 $"http://{host}:{port}/chain/",
                 $"http://{host}:{port}/nodes/register/",
                 $"http://{host}:{port}/nodes/resolve/",
-                $"http://{host}:{port}/balance/"
+                $"http://{host}:{port}/balance/",
+                $"http://{host}:{port}/history/"
             );
 
             server.Run();

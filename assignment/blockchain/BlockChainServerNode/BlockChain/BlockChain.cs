@@ -55,6 +55,8 @@ namespace BlockChain
             }
 
             Logger.Log(String.Format("BlockChain Initialized : NodeId={0}", NodeId));
+
+            RegisterNodes();
         }
 
         //private functionality
@@ -104,6 +106,8 @@ namespace BlockChain
             List<Block> newChain = null;
             int maxLength = _chain.Count;
 
+            List<Node> inactiveNodes = new List<Node>();
+
             foreach (Node node in _nodes)
             {
                 Logger.Log(string.Format("getting chain from : {0}", node.Address));
@@ -138,7 +142,7 @@ namespace BlockChain
                 }
                 catch (Exception ex)
                 {
-                    _nodes.Remove(node);
+                    inactiveNodes.Add(node);
                 }
             }
 
@@ -146,6 +150,12 @@ namespace BlockChain
             {
                 _chain = newChain;
                 return true;
+            }
+
+            foreach(Node node in inactiveNodes)
+            {
+                _nodes.Remove(node);
+                Logger.Log(string.Format("Deregistering unresponsive node: {0}",node.Address));
             }
 
             return false;
@@ -251,6 +261,13 @@ namespace BlockChain
             };
 
             return JsonConvert.SerializeObject(response);
+        }
+
+        internal void RegisterNodes()
+        {
+            string nodesList = System.Configuration.ConfigurationManager.AppSettings["registerNodes"];
+            string[] nodes = nodesList.Replace(" ", "").Split(',');
+            RegisterNodes(nodes);
         }
 
         internal string RegisterNodes(string[] nodes)
@@ -434,6 +451,10 @@ namespace BlockChain
             string port = System.Configuration.ConfigurationManager.AppSettings["port"];
             
             System.Console.WriteLine(string.Format("NodeId={0}, Host={1}, Port={2}, CryptoProvider={3}",NodeId,host,port, _cryptoProvider.ProviderName()));
+            foreach(Node n in _nodes)
+            {
+                System.Console.WriteLine(string.Format("Registered Node: {0}",n.Address));
+            }
             System.Console.WriteLine(string.Format("Current Transactions={0}", _currentTransactions.Count()));
             System.Console.WriteLine(string.Format("Blocks in Chain={0}", _chain.Count()));
         }
@@ -468,60 +489,102 @@ namespace BlockChain
             return JsonConvert.SerializeObject(result);
         }
 
+
+        public List<string> TransactionHistory(string address)
+        {
+            List<string> txList = new List<string>();
+
+            int balance = 0;
+
+            foreach (Block b in _chain)
+            {
+                TransactionHistory(b.Transactions, address, ref balance, txList);
+            }
+
+            TransactionHistory(_currentTransactions, address, ref balance, txList);
+
+            return txList;
+        }
+
+        internal void TransactionHistory(List<Transaction> transactions, string address, ref int balance,List<string> txList)
+        {
+            List<Transaction> ordered = transactions.OrderBy(x => x.TimeStamp).ToList<Transaction>();
+            foreach (Transaction t in ordered)
+            {
+                foreach (Input i in t.InputAddressList)
+                {
+                    if (i.address == address)
+                    {
+                        balance = 0;
+                        txList.Add(string.Format("{0} Debit = 0", new System.DateTime(t.TimeStamp).ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    }
+                }
+                foreach (Output o in t.OutputList)
+                {
+                    if (o.address == address)
+                    {
+                        balance += o.amount;
+                        txList.Add(string.Format("{0} Credit(+{1}) = {2}", new System.DateTime(t.TimeStamp).ToString("yyyy-MM-dd HH:mm:ss.fff"), o.amount, balance));
+                    }
+                }
+            }
+        }
+
+
+
         public List<Output> GetBalance(List<string> addressList)
         {
-            List<Output> balanceList = new List<Output>();
+            Dictionary<string, int> addressBalances = new Dictionary<string, int>();
+
             foreach (string addr in addressList)
             {
-                balanceList.Add(new Output(addr, 0));
+                addressBalances[addr] = 0;
             }
 
             //first process all the blocks
             foreach (Block b in _chain)
             {
-                GetTransactionListBalances(b.Transactions,balanceList);
+                GetTransactionListBalances(b.Transactions, addressBalances);
             }
 
             //next process the current transactions
-            GetTransactionListBalances(_currentTransactions, balanceList);
+            GetTransactionListBalances(_currentTransactions, addressBalances);
+
+            List<Output> balanceList = new List<Output>();
+            foreach (string address in addressList)
+            {
+                balanceList.Add(new Output(address, addressBalances[address]));
+            }
 
             return balanceList;
         }
 
-        void GetTransactionListBalances(List<Transaction> txList, List<Output> balancesList)
+        internal void GetTransactionListBalances(List<Transaction> txList, Dictionary<string, int> addressBalances)
         {
-            //Extracts and applies all credits and debits in transaction order
-            //for all addresses in the block
-            Dictionary<string, int> txBalances = new Dictionary<string, int>();
-
             List<Transaction> ordered = txList.OrderBy(x => x.TimeStamp).ToList<Transaction>();
             foreach (Transaction t in ordered)
             {
                 foreach (Input i in t.InputAddressList)
                 {
-                    txBalances[i.address] = 0;
+                    if(addressBalances.ContainsKey(i.address))
+                        addressBalances[i.address] = 0;
                 }
                 foreach (Output o in t.OutputList)
                 {
-                    if (txBalances.ContainsKey(o.address))
-                        txBalances[o.address] += o.amount;
-                    else
-                        txBalances[o.address] = o.amount;
+                    if (addressBalances.ContainsKey(o.address))
+                        addressBalances[o.address] += o.amount;
                 }
             }
+        }
 
-            //extract only the one's we're interested in and update those balances
-            //in the list provided
-            foreach (Output o in balancesList)
-            {
-                if(txBalances.ContainsKey(o.address))
-                {
-                    if (txBalances[o.address] > 0)
-                        o.amount += txBalances[o.address];
-                    else
-                        o.amount = 0;
-                }
-            }
+        public bool Validate()
+        {
+            return IsValidChain(_chain);
+        }
+
+        public string Resolve()
+        {
+            return Consensus();
         }
 
         /*

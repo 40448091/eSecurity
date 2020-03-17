@@ -88,19 +88,27 @@ namespace BlockChain.Console
                     case "balance":
                         Balance(cmdArgs);
                         break;
+                    case "validate":
+                        validate();
+                        break;
+                    case "resolve":
+                        Resolve();
+                        break;
                 }
             }
         }
 
         static void help(string[] cmdArgs)
         {
-            System.Console.WriteLine("  help            : This message ");
-            System.Console.WriteLine("  exit            : Shut down the service ");
-            System.Console.WriteLine("  checkpoint      : saves the BlockChain state to new checkpoint file");
-            System.Console.WriteLine("  rollback        : rolls-back the blockChain to the last checkpoint");
-            System.Console.WriteLine("  init            : Re-initialize with an empty BlockChain");
-            System.Console.WriteLine("  list tran       : list pending transactions");
-            System.Console.WriteLine("  list blocks     : list blocks");
+            System.Console.WriteLine("  help              : This message ");
+            System.Console.WriteLine("  exit              : Shut down the service ");
+            System.Console.WriteLine("  checkpoint        : saves the BlockChain state to new checkpoint file");
+            System.Console.WriteLine("  rollback          : rolls-back the blockChain to the last checkpoint");
+            System.Console.WriteLine("  init              : Re-initialize with an empty BlockChain");
+            System.Console.WriteLine("  list tran         : list pending transactions");
+            System.Console.WriteLine("  list blocks       : list blocks");
+            System.Console.WriteLine("  validate          : validate chain");
+            System.Console.WriteLine("  resolve           : resolve chain with registered nodes");
         }
 
         static void checkpoint(string[] cmdArgs)
@@ -189,5 +197,14 @@ namespace BlockChain.Console
             chain.Mine(cmdArgs[1]);
         }
 
+        static void validate()
+        {
+            System.Console.WriteLine(string.Format("Chain {0} valid",chain.Validate()?"is":"is not"));
+        }
+
+        static void Resolve()
+        {
+            System.Console.WriteLine(chain.Resolve());
+        }
     }
 }
