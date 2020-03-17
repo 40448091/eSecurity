@@ -105,7 +105,7 @@ namespace BlockChain.Console
             System.Console.WriteLine("  checkpoint        : saves the BlockChain state to new checkpoint file");
             System.Console.WriteLine("  rollback          : rolls-back the blockChain to the last checkpoint");
             System.Console.WriteLine("  init              : Re-initialize with an empty BlockChain");
-            System.Console.WriteLine("  list tran         : list pending transactions");
+            System.Console.WriteLine("  list transactions : list pending transactions");
             System.Console.WriteLine("  list blocks       : list blocks");
             System.Console.WriteLine("  validate          : validate chain");
             System.Console.WriteLine("  resolve           : resolve chain with registered nodes");
@@ -150,7 +150,7 @@ namespace BlockChain.Console
         {
             switch(cmdArgs[1])
             {
-                case "tran":
+                case "transactions":
                     chain.list_currentTransactions();
                     break;
                 case "blocks":
