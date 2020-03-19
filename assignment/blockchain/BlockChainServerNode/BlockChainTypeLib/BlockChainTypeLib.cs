@@ -4,8 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/*********************************************************
+ * BlockChain Type Library
+ * Author: Paul Haines (March 2020)
+ *   Used when serializing and deserializing BlockChain 
+ *   Transactions and Mine objects between the 
+ *   BlockChain web-server node and the client
+ *********************************************************/
 namespace BlockChain
 {
+    //
     public interface ITransaction
     {
         Guid id { get; set; }

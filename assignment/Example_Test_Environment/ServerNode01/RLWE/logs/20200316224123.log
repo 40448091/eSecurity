@@ -1,0 +1,56 @@
+16/03/2020 22:41:23 : Creating new block
+16/03/2020 22:41:23 : Block added Index=0, previous hash=1
+16/03/2020 22:41:23 : BlockChain Initialized : NodeId=4055c0d670554252908e4e7cb20c5e3d
+16/03/2020 22:41:23 : Node Registered : http://localhost:12346
+16/03/2020 22:41:23 : Web Service Listening on port: 12345
+16/03/2020 22:41:41 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:41:41 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:41:41 : Resolving conflicts
+16/03/2020 22:41:41 : getting chain from : http://localhost:12346/
+16/03/2020 22:41:45 : Deregistering unresponsive node: http://localhost:12346/
+16/03/2020 22:41:45 : Adding Transaction id=a8e8f86c-a036-4024-b1a1-a12aa354133f 
+16/03/2020 22:41:45 : Signature is valid, Transaction added id=a8e8f86c-a036-4024-b1a1-a12aa354133f
+16/03/2020 22:41:45 : Creating new block
+16/03/2020 22:41:45 : Block added Index=1, previous hash=9be12a2c460eace13e01629b94a1d1b2eec40b171a48a99b420befe21790aba6
+16/03/2020 22:41:45 : Mined new block Index=1, Proof=14342, previous Hash=9be12a2c460eace13e01629b94a1d1b2eec40b171a48a99b420befe21790aba6
+16/03/2020 22:42:04 : Request:/balance
+16/03/2020 22:42:33 : Request:/transactions/new
+16/03/2020 22:42:33 : Adding Transaction id=493dfb79-7637-471b-b281-dcf54e0c8a86 
+16/03/2020 22:42:34 : Signature is valid, Transaction added id=493dfb79-7637-471b-b281-dcf54e0c8a86
+16/03/2020 22:42:37 : Request:/balance
+16/03/2020 22:42:53 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:42:53 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:42:54 : Resolving conflicts
+16/03/2020 22:42:54 : Adding Transaction id=b2162b74-0ded-49c5-a69b-0c4ec05d97d5 
+16/03/2020 22:42:54 : Signature is valid, Transaction added id=b2162b74-0ded-49c5-a69b-0c4ec05d97d5
+16/03/2020 22:42:54 : Creating new block
+16/03/2020 22:42:54 : Block added Index=2, previous hash=da41b7ab33cb3225856929822ba44dc190ee7ea7881cb3a5e09cfa3fc61c4978
+16/03/2020 22:42:54 : Mined new block Index=2, Proof=44368, previous Hash=da41b7ab33cb3225856929822ba44dc190ee7ea7881cb3a5e09cfa3fc61c4978
+16/03/2020 22:43:06 : Request:/balance
+16/03/2020 22:43:21 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:43:54 : Request:/transactions/new
+16/03/2020 22:43:54 : Adding Transaction id=95c077e8-be4a-45b1-a875-c7ce8583daa1 
+16/03/2020 22:43:54 : Signature is valid, Transaction added id=95c077e8-be4a-45b1-a875-c7ce8583daa1
+16/03/2020 22:44:00 : Request:/balance
+16/03/2020 22:45:28 : Request:/transactions/new
+16/03/2020 22:45:28 : Adding Transaction id=451f9e75-95fe-4eaf-bac7-3c0a267f0b66 
+16/03/2020 22:45:28 : Signature is valid, Transaction added id=451f9e75-95fe-4eaf-bac7-3c0a267f0b66
+16/03/2020 22:45:33 : Request:/balance
+16/03/2020 22:45:47 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:46:00 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:46:00 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:46:00 : Resolving conflicts
+16/03/2020 22:46:00 : Adding Transaction id=bda4a71d-7e6f-453d-9e1b-7c4c1af6b0bb 
+16/03/2020 22:46:00 : Signature is valid, Transaction added id=bda4a71d-7e6f-453d-9e1b-7c4c1af6b0bb
+16/03/2020 22:46:00 : Creating new block
+16/03/2020 22:46:00 : Block added Index=3, previous hash=2a7c57fbc4e488cc0c452a26b2a2c34e91865bd699727ee23d7a5c24f14dd783
+16/03/2020 22:46:00 : Mined new block Index=3, Proof=4146, previous Hash=2a7c57fbc4e488cc0c452a26b2a2c34e91865bd699727ee23d7a5c24f14dd783
+16/03/2020 22:46:05 : Request:/balance
+16/03/2020 22:46:23 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:47:12 : Request:/transactions/new
+16/03/2020 22:47:13 : Adding Transaction id=9917f8d8-757b-4d73-b2ac-ec254776a317 
+16/03/2020 22:47:13 : Signature is valid, Transaction added id=9917f8d8-757b-4d73-b2ac-ec254776a317
+16/03/2020 22:47:26 : Request:/balance
+16/03/2020 22:47:46 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 22:47:58 : Request:/history?8f7390b6edaddc5900459f75364ee1b67dabcfaa
+16/03/2020 22:48:08 : Request:/history?d489b747a4e84c102c7e47c9f30d6be873913fe1

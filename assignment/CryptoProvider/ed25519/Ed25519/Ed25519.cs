@@ -7,7 +7,8 @@ using System.Security.Cryptography;
 namespace Cryptographic
 {
     /* Ported and refactored from Java to C# by Hans Wolff, 10/10/2013
-     * Released to the public domain
+     * Released to the public domain]
+     * Source: https://github.com/hanswolff/curve25519
      * /
 
     /* Java code written by k3d3

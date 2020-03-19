@@ -10,41 +10,63 @@ using System.Text;
 using CryptoProvider;
 using System.Linq;
 
+
+/********************************************************************
+ * Simple BitCoin like BlockChain
+ * Author: Paul Haines (March 2020)
+ * 
+ * Based on csharp section of "Learn Blockchains by Building One"
+ * By: Daniel van Flymen
+ * Original Source: 
+ *   https://github.com/dvf/blockchain/tree/master/csharp/BlockChain
+ *   https://github.com/dvf/blockchain
+ * 
+ * Extended by Paul Haines (March 2020) to add 
+ * - BitCoin like Transactions
+ * - Injection of Crypto Providers (implementing ICryptoProvider interface)
+ * - Transaction signing and verification
+ ********************************************************************/
 namespace BlockChain
 {
     public class BlockChain
     {
-        ICryptoProvider _cryptoProvider = null;
+        ICryptoProvider _cryptoProvider = null;                                         //crypto provider instance
 
-        private List<Transaction> _currentTransactions = new List<Transaction>();
-        private List<Block> _chain = new List<Block>();
-        private List<Node> _nodes = new List<Node>();
-        private Block _lastBlock => _chain.Last();
+        private List<Transaction> _currentTransactions = new List<Transaction>();       //Uncommitted transactions (will be committed to the next block when mined)
+        private List<Block> _chain = new List<Block>();                                 //The Block Chain (ie. list of blocks)
+        private List<Node> _nodes = new List<Node>();                                   //registered nodes
+        private Block _lastBlock => _chain.Last();                                      //the last block in the chain
 
+        //gets / sets the echo state. If on will echo server requests and responses to the console
         public bool echo
         {
             get { return Logger.echo; }
             set { Logger.echo = value; }
         }
 
+        //id for the node
         public string NodeId { get; private set; }
 
+        //returns the executing assembly directory path
         private string appDir {
             get {
                 return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             }
         }
 
-        //ctor
+        //BlockChain constructor
         public BlockChain(CryptoProvider.ICryptoProvider cryptoProvider = null)
         {
             NodeId = Guid.NewGuid().ToString().Replace("-", "");
-            CreateNewBlock(proof: 100, previousHash: "1"); //genesis block
-            _cryptoProvider = cryptoProvider;
 
+            //create the genesis block
+            CreateNewBlock(proof: 100, previousHash: "1"); 
+            _cryptoProvider = cryptoProvider;               //if provided, set the crypto provider
+
+            //get the crytpo provider name from the 
             string cp = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
 
-            //create or load keys
+            //create or load server node keys
             string filename = Path.Combine(appDir, cp + ".key");
             if (File.Exists(filename))
                 _cryptoProvider.ImportKeyPairFromFile(filename);
@@ -59,24 +81,28 @@ namespace BlockChain
             RegisterNodes();
         }
 
-        //private functionality
+        //Registers the provided server node
         private void RegisterNode(string address)
         {
             _nodes.Add(new Node { Address = new Uri(address) });
             Logger.Log(String.Format("Node Registered : {0}", address));
         }
 
+        //Deregisters the provided server node
         private void DeregisterNode(string address)
         {
             Node n = _nodes.Where(x => x.Address.ToString() == address).FirstOrDefault();
             _nodes.Remove(n);
         }
 
+        //returns the true if the BlockChain held by the node is valid (false if not)
         private bool IsValidChain(List<Block> chain)
         {
             Block block = null;
             Block lastBlock = chain.First();
             int currentIndex = 1;
+
+            //iterate through the block chain checking the proof of work and hashes are valid
             while (currentIndex < chain.Count)
             {
                 block = chain.ElementAt(currentIndex);
@@ -99,26 +125,31 @@ namespace BlockChain
             return true;
         }
 
+        //rudimentary consusus algorithm
         private bool ResolveConflicts()
         {
             Logger.Log("Resolving conflicts");
 
-            List<Block> newChain = null;
+            List<Block> newChain = null;                    //chain returned from registered node
             int maxLength = _chain.Count;
 
-            List<Node> inactiveNodes = new List<Node>();
+            List<Node> inactiveNodes = new List<Node>();    //if a registered node is unresponsive, it is added to this list
 
+            //for each node in the registered nodes list...
             foreach (Node node in _nodes)
             {
                 Logger.Log(string.Format("getting chain from : {0}", node.Address));
 
+                //construct the url to the server node
                 var url = new Uri(node.Address, "/chain");
                 var request = (HttpWebRequest)WebRequest.Create(url);
 
                 try
                 {
+                    //send a get chain request to the registered server node
                     var response = (HttpWebResponse)request.GetResponse();
 
+                    //if we got an OK response, process the chain returned...
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         var model = new
@@ -126,13 +157,17 @@ namespace BlockChain
                             chain = new List<Block>(),
                             length = 0
                         };
+
+                        //deserialize the response into a chain
                         string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
                         var data = JsonConvert.DeserializeAnonymousType(json, model);
 
+                        //validate the chain returned from the server node
                         bool validChain = IsValidChain(data.chain);
                         if (!validChain)
                             Logger.Log("  Chain validation failed");
 
+                        //if the chain is valid, and if it contains more blocks than this node, set newChain and maxLength
                         if (data.chain.Count > _chain.Count && validChain)
                         {
                             maxLength = data.chain.Count;
@@ -142,16 +177,21 @@ namespace BlockChain
                 }
                 catch (Exception ex)
                 {
+                    //if an exception was raised, then it's likely the registered server node did not respond
+                    //so add it to the inactive nodes list
                     inactiveNodes.Add(node);
                 }
             }
 
+            //if the newChain was set (ie. if the chain is valid, and if it contains more blocks than this node, set newChain and maxLength
+            //replace the chain on this node, with the one returned from the registered node
             if (newChain != null)
             {
                 _chain = newChain;
                 return true;
             }
 
+            //remove any inactive nodes from the registerd server list
             foreach(Node node in inactiveNodes)
             {
                 _nodes.Remove(node);
@@ -161,10 +201,14 @@ namespace BlockChain
             return false;
         }
 
+
+        //Creates a new block to add to the BlockChain
         private Block CreateNewBlock(int proof, string previousHash = null)
         {
             Logger.Log("Creating new block");
 
+            //creates a block object based on the list of current uncommitted transactions
+            //calculates hash
             var block = new Block
             {
                 Index = _chain.Count,
@@ -174,14 +218,17 @@ namespace BlockChain
                 PreviousHash = previousHash ?? GetHash(_chain.Last())
             };
 
+            //add the block to the chain, and clear uncommitted transaction list
             _currentTransactions.Clear();
             _chain.Add(block);
 
             Logger.Log(string.Format("Block added Index={0}, previous hash={1}",block.Index,block.PreviousHash));
 
+            //return the new block (ie. it's now the last one in the chain)
             return block;
         }
 
+        //Create proof of work (simulates part of the mining process)
         private int CreateProofOfWork(int lastProof, string previousHash)
         {
             int proof = 0;
@@ -191,6 +238,7 @@ namespace BlockChain
             return proof;
         }
 
+        //validates proof of work
         private bool IsValidProof(int lastProof, int proof, string previousHash)
         {
             string guess = $"{lastProof}{proof}{previousHash}";
@@ -198,12 +246,14 @@ namespace BlockChain
             return result.StartsWith("0000");
         }
 
+        //calculates a hash for the specified block
         private string GetHash(Block block)
         {
             string blockText = JsonConvert.SerializeObject(block);
             return GetSha256(blockText);
         }
 
+        //calculates a shar256 hash from the specified string
         private string GetSha256(string data)
         {
             var sha256 = new SHA256Managed();
@@ -219,25 +269,37 @@ namespace BlockChain
         }
 
         //web server calls
-        public string Mine(string address)      //miner is the public key of the client mining
+
+        /************************************************************************
+         * Mines a new block, sending the reward to the specified address
+         ************************************************************************/
+        public string Mine(string address)
         {
             Logger.Log(string.Format("Mining for new block for ID={0}", address));
 
+            //create proof of work
             int proof = CreateProofOfWork(_lastBlock.Proof, _lastBlock.PreviousHash);
 
-            //need to sign this with the node credentials
+            //create a transaction object
             Transaction tx = new Transaction();
-            tx.id = Guid.NewGuid().ToString();
-            tx.InputAddressList = new List<Input>();
-            tx.OutputList = new List<Output>();
 
-            tx.OutputList.Add(new Output(address, 5));
+            tx.id = Guid.NewGuid().ToString();          //set a new ID for the transaction
+            tx.InputAddressList = new List<Input>();    //a list to hold the inputs to the transaction
+            tx.OutputList = new List<Output>();         //a list to hold the outputs from the transaction
 
+            tx.OutputList.Add(new Output(address, 5));  //add reward to the mine transaction
+
+            //Rudimentary consensus algorithm
+            //Resolve conflicts this and registered server nodes (ie. update the chain)
             Consensus();
 
+            //create a new transaction containing the reward. IsMining == true, so there are no input nodes to validate
             CreateTransaction(tx,true);
+
+            //create a new block (commit all uncommitted transactions, including the reward transaction)
             Block block = CreateNewBlock(proof);
 
+            //create a response object, which will be serialized and returned
             var response = new
             {
                 Message = "New Block Forged",
@@ -249,9 +311,11 @@ namespace BlockChain
 
             Logger.Log(string.Format("Mined new block Index={0}, Proof={1}, previous Hash={2}", block.Index, block.Proof, block.PreviousHash));
 
+            //serialize and return the response
             return JsonConvert.SerializeObject(response);
         }
 
+        //return the full BlockChain
         internal string GetFullChain()
         {
             var response = new
@@ -260,9 +324,11 @@ namespace BlockChain
                 length = _chain.Count
             };
 
+            //serialize the BlockChain as a json object
             return JsonConvert.SerializeObject(response);
         }
 
+        //Get a comma separated list of nodes from the app.config and register them
         internal void RegisterNodes()
         {
             string nodesList = System.Configuration.ConfigurationManager.AppSettings["registerNodes"];
@@ -270,6 +336,7 @@ namespace BlockChain
             RegisterNodes(nodes);
         }
 
+        //register the nodes specified in the string array provided
         internal string RegisterNodes(string[] nodes)
         {
             var builder = new StringBuilder();
@@ -285,6 +352,7 @@ namespace BlockChain
             return result.Substring(0, result.Length - 2);
         }
 
+        //rudimentary consensus algorithm
         internal string Consensus()
         {
             bool replaced = ResolveConflicts();
@@ -299,29 +367,33 @@ namespace BlockChain
             return JsonConvert.SerializeObject(response);
         }
 
+        //creates a new transaction and adds it to the uncommitted transaction list
+        //if isMining is true then there are no input nodes to verify
         internal int CreateTransaction(Transaction trx, bool isMining = false)
         {
             Logger.Log(string.Format("Adding Transaction id={0} ", trx.id));
 
-
+            //attempt to validate the transaction input signatures using address + signature + public key from the transaction, and the cryptoProvider
             if (trx.HasValidInputSignatures(_cryptoProvider))
             {
                 Logger.Log(string.Format("Signature is valid, Transaction added id={0}", trx.id));
 
+                //if the input transactions are valid, add them to the input list
                 List<string> inputAddresses = trx.InputAddressList.Select(x => x.address).ToList();
 
-                //TODO : check to see if any of these addresses are in the current transaction list, of so reject transaction or remove them from the list
-
+                //if not isMining, check the balance for input addresses >= Ouptut amount
                 if(!isMining)
                 {
-                    //Now check the balances for the input addresses
+                    //Iterate the Blocks in the chain to determine the value for the input addresses
                     List<Output> inputBalances = GetBalance(inputAddresses);
 
                     int total = inputBalances.Sum(x => x.amount);
                     int amount = trx.OutputList.First().amount;
+
+                    //if the total amount for the input nodes >= Ouptut amount
                     if (total >= amount)
                     {
-                        //set the change
+                        //set the amount for the change address
                         trx.OutputList[1].amount = total - amount;
                         _currentTransactions.Add(trx);
                     }
@@ -342,6 +414,8 @@ namespace BlockChain
             return _lastBlock != null ? _lastBlock.Index + 1 : 0;
         }
 
+        //Saves the current BlockChain and uncommitted transaction state to a checkpoint file
+        //{crypto provider name}\checkpoints\{checkpoint files}
         public string CheckPoint()
         {
             Logger.Log("Saving checkpoint");
@@ -376,6 +450,7 @@ namespace BlockChain
             return filename;
         }
 
+        //outputs a list of transactions to the checkpoint file
         private void CheckPointTransactions(List<Transaction> txs, StreamWriter writer)
         {
             string line;
@@ -386,6 +461,8 @@ namespace BlockChain
             }
         }
 
+        //restores the BlockChain and uncommitted transaction state from the last CheckPoint file
+        //{crypto provider name}\checkpoints\{checkpoint files}
         public bool Rollback(string filename = "")
         {
             string checkpointDir = Path.Combine(this.appDir, _cryptoProvider.ProviderName(), "checkpoints");
@@ -431,6 +508,7 @@ namespace BlockChain
             return false;
         }
 
+        //loads a transaction from the checkpoint file
         private List<Transaction> RollbackTransactions(int txCount, StreamReader reader)
         {
             List<Transaction> txs = new List<Transaction>();
@@ -445,6 +523,7 @@ namespace BlockChain
             return txs;
         }
 
+        //displays current server node state
         public void status()
         {
             string host = System.Configuration.ConfigurationManager.AppSettings["host"];
@@ -459,6 +538,7 @@ namespace BlockChain
             System.Console.WriteLine(string.Format("Blocks in Chain={0}", _chain.Count()));
         }
 
+        //lists current uncommitted transactions
         public void list_currentTransactions()
         {
             foreach(Transaction tx in _currentTransactions)
@@ -468,6 +548,7 @@ namespace BlockChain
             }
         }
 
+        //lists blocks in the chain
         public void list_blocks()
         {
             foreach (Block b in _chain)
@@ -482,6 +563,7 @@ namespace BlockChain
             System.Console.WriteLine(string.Format("Public Key={0}", _cryptoProvider.ExportPublicKey()));
         }
 
+        //Gets the balance for a list of addresses by iterating over the BlockChain
         public string Balance(string json)
         {
             List<string> al = JsonConvert.DeserializeObject<List<string>>(json);
@@ -489,7 +571,7 @@ namespace BlockChain
             return JsonConvert.SerializeObject(result);
         }
 
-
+        //returns the transaction history for the specified address by iterating over the blocks in the chain
         public List<string> TransactionHistory(string address)
         {
             List<string> txList = new List<string>();
@@ -531,7 +613,7 @@ namespace BlockChain
         }
 
 
-
+        //returns the balaces for the specified address
         public List<Output> GetBalance(List<string> addressList)
         {
             Dictionary<string, int> addressBalances = new Dictionary<string, int>();
@@ -559,6 +641,8 @@ namespace BlockChain
             return balanceList;
         }
 
+        //process credits and debits for each transaction in the list,
+        //for each of the addresses addressBalances specified
         internal void GetTransactionListBalances(List<Transaction> txList, Dictionary<string, int> addressBalances)
         {
             List<Transaction> ordered = txList.OrderBy(x => x.TimeStamp).ToList<Transaction>();
@@ -577,104 +661,16 @@ namespace BlockChain
             }
         }
 
+        //process console request to validate
         public bool Validate()
         {
             return IsValidChain(_chain);
         }
 
+        //process console request to Resolve / run consensus
         public string Resolve()
         {
             return Consensus();
         }
-
-        /*
-        public List<Output> GetBalance_old(List<string> addressList)
-        {
-            List<Output> addressBalances = new List<Output>();
-
-            //Initialize the addressBalances list using the list provided
-            foreach (string a in addressList)
-            {   //build a list of Address Balances. A value of -1 means that it hasn't yet been fully balanced
-                addressBalances.Add(new Output(a, -1));    
-            }
-
-            //Initialize the unBalanced list
-            List<Output> unBalanced = addressBalances.Where(a => a.amount == -1).ToList();
-
-            //now we iterate through the blocks, looking for Credits (Outputs) and Debits(Inputs)
-            //If a Debit is found before any credits (ie. it was spent), 
-            //then since all of the address balance is spent when used as an Input transaction,
-            //we can set it's balance to zero and remove it from the unBalanced list as soon as it's.
-            //However, an address could receive input from a number of transactions, so if a credit 
-            //is found first (ie. the address appears in an Output List), then we Output list, 
-            //we must continue to process until either it is found in an input (at which point, 
-            //we can determine that the address has been used again), or we've reached the last block
-            //in the chain (ie. the address has not been used as an Input)
-
-            foreach(Block blk in _chain)
-            {
-                List<Output> allBlockOutputAddresses = new List<Output>();
-                List<string> allBlockInputAddresses = new List<string>();
-                //iterate all the transactions in the block to extract the Inputs (debits) and outputs (credits)
-                foreach(Transaction t in blk.Transactions)
-                {
-                    allBlockInputAddresses.AddRange(t.InputAddressList.Select(x => x.address).ToList());
-                    allBlockOutputAddresses.AddRange(t.OutputList);
-                }
-
-                foreach(Output ubo in unBalanced)
-                {
-                    //process credits first
-                    IEnumerable<Output> matchingOutputs = allBlockOutputAddresses.Where(x => x.address == ubo.address);
-                    foreach(Output mo in matchingOutputs)
-                    {
-                        if (ubo.amount < 0)
-                            ubo.amount = mo.amount;
-                        else
-                            ubo.amount += mo.amount;
-                    }
-
-
-                    //process the debits
-                    IEnumerable<string> matchingInputs = allBlockInputAddresses.Where(x => x == ubo.address);
-                    //if we have any matching inputs, the address was used, so set it's balance to zero
-                    if (matchingInputs.Count() > 0)
-                        ubo.amount = 0;             
-                }
-
-                //if (unBalanced.Count() == 0)
-                //    break;
-            }
-
-            //now zero any balances for addresses as input to pending transactions
-            List<string> pendingInputs = new List<string>();
-            List<Output> pendingOutputs = new List<Output>();
-
-            foreach (Transaction t in _currentTransactions)
-            {
-                pendingInputs.AddRange(t.InputAddressList.Select(x => x.address));
-                pendingOutputs.AddRange(t.OutputList);
-            }
-            foreach (Output b in addressBalances)
-            {
-                //
-                IEnumerable<Output> matchingPendingOutputs = pendingOutputs.Where(x => x.address == b.address);
-                foreach(Output mo in matchingPendingOutputs)
-                {
-                    if (b.amount < 0)
-                        b.amount = mo.amount;
-                    else
-                        b.amount += mo.amount;
-                }
-
-                IEnumerable<string> matchingPendingInputs = pendingInputs.Where(x => x == b.address);
-                if (matchingPendingInputs.Count() > 0)
-                    b.amount = 0;
-
-            }
-
-            return addressBalances;
-        }
-        */
     }
 }

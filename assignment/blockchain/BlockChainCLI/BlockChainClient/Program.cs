@@ -5,21 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+/**********************************************************************
+ * Block Chain command line client
+ * Author: Paul Haines (March 2020)
+ * Provides a very basic command line console interface to the 
+ * BlockChain class library functions
+ ***********************************************************************/
 namespace BlockChainClient
 {
-
     public class Program
     {
-
+        //command line program entry point
         public static void Main(string[] args)
         {
+            //retrieve the BlockChain server host address and port from the app.config file
             string host = System.Configuration.ConfigurationManager.AppSettings["host"];
             string port = System.Configuration.ConfigurationManager.AppSettings["port"];
+
+            //Get cryptoProvider library to load (dynamically) from the app.config file  
             string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
 
+            //if the crypto provider was not set in the app.config, attempt to get it from the command line args
             if (string.IsNullOrEmpty(cryptoProvider))
                 cryptoProvider = args[0];
 
+            //create an instance of the command processor in the BlockChain class library
             BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor(cryptoProvider, host, port);
 
             System.Console.WriteLine("BlockChain Client initialized");
@@ -28,10 +38,13 @@ namespace BlockChainClient
 
             bool exit = false;
             string cmd = "";
+
+            //main command loop
             while (!exit)
             {
                 try
                 {
+                    //read command from the command line
                     System.Console.Write(">");
                     cmd = System.Console.ReadLine().Trim().ToLower();
                     string[] cmdArgs = cmd.Split(' ');
@@ -83,6 +96,7 @@ namespace BlockChainClient
             System.Console.WriteLine("history {address} : list transaction history for {address}");
         }
 
+        //Wallet sub functions
         static void Wallet(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
         {
             switch (cmdArgs[1])
@@ -118,6 +132,7 @@ namespace BlockChainClient
             }
         }
 
+        //retrieves wallet entries and displays them in the console 
         static void ListWalletEntries(BlockChainClassLib.CommandProcessor cmdProc)
         {
             int i = 0;
@@ -131,15 +146,14 @@ namespace BlockChainClient
             System.Console.WriteLine("");
         }
 
+        //Provides an interactive mechanism for the user to create blockchain transactions
         static void CreateTransaction(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
         {
-            //build a list of input addresses
+            //1) ask the user for a list of input transactions:
             System.Console.WriteLine("Create Transaction:");
-            System.Console.WriteLine("Select Addresses from your Wallet (separate with commas):");
+            System.Console.WriteLine("Enter Addresses from your Wallet (one on each line, blank to cancel entry):");
 
-
-            //ListWalletEntries(cmdProc);
-
+            //build a list of input addresses
             List<string> addressList = new List<string>();
             int i = 1;
             string line = "";
@@ -165,12 +179,14 @@ namespace BlockChainClient
             if (addressList.Count() == 0)
                 return;
 
-            System.Console.Write("Enter payment address=");
+            //2) Enter primary payment address
+            System.Console.Write("Enter payment address (blank line to cancel transaction)=");
             string paymentAddress = System.Console.ReadLine().Trim();
 
             if (paymentAddress == "")
                 return;
 
+            //3) Enter payment amount
             string paymentAmount = "";
             int amount = 0;
             do
@@ -183,6 +199,7 @@ namespace BlockChainClient
             } while (!int.TryParse(paymentAmount, out amount));
                 
 
+            //Enter address to post any change to (enter "new" to create a new one and add to your wallet)
             System.Console.Write("Enter change address (new to create one)=");
             string changeAddress = System.Console.ReadLine().Trim();
 
@@ -214,6 +231,7 @@ namespace BlockChainClient
             //add the address to collect change
             t.OutputList.Add(new BlockChainClassLib.Output(changeAddress, 0));
 
+            //Instruct the command processor to submit the transaction
             cmdProc.transaction(t);
         }
 

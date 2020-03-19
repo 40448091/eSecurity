@@ -3,6 +3,13 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+/********************************************************************
+ * BlockChain Server Console
+ * Author: Paul Haines (March 2020)
+ *   Provides a basic command line console interface to the BlockChain
+ *   Server Node.
+ *   Allows the user to query save and roll-back server state
+ ********************************************************************/
 namespace BlockChain.Console
 {
     class Program
@@ -12,18 +19,23 @@ namespace BlockChain.Console
         static BlockChain chain = null;
         static string appDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
+        //command console entry point
         static void Main(string[] args)
         {
+            //get the crypto provider to use from the App.config
             string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
+
 
             string cryptoProviderFilename = Path.Combine(appDir, cryptoProvider + "_CryptoProvider.dll");
             string keyFilename = Path.Combine(appDir, cryptoProvider + ".key");
 
+            //load the specified crypto provider
             if (File.Exists(cryptoProviderFilename))
                 _cryptoProvider = LoadCryptoProvider(cryptoProviderFilename);
             else
                 throw new Exception(string.Format("Crypto Provider not found : {0}", cryptoProviderFilename));
 
+            //load the server node key pair (not currently used)
             if (File.Exists(keyFilename))
                 _cryptoProvider.ImportKeyPairFromFile(keyFilename);
             else
@@ -34,19 +46,22 @@ namespace BlockChain.Console
             }
 
 
-            //CryptoProvider.ICryptoProvider cryptoProvider = new CryptoProvider.ED25519_Provider();
-            //cryptoProvider = new CryptoProvider.RLWE_Provider();
-
+            //create a new server node web-server instance and intialize the server node's block chain
             chain = new BlockChain(_cryptoProvider);
             server = new WebServer(chain);
 
             System.Console.WriteLine("BlockChainServerNode initialized with an empty chain");
+
+            //If a previous server node state was saved, load it
             chain.Rollback();
+
+            //display the server node status
             chain.status();
             System.Console.WriteLine("enter help for a list of commands");
 
             bool exit = false;
             string cmd = "";
+            //main command loop
             while (!exit)
             {
                 System.Console.Write(">");
@@ -111,16 +126,20 @@ namespace BlockChain.Console
             System.Console.WriteLine("  resolve           : resolve chain with registered nodes");
         }
 
+        //save the current server node state to a checkpoint file
         static void checkpoint(string[] cmdArgs)
         {
             string result = chain.CheckPoint();
             System.Console.WriteLine($"Checkpoint written: {result}");
         }
 
+        //rollback the server node state to the last saved checkpoint
         static void rollback(string[] cmdArgs)
         {
             chain.Rollback();
         }
+
+        //initialize the server node state (clear all BlockChain transactions)
         static void init(string[] cmdArgs)
         {
             System.Console.WriteLine("This Reinitialize with an empty BlockChain");
@@ -133,6 +152,7 @@ namespace BlockChain.Console
             }
         }
 
+        //sets echoing of web-server requests and responses to the console (on or off)
         static void echo(string[] cmdArgs)
         {
             if (cmdArgs[1] == "on")
@@ -141,11 +161,13 @@ namespace BlockChain.Console
                 chain.echo = false;
         }
 
+        //display the server node state on the console
         static void status(string[] cmdArgs)
         {
             chain.status();
         }
 
+        //list blocks or uncommitted transactions to the console
         static void list(string[] cmdArgs)
         {
             switch(cmdArgs[1])
@@ -157,19 +179,23 @@ namespace BlockChain.Console
                     chain.list_blocks();
                     break;
                 default:
-                    System.Console.WriteLine("list tran|blocks");
+                    System.Console.WriteLine("list transactions|blocks");
                     break;
             }
         }
 
+        //exports the server nodes public key
         static void publicKey(string[] cmdArgs)
         {
             chain.ExportPublicKey();
         }
 
+        //Loads the specified crypto provider 
         private static CryptoProvider.ICryptoProvider LoadCryptoProvider(string assemblyPath)
         {
             string assembly = Path.GetFullPath(assemblyPath);
+
+            //use reflection to load the Crypto Provider assembly
             System.Reflection.Assembly ptrAssembly = System.Reflection.Assembly.LoadFile(assembly);
             foreach (Type item in ptrAssembly.GetTypes())
             {
@@ -192,16 +218,19 @@ namespace BlockChain.Console
             }
         }
 
+        //send send mine request to the server node
         static void Mine(string[] cmdArgs)
         {
             chain.Mine(cmdArgs[1]);
         }
 
+        //send validate BlockChain request to the server node
         static void validate()
         {
             System.Console.WriteLine(string.Format("Chain {0} valid",chain.Validate()?"is":"is not"));
         }
 
+        //sends a Resolve request to the server node (communicates with registered server nodes to determine consensus)
         static void Resolve()
         {
             System.Console.WriteLine(chain.Resolve());

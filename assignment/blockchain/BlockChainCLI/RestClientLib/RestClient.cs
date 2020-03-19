@@ -6,6 +6,10 @@ using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+/**********************************************************************
+ * Basic REST client library
+ * Author: Paul Haines (2016)
+ ***********************************************************************/
 namespace RestClientLib
 {
     public class RestClient

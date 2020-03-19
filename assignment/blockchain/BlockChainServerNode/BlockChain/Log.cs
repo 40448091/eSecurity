@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+
+/*************************
+ * Simple event logger
+ *************************/
 namespace BlockChain
 {
     public static class Logger

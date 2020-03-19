@@ -5,9 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
+/*************************************************************
+ * AddressEncode:
+ * Author: Paul Haines (March 2020)
+ *   Creates BitCoin like addresses from public key 
+ *   using the crypto provider supplied
+ *************************************************************/
 namespace CryptoProvider
 {
-
     public static class AddressEncoder
     {
         /*************************************************************
@@ -37,6 +42,7 @@ namespace CryptoProvider
             return valid;
         }
 
+        //RipeMd160 encoder
         public static string RipeMd160(string text)
         {
             // create a ripemd160 object
@@ -55,6 +61,7 @@ namespace CryptoProvider
             return sb.ToString().ToLower();
         }
 
+        //sha256 encoder
         public static string Sha256(string text)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(text);
