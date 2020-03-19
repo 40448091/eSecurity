@@ -144,7 +144,7 @@ namespace BlockChainClassLib
         }
 
         //Sends a mine reqest to the BlockChain server
-        public void mine(string address)
+        public string mine(string address)
         {
             RestClientLib.RestClient client = new RestClientLib.RestClient();
             //build the request url and send the Get request
@@ -155,11 +155,11 @@ namespace BlockChainClassLib
             var json_serializer = new JavaScriptSerializer();
             Mine result = json_serializer.Deserialize<Mine>(json);
 
-            Console.WriteLine(string.Format("Index={0}, Message={1}, proof={2}, PreviousHash={3}", result.Index, result.Message, result.Proof, result.PreviousHash));
+            return string.Format("Index={0}, Message={1}, proof={2}, PreviousHash={3}", result.Index, result.Message, result.Proof, result.PreviousHash);
         }
 
         //Sends a chain request to the BlockChain server (asks the server to return a list of BlockChain objects)
-        public void chain()
+        public string chain()
         {
             RestClientLib.RestClient client = new RestClientLib.RestClient();
 
@@ -168,7 +168,7 @@ namespace BlockChainClassLib
             string json = client.Get(url);
 
             //display the results (json) 
-            Console.WriteLine(json);
+            return json;
         }
 
         public void publicKey()
@@ -177,7 +177,7 @@ namespace BlockChainClassLib
         }
 
         //sends an address transaction history request to the BlockChain server
-        public void history(string address)
+        public string history(string address)
         {
             RestClientLib.RestClient client = new RestClientLib.RestClient();
 
@@ -187,13 +187,16 @@ namespace BlockChainClassLib
 
             //deserialize the list of transactions retured from the server
             var json_serializer = new JavaScriptSerializer();
-            List<string> result = json_serializer.Deserialize<List<string>>(json);
+            List<string> txList = json_serializer.Deserialize<List<string>>(json);
 
+            StringBuilder b = new StringBuilder();
             //output each transaction returned to the console
-            foreach(string tx in result)
+            foreach(string tx in txList)
             {
-                Console.WriteLine(tx);
+                b.AppendLine(tx);
             }
+
+            return b.ToString();
         }
 
         //selects the specified address from the wallet

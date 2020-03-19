@@ -28,10 +28,6 @@ namespace BlockChainClient
             //Get cryptoProvider library to load (dynamically) from the app.config file  
             string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
 
-            //if the crypto provider was not set in the app.config, attempt to get it from the command line args
-            if (string.IsNullOrEmpty(cryptoProvider))
-                cryptoProvider = args[0];
-
             //create an instance of the command processor in the BlockChain class library
             BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor(cryptoProvider, host, port);
 
@@ -42,43 +38,57 @@ namespace BlockChainClient
             bool exit = false;
             string cmd = "";
 
+            if(args.Length > 1)
+            {
+                if(args[0].ToLower()=="run")
+                    Run(args, cmdProc);
+                exit = true;
+            }
+
             //main command loop
             while (!exit)
             {
                 try
                 {
+                    string result = "";
+
                     //read command from the command line
-                    System.Console.Write("Client >");
+                    System.Console.Write("Client>");
                     cmd = System.Console.ReadLine().Trim().ToLower();
-                    string[] cmdArgs = cmd.Split(' ');
+                    string[] cmdArgs = cmd.ToLower().Split(' ');
                     switch (cmdArgs[0])
                     {
                         case "help":
                             help();
                             break;
                         case "mine":
-                            cmdProc.mine(cmdArgs[1]);
+                            result = cmdProc.mine(cmdArgs[1]);
+                            Console.WriteLine(result);
                             break;
                         case "transaction":
-                            CreateTransaction(cmdArgs, cmdProc);
+                            InteractiveCreateTransaction(cmdArgs, cmdProc);
                             break;
                         case "exit":
                             exit = true;
                             break;
                         case "chain":
-                            cmdProc.chain();
+                            result = cmdProc.chain();
+                            Console.WriteLine(result);
                             break;
                         case "wallet":
                             Wallet(cmdArgs, cmdProc);
                             break;
                         case "history":
-                            cmdProc.history(cmdArgs[1]);
+                            result = cmdProc.history(cmdArgs[1]);
+                            Console.Write(result);
                             break;
                         case "test":
                             Test(cmdArgs, cmdProc);
                             break;
+                        case "run":
+                            Run(cmdArgs, cmdProc);
+                            break;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -86,6 +96,7 @@ namespace BlockChainClient
                 }
             }
         }
+
 
         static void help()
         {
@@ -153,7 +164,7 @@ namespace BlockChainClient
         }
 
         //Provides an interactive mechanism for the user to create blockchain transactions
-        static void CreateTransaction(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
+        static void InteractiveCreateTransaction(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
         {
             //1) ask the user for a list of input transactions:
             System.Console.WriteLine("Create Transaction:");
@@ -237,6 +248,8 @@ namespace BlockChainClient
             //add the address to collect change
             t.OutputList.Add(new BlockChainClassLib.Output(changeAddress, 0));
 
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(t);
+
             //Instruct the command processor to submit the transaction
             cmdProc.transaction(t);
         }
@@ -251,6 +264,58 @@ namespace BlockChainClient
                     break;
                 case "end":
                     cmdProc.Test_End();
+                    break;
+            }
+        }
+
+        static void Run(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
+        {
+            if (!File.Exists(cmdArgs[1]))
+                return;
+
+            using (StreamReader sr = File.OpenText(cmdArgs[1]))
+            {
+                while(!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    InterpretBatchCommand(line, cmdProc);
+                }
+            }
+        }
+
+
+        static void InterpretBatchCommand(string cmd, BlockChainClassLib.CommandProcessor cmdProc)
+        {
+            string[] cmdArgs = cmd.ToLower().Split(' ');
+            switch (cmdArgs[0])
+            {
+                case "mine":
+                    cmdProc.mine(cmdArgs[1]);
+                    break;
+                case "transaction":
+                    //deserialize the transaction 
+                    BlockChainClassLib.Transaction t = Newtonsoft.Json.JsonConvert.DeserializeObject<BlockChainClassLib.Transaction>(cmdArgs[1]);
+
+                    //sign each input
+                    foreach(BlockChainClassLib.Input i in t.InputAddressList)
+                    {
+                        WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(i.address);
+                        i.base64PublicKey = we.publicKey;
+                        i.signature = cmdProc.SignAddress(i.address, we.publicKey, we.privateKey);
+                    }
+
+                    //send the transaction
+                    cmdProc.transaction(t);
+                    break;
+                case "history":
+                    string txList = cmdProc.history(cmdArgs[1]);
+                    Console.Write(txList);
+                    break;
+                case "balance":
+                    cmdProc.Wallet_Balance();
+                    break;
+                case "test":
+                    Test(cmdArgs, cmdProc);
                     break;
             }
         }
