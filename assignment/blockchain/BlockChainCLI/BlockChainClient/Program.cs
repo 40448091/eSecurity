@@ -15,6 +15,9 @@ namespace BlockChainClient
 {
     public class Program
     {
+        //Current Test identifier
+        static string TestId = "";
+
         //command line program entry point
         public static void Main(string[] args)
         {
@@ -45,7 +48,7 @@ namespace BlockChainClient
                 try
                 {
                     //read command from the command line
-                    System.Console.Write(">");
+                    System.Console.Write("Client >");
                     cmd = System.Console.ReadLine().Trim().ToLower();
                     string[] cmdArgs = cmd.Split(' ');
                     switch (cmdArgs[0])
@@ -70,6 +73,9 @@ namespace BlockChainClient
                             break;
                         case "history":
                             cmdProc.history(cmdArgs[1]);
+                            break;
+                        case "test":
+                            Test(cmdArgs, cmdProc);
                             break;
                     }
 
@@ -235,6 +241,19 @@ namespace BlockChainClient
             cmdProc.transaction(t);
         }
 
+        static void Test(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
+        {
+            switch (cmdArgs[1])
+            {
+                case "start":
+                    TestId = cmdArgs[2];
+                    cmdProc.Test_Start(TestId);
+                    break;
+                case "end":
+                    cmdProc.Test_End();
+                    break;
+            }
+        }
 
     }
 }

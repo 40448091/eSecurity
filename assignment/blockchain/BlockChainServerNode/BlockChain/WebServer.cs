@@ -87,6 +87,16 @@ namespace BlockChain
                         case "/history":
                             List<string> history = chain.TransactionHistory(query);
                             return JsonConvert.SerializeObject(history);
+
+                        case "/test/start":
+                            
+                            Logger.Log($"Test {query} Start ----------------------------------------");
+                            return $"Test {query} Start";
+
+                        case "/test/end":
+                            Logger.Log($"Test {query} End ------------------------------------------");
+                            return $"Test {query} end";
+
                     }
 
                     return "";
@@ -97,7 +107,10 @@ namespace BlockChain
                 $"http://{host}:{port}/nodes/register/",
                 $"http://{host}:{port}/nodes/resolve/",
                 $"http://{host}:{port}/balance/",
-                $"http://{host}:{port}/history/"
+                $"http://{host}:{port}/history/",
+                $"http://{host}:{port}/test/start/",
+                $"http://{host}:{port}/test/end/"
+
             );
 
             server.Run();

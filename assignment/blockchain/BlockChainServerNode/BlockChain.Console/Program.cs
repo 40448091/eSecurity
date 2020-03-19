@@ -22,6 +22,8 @@ namespace BlockChain.Console
         //command console entry point
         static void Main(string[] args)
         {
+
+            string nodeId = System.Configuration.ConfigurationManager.AppSettings["nodeId"]; 
             //get the crypto provider to use from the App.config
             string cryptoProvider = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
 
@@ -64,7 +66,7 @@ namespace BlockChain.Console
             //main command loop
             while (!exit)
             {
-                System.Console.Write(">");
+                System.Console.Write($"Server {nodeId}>");
                 cmd = System.Console.ReadLine().Trim().ToLower();
                 string[] cmdArgs = cmd.Split(' ');
                 switch(cmdArgs[0])
@@ -116,6 +118,7 @@ namespace BlockChain.Console
         static void help(string[] cmdArgs)
         {
             System.Console.WriteLine("  help              : This message ");
+            System.Console.WriteLine("  status            : Current Server Node State ");
             System.Console.WriteLine("  exit              : Shut down the service ");
             System.Console.WriteLine("  checkpoint        : saves the BlockChain state to new checkpoint file");
             System.Console.WriteLine("  rollback          : rolls-back the blockChain to the last checkpoint");

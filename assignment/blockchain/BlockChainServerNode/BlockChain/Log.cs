@@ -31,7 +31,7 @@ namespace BlockChain
 
         public static void Log(string message)
         {
-            System.DateTime timestamp = System.DateTime.Now;
+            string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             using (StreamWriter writer = new StreamWriter(logFilename, true))
             {
                 writer.WriteLine($"{timestamp} : {message}");

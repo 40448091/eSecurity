@@ -84,6 +84,9 @@ namespace BlockChainClassLib
         string _walletFilePath = "";
         WalletLib.Wallet _wallet = new WalletLib.Wallet();
 
+        //used for adding test start and end log entries
+        string TestId = "";
+
         //construct a command processor using the Crypto Provider, host address and port provided
         public CommandProcessor(string cryptoProviderName, string host, string port)
         {
@@ -328,6 +331,27 @@ namespace BlockChainClassLib
         {
             return CryptoProvider.AddressEncoder.CreateAddress(publicKey);
         }
+
+        public void Test_Start(string TestId)
+        {
+            this.TestId = TestId;
+
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            //send request to the BlockChain Server
+            string url = $"{rootUrl}/test/start?{TestId}";
+            string result = client.Get(url);
+        }
+
+        public void Test_End()
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            //send request to the BlockChain Server
+            string url = $"{rootUrl}/test/end?{TestId}";
+            string result = client.Get(url);
+        }
+
     }
 
 }
