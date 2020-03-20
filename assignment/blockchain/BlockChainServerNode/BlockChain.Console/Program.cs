@@ -49,7 +49,7 @@ namespace BlockChain.Console
 
 
             //create a new server node web-server instance and intialize the server node's block chain
-            chain = new BlockChain(_cryptoProvider);
+            chain = new BlockChain();
             server = new WebServer(chain);
 
             System.Console.WriteLine("BlockChainServerNode initialized with an empty chain");
@@ -150,7 +150,7 @@ namespace BlockChain.Console
             string response = System.Console.ReadLine().Trim().ToLower();
             if(response.StartsWith("y"))
             {
-                chain = new BlockChain(_cryptoProvider);
+                chain = new BlockChain();
                 System.Console.WriteLine("Initialized with an empty BlockChain");
             }
         }

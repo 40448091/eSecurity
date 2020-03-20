@@ -17,6 +17,8 @@ namespace BlockChainClient
     {
         //Current Test identifier
         static string TestId = "";
+        static bool exit = false;
+
 
         //command line program entry point
         public static void Main(string[] args)
@@ -35,14 +37,12 @@ namespace BlockChainClient
             System.Console.WriteLine(string.Format("host={0}, port={1}, CryptoProvider {2}", host, port, cryptoProvider));
             System.Console.WriteLine("enter help for a list of commands");
 
-            bool exit = false;
             string cmd = "";
 
             if(args.Length > 1)
             {
                 if(args[0].ToLower()=="run")
                     Run(args, cmdProc);
-                exit = true;
             }
 
             //main command loop
@@ -265,6 +265,15 @@ namespace BlockChainClient
                 case "end":
                     cmdProc.Test_End();
                     break;
+                case "server_init":
+                    cmdProc.Test_Server_Init();
+                    break;
+                case "checkpoint":
+                    cmdProc.Test_Server_Checkpoint();
+                    break;
+                case "rollback":
+                    cmdProc.Test_Server_Rollback();
+                    break;
             }
         }
 
@@ -316,6 +325,9 @@ namespace BlockChainClient
                     break;
                 case "test":
                     Test(cmdArgs, cmdProc);
+                    break;
+                case "exit":
+                    exit = true;
                     break;
             }
         }

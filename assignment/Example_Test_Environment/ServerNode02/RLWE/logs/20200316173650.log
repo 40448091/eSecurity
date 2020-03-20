@@ -1,0 +1,6 @@
+16/03/2020 17:36:50 : Creating new block
+16/03/2020 17:36:52 : Block added Index=0, previous hash=1
+16/03/2020 17:36:52 : Node Registered : http://localhost:12346
+16/03/2020 17:36:52 : BlockChain Initialized : NodeId=4fcce2f5d87041718cf917b9e4dcdd6e
+16/03/2020 17:36:52 : Remote Nodes : 1 new nodes have been added: http://localhost:12346
+16/03/2020 17:36:52 : Web Service Listening on port: 12345

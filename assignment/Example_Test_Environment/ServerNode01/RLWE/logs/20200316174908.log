@@ -1,0 +1,46 @@
+16/03/2020 17:49:08 : Creating new block
+16/03/2020 17:49:08 : Block added Index=0, previous hash=1
+16/03/2020 17:49:08 : Node Registered : http://localhost:12346
+16/03/2020 17:49:08 : BlockChain Initialized : NodeId=ce5daa24fd7948d2b76c36ad8e2c7100
+16/03/2020 17:49:08 : Remote Nodes : 1 new nodes have been added: http://localhost:12346
+16/03/2020 17:49:09 : Web Service Listening on port: 12345
+16/03/2020 17:49:35 : Creating new block
+16/03/2020 17:49:35 : Block added Index=0, previous hash=1
+16/03/2020 17:49:35 : Node Registered : http://localhost:12346
+16/03/2020 17:49:35 : BlockChain Initialized : NodeId=44c95765b5c3400eb7a39d2e8be42282
+16/03/2020 17:49:35 : Remote Nodes : 1 new nodes have been added: http://localhost:12346
+16/03/2020 17:50:07 : Request:/balance
+16/03/2020 17:50:22 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 17:50:22 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 17:50:26 : Resolving conflicts
+16/03/2020 17:50:26 : getting chain from : http://localhost:12346/
+16/03/2020 17:50:37 : Unable to connect to the remote server
+16/03/2020 17:50:47 : Adding Transaction id=2fd7b369-f10b-45d6-9516-e0985b507fa6 
+16/03/2020 17:50:47 : Signature is valid, Transaction added id=2fd7b369-f10b-45d6-9516-e0985b507fa6
+16/03/2020 17:50:48 : Creating new block
+16/03/2020 17:50:48 : Block added Index=1, previous hash=ce51e505ae204ed66119bd07acf22943142b76ca50c64ecfc190f85e5a0620ec
+16/03/2020 17:50:52 : Mined new block Index=1, Proof=14342, previous Hash=ce51e505ae204ed66119bd07acf22943142b76ca50c64ecfc190f85e5a0620ec
+16/03/2020 17:51:14 : Request:/balance
+16/03/2020 17:51:34 : Saving checkpoint
+16/03/2020 17:51:34 : Checkpoint saved : 20200316175134.chk
+16/03/2020 17:51:44 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 17:51:44 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+16/03/2020 17:51:48 : Resolving conflicts
+16/03/2020 17:51:48 : getting chain from : http://localhost:12346/
+16/03/2020 17:51:53 : Unable to connect to the remote server
+16/03/2020 17:51:58 : Adding Transaction id=93a46a4e-ee49-469f-b952-f7aa66369d43 
+16/03/2020 17:51:58 : Signature is valid, Transaction added id=93a46a4e-ee49-469f-b952-f7aa66369d43
+16/03/2020 17:51:58 : Creating new block
+16/03/2020 17:51:58 : Block added Index=2, previous hash=61072755090708f46887f0d65be52154de4f071cb405d75a74a9920dcf354307
+16/03/2020 17:51:58 : Mined new block Index=2, Proof=13949, previous Hash=61072755090708f46887f0d65be52154de4f071cb405d75a74a9920dcf354307
+16/03/2020 17:52:08 : Saving checkpoint
+16/03/2020 17:52:08 : Checkpoint saved : 20200316175208.chk
+16/03/2020 17:52:15 : Request:/balance
+16/03/2020 17:53:00 : Request:/transactions/new
+16/03/2020 17:53:00 : Adding Transaction id=7be0affc-9780-4027-88cc-d13feafe2c7d 
+16/03/2020 17:53:01 : Signature is valid, Transaction added id=7be0affc-9780-4027-88cc-d13feafe2c7d
+16/03/2020 17:53:24 : Request:/balance
+16/03/2020 17:53:35 : Saving checkpoint
+16/03/2020 17:53:35 : Checkpoint saved : 20200316175335.chk
+16/03/2020 17:53:38 : Saving checkpoint
+16/03/2020 17:53:38 : Checkpoint saved : 20200316175338.chk

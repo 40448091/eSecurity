@@ -55,16 +55,17 @@ namespace BlockChain
         }
 
         //BlockChain constructor
-        public BlockChain(CryptoProvider.ICryptoProvider cryptoProvider = null)
+        public BlockChain()
         {
             NodeId = Guid.NewGuid().ToString().Replace("-", "");
 
             //create the genesis block
             CreateNewBlock(proof: 100, previousHash: "1"); 
-            _cryptoProvider = cryptoProvider;               //if provided, set the crypto provider
 
             //get the crytpo provider name from the 
             string cp = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
+
+            LoadCryptoProvider(cp);
 
             //create or load server node keys
             string filename = Path.Combine(appDir, cp + ".key");
@@ -79,6 +80,47 @@ namespace BlockChain
             Logger.Log(String.Format("BlockChain Initialized : NodeId={0}", NodeId));
 
             RegisterNodes();
+        }
+
+        public bool LoadCryptoProvider(string name)
+        {
+            string cryptoProviderFilename = Path.Combine(appDir, name + "_CryptoProvider.dll");
+            string keyFilename = Path.Combine(appDir, name + ".key");
+
+            //load the specified crypto provider
+            if (File.Exists(cryptoProviderFilename))
+                _cryptoProvider = LoadCryptoProviderDLL(cryptoProviderFilename);
+            else
+                throw new Exception(string.Format("Crypto Provider not found : {0}", cryptoProviderFilename));
+
+            //load the server node key pair (not currently used)
+            if (File.Exists(keyFilename))
+                _cryptoProvider.ImportKeyPairFromFile(keyFilename);
+            else
+            {
+                _cryptoProvider.GenerateKeyPair();
+                _cryptoProvider.ExportKeyPairToFile(keyFilename);
+                Logger.Log("Key pair generated");
+            }
+
+            return true;
+        }
+
+        private static CryptoProvider.ICryptoProvider LoadCryptoProviderDLL(string assemblyPath)
+        {
+            string assembly = Path.GetFullPath(assemblyPath);
+
+            //use reflection to load the Crypto Provider assembly
+            System.Reflection.Assembly ptrAssembly = System.Reflection.Assembly.LoadFile(assembly);
+            foreach (Type item in ptrAssembly.GetTypes())
+            {
+                if (!item.IsClass) continue;
+                if (item.GetInterfaces().Contains(typeof(CryptoProvider.ICryptoProvider)))
+                {
+                    return (CryptoProvider.ICryptoProvider)Activator.CreateInstance(item);
+                }
+            }
+            throw new Exception("Invalid DLL, Interface not found!");
         }
 
         //Registers the provided server node
@@ -463,12 +505,12 @@ namespace BlockChain
 
         //restores the BlockChain and uncommitted transaction state from the last CheckPoint file
         //{crypto provider name}\checkpoints\{checkpoint files}
-        public bool Rollback(string filename = "")
+        public string Rollback(string filename = "")
         {
             string checkpointDir = Path.Combine(this.appDir, _cryptoProvider.ProviderName(), "checkpoints");
 
             if (!Directory.Exists(checkpointDir))
-                return false;
+                return $"Error: Invalid Checkpoint directory: {checkpointDir}";
 
             string[] files = Directory.GetFiles(checkpointDir);
 
@@ -476,7 +518,7 @@ namespace BlockChain
                 filename = files.OrderBy(x => x).Reverse().First();
 
             if (string.IsNullOrEmpty(filename))
-                return false;
+                return $"Error: Checkpoint File Not Found: {filename}";
 
             string filepath = Path.Combine(checkpointDir,_cryptoProvider.ProviderName(), filename);
 
@@ -503,9 +545,9 @@ namespace BlockChain
                 }
             }
 
-            Logger.Log("Rolling complete");
+            Logger.Log($"Rolling complete: {filename}");
 
-            return false;
+            return $"Rollback Complete: {filename}";
         }
 
         //loads a transaction from the checkpoint file

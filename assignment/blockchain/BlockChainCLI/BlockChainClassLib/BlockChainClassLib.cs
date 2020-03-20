@@ -355,6 +355,33 @@ namespace BlockChainClassLib
             string result = client.Get(url);
         }
 
+        public void Test_Server_Init()
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            //send request to the BlockChain Server
+            string url = $"{rootUrl}/test/init";
+            string result = client.Get(url);
+        }
+
+        public void Test_Server_Checkpoint()
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            //send request to the BlockChain Server
+            string url = $"{rootUrl}/test/checkpoint";
+            string result = client.Get(url);
+        }
+
+        public void Test_Server_Rollback()
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            //send request to the BlockChain Server
+            string url = $"{rootUrl}/test/rollback";
+            string result = client.Get(url);
+        }
+
     }
 
 }

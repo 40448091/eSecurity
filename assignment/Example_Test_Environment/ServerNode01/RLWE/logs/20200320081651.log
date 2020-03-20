@@ -1,0 +1,46 @@
+2020-03-20 08:16:51.267 : Creating new block
+2020-03-20 08:16:51.274 : Block added Index=0, previous hash=1
+2020-03-20 08:16:51.282 : BlockChain Initialized : NodeId=e6777eb3b2804f6c91fd91e39577e37f
+2020-03-20 08:16:51.288 : Node Registered : http://localhost:12346
+2020-03-20 08:16:51.297 : Web Service Listening on port: 12345
+2020-03-20 08:16:51.321 : Rolling back, loading previous : C:\repos\40448091\eSecurity\assignment\Example_Test_Environment\ServerNode01\RLWE\checkpoints\20200320081617.chk
+2020-03-20 08:16:51.515 : Rolling complete: C:\repos\40448091\eSecurity\assignment\Example_Test_Environment\ServerNode01\RLWE\checkpoints\20200320081617.chk
+2020-03-20 08:16:51.824 : Request:/test/start?001
+2020-03-20 08:16:51.835 : Test 001 Start ----------------------------------------
+2020-03-20 08:16:51.854 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-20 08:16:51.864 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-20 08:16:52.679 : Resolving conflicts
+2020-03-20 08:16:52.685 : getting chain from : http://localhost:12346/
+2020-03-20 08:16:56.732 : Deregistering unresponsive node: http://localhost:12346/
+2020-03-20 08:16:56.806 : Adding Transaction id=aa75e207-31d1-465e-ba26-16aee6b0266f 
+2020-03-20 08:16:56.812 : Signature is valid, Transaction added id=aa75e207-31d1-465e-ba26-16aee6b0266f
+2020-03-20 08:16:56.817 : Creating new block
+2020-03-20 08:16:56.823 : Block added Index=25, previous hash=c29afa621d0f8dbedc96b0f706ebd298343be47ab70fbef745f86f533448d337
+2020-03-20 08:16:56.832 : Mined new block Index=25, Proof=56314, previous Hash=c29afa621d0f8dbedc96b0f706ebd298343be47ab70fbef745f86f533448d337
+2020-03-20 08:16:57.118 : Request:/transactions/new
+2020-03-20 08:16:57.124 : Adding Transaction id=d88e9e1b-17d1-4469-8abe-354bedec4f57 
+2020-03-20 08:16:57.157 : Signature is valid, Transaction added id=d88e9e1b-17d1-4469-8abe-354bedec4f57
+2020-03-20 08:16:57.168 : Request:/transactions/new
+2020-03-20 08:16:57.174 : Adding Transaction id=d88e9e1b-17d1-4469-8abe-354bedec4f57 
+2020-03-20 08:16:57.180 : Signature is valid, Transaction added id=d88e9e1b-17d1-4469-8abe-354bedec4f57
+2020-03-20 08:16:57.187 : Request:/transactions/new
+2020-03-20 08:16:57.192 : Adding Transaction id=d88e9e1b-17d1-4469-8abe-354bedec4f57 
+2020-03-20 08:16:57.198 : Signature is valid, Transaction added id=d88e9e1b-17d1-4469-8abe-354bedec4f57
+2020-03-20 08:16:57.205 : Request:/transactions/new
+2020-03-20 08:16:57.211 : Adding Transaction id=d88e9e1b-17d1-4469-8abe-354bedec4f57 
+2020-03-20 08:16:57.217 : Signature is valid, Transaction added id=d88e9e1b-17d1-4469-8abe-354bedec4f57
+2020-03-20 08:16:57.224 : Request:/transactions/new
+2020-03-20 08:16:57.230 : Adding Transaction id=d88e9e1b-17d1-4469-8abe-354bedec4f57 
+2020-03-20 08:16:57.236 : Signature is valid, Transaction added id=d88e9e1b-17d1-4469-8abe-354bedec4f57
+2020-03-20 08:16:57.242 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-20 08:16:57.247 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-20 08:16:59.530 : Resolving conflicts
+2020-03-20 08:16:59.538 : Adding Transaction id=ab327fd1-fa04-4af5-8f7e-1de07000bb5a 
+2020-03-20 08:16:59.544 : Signature is valid, Transaction added id=ab327fd1-fa04-4af5-8f7e-1de07000bb5a
+2020-03-20 08:16:59.550 : Creating new block
+2020-03-20 08:16:59.556 : Block added Index=26, previous hash=4e371c95264ada463525c7a6acbadfd4026883191d96e6903c9fd2a135f3bf01
+2020-03-20 08:16:59.562 : Mined new block Index=26, Proof=160796, previous Hash=4e371c95264ada463525c7a6acbadfd4026883191d96e6903c9fd2a135f3bf01
+2020-03-20 08:16:59.569 : Request:/test/end?001
+2020-03-20 08:16:59.575 : Test 001 End ------------------------------------------
+2020-03-20 08:17:03.468 : Saving checkpoint
+2020-03-20 08:17:03.487 : Checkpoint saved : 20200320081703.chk

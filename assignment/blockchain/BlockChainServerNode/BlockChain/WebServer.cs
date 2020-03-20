@@ -97,6 +97,16 @@ namespace BlockChain
                             Logger.Log($"Test {query} End ------------------------------------------");
                             return $"Test {query} end";
 
+                        case "/test/init":
+                            chain = new BlockChain();
+                            return $"BlockChain initialized";
+
+                        case "/test/checkpoint":
+                            return chain.CheckPoint();
+
+                        case "/test/rollback":
+                            return chain.Rollback();
+
                     }
 
                     return "";
