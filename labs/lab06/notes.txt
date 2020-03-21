@@ -1,0 +1,70 @@
+Open SSL View Site Certificate:
+$ openssl s_client -connect www.live.com:443
+
+Open SSL view sert:
+$ openssl x509 -inform der -in [certname] -noout -text
+
+SSLLabs.com:	www.ssllabs.com
+
+Digital Certs presentation: https://youtu.be/hkvR_qU7vsY
+
+
+Create your RSA key pair with:
+$ openssl genrsa -out ca.key 2048
+
+Next create a self-signed root CA certificate ca.crt for My Global Corp:
+$ openssl req -new -x509 -days 1826 -key ca.key -out ca.crt
+
+Next we will create a subordinate CA (My Little Corp), and which will be used for the signing of the certificate. First, generate the key:
+$ openssl genrsa -out ia.key 2048
+
+Next we will request a certificate for our newly created subordinate CA:
+$ openssl req -new -key ia.key -out ia.csr
+
+We can then create a certificate from the subordinate CA certificate and signed by the root CA.
+$ openssl x509 -req -days 730 -in ia.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out ia.crt
+
+If we want to use this certificate to digitally sign files and verify the signatures, we need to convert it to a PKCS12 file:
+$ openssl pkcs12 -export -out ia.p12 -inkey ia.key -in ia.crt -chain -CAfile ca.crt
+
+The crt format is in encoded in binary. If we want to export to a Base64 format, we can use DER:
+$ openssl x509 -inform pem -outform pem -in ca.crt -out ca.cer
+
+and for Paw Quality Products:
+$ openssl x509 -inform pem -outform pem -in ia.crt -out ia.cer
+
+
+Elliptic curve key pairs 
+
+In Openssl we can view the curves with the ecparam option:
+$ openssl ecparam -list_curves
+
+We can create our elliptic parameter file with:
+$ openssl ecparam -name secp256k1 -out secp256k1.pem
+
+Now view the details with:
+$ openssl ecparam -in secp256k1.pem -text -param_enc explicit -noout
+
+Now we can create our key pair:
+$ openssl ecparam -in secp256k1.pem -genkey -noout -out mykey.pem
+
+Now we will encrypt your key pair (and add a password), and convert it into a format which is ready to be converted into a digital certificate:
+$ openssl ec -aes-128-cbc -in mykey.pem -out enckey.pem
+
+Finally we will convert into a DER format, so that we can import the keys into a system:
+$ openssl ec -in enckey.pem -outform DER -out enckey.der
+
+Go to www.cloudflare.com and examine the digital certificate on the site.
+openssl s_client -connect www.cloudflare.com:443
+
+
+
+
+
+
+
+
+
+
+
+
