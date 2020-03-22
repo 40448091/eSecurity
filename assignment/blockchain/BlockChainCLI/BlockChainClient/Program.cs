@@ -170,6 +170,8 @@ namespace BlockChainClient
             System.Console.WriteLine("Create Transaction:");
             System.Console.WriteLine("Enter Addresses from your Wallet (one on each line, blank to cancel entry):");
 
+            WalletLib.WalletEntry we;
+
             //build a list of input addresses
             List<string> addressList = new List<string>();
             int i = 1;
@@ -182,7 +184,7 @@ namespace BlockChainClient
                 if (line == "")
                     break;
 
-                WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(line);
+                we = cmdProc.Wallet_FindEntry(line);
                 if(we != null)
                 {
                     addressList.Add(line);
@@ -232,23 +234,26 @@ namespace BlockChainClient
 
             //build the transaction:
             BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
-            t.id = Guid.NewGuid().ToString();
+            t.id = Guid.NewGuid();
 
-            foreach(string address in addressList)
+            foreach (string address in addressList)
             {
-                WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(address);
+                we = cmdProc.Wallet_FindEntry(address);
                 string publicKey = we.publicKey;
                 string signature = cmdProc.SignAddress(address, we.publicKey, we.privateKey);
-                t.InputAddressList.Add(new BlockChainClassLib.Input(address, signature, publicKey));
+                t.Inputs.Add(new BlockChainClassLib.Input(address, signature, publicKey));
             }
 
             //add the primary payment address
-            t.OutputList.Add(new BlockChainClassLib.Output(paymentAddress, int.Parse(paymentAmount)));
+            t.Outputs.Add(new BlockChainClassLib.Output(paymentAddress, int.Parse(paymentAmount)));
 
             //add the address to collect change
-            t.OutputList.Add(new BlockChainClassLib.Output(changeAddress, 0));
+            t.Outputs.Add(new BlockChainClassLib.Output(changeAddress, 0));
 
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(t);
+            //sign the transaction
+            we = cmdProc.Wallet_FindEntry(addressList[0]);
+            t.PublicKey = we.publicKey;
+            cmdProc.SignTransaction(t,we.publicKey,we.privateKey);
 
             //Instruct the command processor to submit the transaction
             cmdProc.transaction(t);
@@ -302,16 +307,23 @@ namespace BlockChainClient
                     cmdProc.mine(cmdArgs[1]);
                     break;
                 case "transaction":
+                    WalletLib.WalletEntry we;
+
                     //deserialize the transaction 
                     BlockChainClassLib.Transaction t = Newtonsoft.Json.JsonConvert.DeserializeObject<BlockChainClassLib.Transaction>(cmdArgs[1]);
 
                     //sign each input
-                    foreach(BlockChainClassLib.Input i in t.InputAddressList)
+                    foreach(BlockChainClassLib.Input i in t.Inputs)
                     {
-                        WalletLib.WalletEntry we = cmdProc.Wallet_FindEntry(i.address);
+                        we = cmdProc.Wallet_FindEntry(i.address);
                         i.base64PublicKey = we.publicKey;
                         i.signature = cmdProc.SignAddress(i.address, we.publicKey, we.privateKey);
                     }
+
+                    //sign the transaction with the private key of the first address
+                    we = cmdProc.Wallet_FindEntry(t.Inputs[0].address);
+                    t.PublicKey = we.publicKey;
+                    cmdProc.SignTransaction(t, we.publicKey, we.privateKey);
 
                     //send the transaction
                     cmdProc.transaction(t);

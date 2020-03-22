@@ -18,9 +18,25 @@ namespace BlockChainClassLib
     //transaction object
     public class Transaction
     {
-        public string id { get; set; }
-        public List<Input> InputAddressList = new List<Input>();
-        public List<Output> OutputList = new List<Output>();
+        public System.Guid id;
+        public long TimeStamp = System.DateTime.UtcNow.Ticks;
+        public List<Input> Inputs = new List<Input>();
+        public List<Output> Outputs = new List<Output>();
+        public string PublicKey;
+        public string Signature;
+
+        public override string ToString()
+        {
+            string inputAddressList = string.Join(",", Inputs.Select(x => x.address));
+            string outputAddressList = string.Join(",", Outputs.Select(x => $"({x.address},{x.amount})"));
+            return $"ID={id.ToString()},TimeStamp={new DateTime(TimeStamp).ToString("yyyy-MM-dd HH:mm:ss.fff")},Inputs[{inputAddressList}],Outputs[{outputAddressList}]";
+        }
+
+        public void Sign(CryptoProvider.ICryptoProvider provider, string privateKey, string publicKey)
+        {
+            Signature = provider.SignMessage(ToString(), provider.PrivateKeyFromBase64(privateKey), provider.PublicKeyFromBase64(publicKey));
+        }
+
     }
 
     //BlockChain Input object (inputs to BlockChain transactions)
@@ -289,6 +305,16 @@ namespace BlockChainClassLib
 
             //call the sign-address method on the Crypto Providers AddressEncoder
             return CryptoProvider.AddressEncoder.SignAddress(address, _cryptoProvider);
+        }
+
+        public string SignTransaction(Transaction t, string publicKey, string privateKey)
+        {
+            //initialize public and private keys for the crypto provider
+            _cryptoProvider.ImportPublicKey(publicKey);
+            _cryptoProvider.ImportPrivateKey(privateKey);
+
+            //call the sign-address method on the Crypto Providers AddressEncoder
+            return t.Signature = _cryptoProvider.SignMessage(t.ToString());
         }
 
         //sends a Balance request to the BlockChain server

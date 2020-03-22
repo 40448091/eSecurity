@@ -1,0 +1,47 @@
+2020-03-22 20:59:04.351 : Creating new block
+2020-03-22 20:59:04.357 : Block added Index=0, previous hash=1
+2020-03-22 20:59:04.364 : BlockChain Initialized : NodeId=d7e8f488c2524dfe989b93667eca5baf
+2020-03-22 20:59:04.370 : Node Registered : http://localhost:12346
+2020-03-22 20:59:04.381 : Web Service Listening on port: 12345
+2020-03-22 20:59:25.303 : Request:/balance
+2020-03-22 20:59:33.812 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-22 20:59:33.820 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-22 20:59:34.136 : Resolving conflicts
+2020-03-22 20:59:34.142 : getting chain from : http://localhost:12346/
+2020-03-22 20:59:38.231 : Deregistering unresponsive node: http://localhost:12346/
+2020-03-22 20:59:38.246 : Adding Transaction id=655f7548-1dc3-4da9-95cd-0d99396b7fea 
+2020-03-22 20:59:38.273 : Invalid Input signature, Transaction id=655f7548-1dc3-4da9-95cd-0d99396b7fea
+2020-03-22 20:59:38.280 : Creating new block
+2020-03-22 20:59:38.286 : Block added Index=1, previous hash=4ed2a6de2a708936fa3a04118024e640187a2f07dc17a0b5fa3e12fc34097ccd
+2020-03-22 20:59:38.292 : Mined new block Index=1, Proof=14342, previous Hash=4ed2a6de2a708936fa3a04118024e640187a2f07dc17a0b5fa3e12fc34097ccd
+2020-03-22 21:00:59.077 : Request:/balance
+2020-03-22 21:01:22.387 : Request:/transactions/new
+2020-03-22 21:01:22.436 : Adding Transaction id=9cf7a31b-3b87-4cad-9240-a6e88d66e9b9 
+2020-03-22 21:01:22.454 : Invalid Input signature, Transaction id=9cf7a31b-3b87-4cad-9240-a6e88d66e9b9
+2020-03-22 21:01:27.259 : Request:/balance
+2020-03-22 21:01:39.039 : Request:/history?8f7390b6edaddc5900459f75364ee1b67dabcfaa
+2020-03-22 21:04:15.255 : Request:/transactions/new
+2020-03-22 21:04:28.495 : Adding Transaction id=fb1d68a6-f6c1-486a-ae1d-1c9fcd39d217 
+2020-03-22 21:04:28.506 : Invalid Input signature, Transaction id=fb1d68a6-f6c1-486a-ae1d-1c9fcd39d217
+2020-03-22 21:04:35.739 : Request:/balance
+2020-03-22 21:05:08.669 : Request:/transactions/new
+2020-03-22 21:05:08.678 : Adding Transaction id=cf9d4830-dce8-4083-be70-6e1bc68e12ec 
+2020-03-22 21:05:08.699 : Invalid Input signature, Transaction id=cf9d4830-dce8-4083-be70-6e1bc68e12ec
+2020-03-22 21:05:35.755 : Request:/balance
+2020-03-22 21:05:50.522 : Request:/history?d489b747a4e84c102c7e47c9f30d6be873913fe1
+2020-03-22 21:06:19.632 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-22 21:06:19.641 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-22 21:06:20.452 : Resolving conflicts
+2020-03-22 21:06:20.457 : Adding Transaction id=fc5e2807-d57a-4620-91f2-7e7ba5a8bc19 
+2020-03-22 21:06:20.466 : Invalid Input signature, Transaction id=fc5e2807-d57a-4620-91f2-7e7ba5a8bc19
+2020-03-22 21:06:20.474 : Creating new block
+2020-03-22 21:06:20.483 : Block added Index=2, previous hash=bf6fdf69fb37f71d2fb5ad0c90b576cc944dc19619bed11ed1c8f627696547c6
+2020-03-22 21:06:20.489 : Mined new block Index=2, Proof=53437, previous Hash=bf6fdf69fb37f71d2fb5ad0c90b576cc944dc19619bed11ed1c8f627696547c6
+2020-03-22 21:07:02.318 : Request:/balance
+2020-03-22 21:07:35.150 : Request:/transactions/new
+2020-03-22 21:07:35.159 : Adding Transaction id=0e8183a2-c07e-49fa-b24b-f00b1a93b182 
+2020-03-22 21:07:35.179 : Invalid Input signature, Transaction id=0e8183a2-c07e-49fa-b24b-f00b1a93b182
+2020-03-22 21:07:40.446 : Request:/balance
+2020-03-22 21:07:55.264 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-22 21:08:17.507 : Saving checkpoint
+2020-03-22 21:08:17.545 : Checkpoint saved : 20200322210817.chk

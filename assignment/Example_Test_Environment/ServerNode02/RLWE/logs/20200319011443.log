@@ -1,7 +1,0 @@
-19/03/2020 01:14:43 : Creating new block
-19/03/2020 01:14:43 : Block added Index=0, previous hash=1
-19/03/2020 01:14:43 : BlockChain Initialized : NodeId=39dac18ec5114083a58edb3f987b0e42
-19/03/2020 01:14:43 : Node Registered : http://localhost:12345
-19/03/2020 01:14:43 : Web Service Listening on port: 12346
-19/03/2020 01:14:43 : Rolling back, loading previous : C:\Users\paul_\Desktop\Example Test Environment\ServerNode02\RLWE\checkpoints\20200317002721.chk
-19/03/2020 01:14:43 : Rolling complete

@@ -29,7 +29,7 @@ namespace BlockChain
 
         public override string ToString()
         {
-            return $"{Index} [{Timestamp.ToString("yyyy-MM-dd HH:mm:ss")}] Proof: {Proof} | PrevHash: {PreviousHash} | Trx: {Transactions.Count}";
+            return $"{Index} [{new DateTime(Timestamp).ToString("yyyy-MM-dd HH:mm:ss")}] Proof: {Proof} | PrevHash: {PreviousHash} | Trx: {Transactions.Count}";
         }
     }
 }

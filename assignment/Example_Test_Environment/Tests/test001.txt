@@ -1,9 +1,9 @@
 test start 001
 mine 193fdac90384c9c1371ec33636c2bf17f3dbf75b
-transaction {"InputAddressList":[{"address":"193fdac90384c9c1371ec33636c2bf17f3dbf75b"}],"OutputList":[{"address":"8f7390b6edaddc5900459f75364ee1b67dabcfaa","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"InputAddressList":[{"address":"8f7390b6edaddc5900459f75364ee1b67dabcfaa"}],"OutputList":[{"address":"d489b747a4e84c102c7e47c9f30d6be873913fe1","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"InputAddressList":[{"address":"d489b747a4e84c102c7e47c9f30d6be873913fe1"}],"OutputList":[{"address":"9dec36037136de076acfc290014cea35d012788c","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"InputAddressList":[{"address":"9dec36037136de076acfc290014cea35d012788c"}],"OutputList":[{"address":"5f8a1ec808bd398f31152d0f82656062f121aae7","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"InputAddressList":[{"address":"5f8a1ec808bd398f31152d0f82656062f121aae7"}],"OutputList":[{"address":"cec3637ff4d236c3f81b256d4ef97bcc334f878d","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
+transaction {"Inputs":[{"address":"193fdac90384c9c1371ec33636c2bf17f3dbf75b"}],"Outputs":[{"address":"8f7390b6edaddc5900459f75364ee1b67dabcfaa","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
+transaction {"Inputs":[{"address":"8f7390b6edaddc5900459f75364ee1b67dabcfaa"}],"Outputs":[{"address":"d489b747a4e84c102c7e47c9f30d6be873913fe1","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
+transaction {"Inputs":[{"address":"d489b747a4e84c102c7e47c9f30d6be873913fe1"}],"Outputs":[{"address":"9dec36037136de076acfc290014cea35d012788c","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
+transaction {"Inputs":[{"address":"9dec36037136de076acfc290014cea35d012788c"}],"Outputs":[{"address":"5f8a1ec808bd398f31152d0f82656062f121aae7","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
+transaction {"Inputs":[{"address":"5f8a1ec808bd398f31152d0f82656062f121aae7"}],"Outputs":[{"address":"cec3637ff4d236c3f81b256d4ef97bcc334f878d","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
 mine 193fdac90384c9c1371ec33636c2bf17f3dbf75b
 test end

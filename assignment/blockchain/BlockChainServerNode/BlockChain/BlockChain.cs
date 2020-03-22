@@ -36,6 +36,8 @@ namespace BlockChain
         private List<Block> _chain = new List<Block>();                                 //The Block Chain (ie. list of blocks)
         private List<Node> _nodes = new List<Node>();                                   //registered nodes
         private Block _lastBlock => _chain.Last();                                      //the last block in the chain
+        private CryptoProvider.IPrivateKey _privateKey;
+        private CryptoProvider.IPublicKey _publicKey;
 
         //gets / sets the echo state. If on will echo server requests and responses to the console
         public bool echo
@@ -70,12 +72,17 @@ namespace BlockChain
             //create or load server node keys
             string filename = Path.Combine(appDir, cp + ".key");
             if (File.Exists(filename))
+            {
                 _cryptoProvider.ImportKeyPairFromFile(filename);
+            }
             else
             {
                 _cryptoProvider.GenerateKeyPair();
                 _cryptoProvider.ExportKeyPairToFile(filename);
             }
+
+            _publicKey = _cryptoProvider.GetPublicKey();
+            _privateKey = _cryptoProvider.GetPrivateKey();
 
             Logger.Log(String.Format("BlockChain Initialized : NodeId={0}", NodeId));
 
@@ -325,11 +332,13 @@ namespace BlockChain
             //create a transaction object
             Transaction tx = new Transaction();
 
-            tx.id = Guid.NewGuid().ToString();          //set a new ID for the transaction
-            tx.InputAddressList = new List<Input>();    //a list to hold the inputs to the transaction
-            tx.OutputList = new List<Output>();         //a list to hold the outputs from the transaction
-
-            tx.OutputList.Add(new Output(address, 5));  //add reward to the mine transaction
+            tx.id = Guid.NewGuid();                     //set a new ID for the transaction
+            tx.Inputs = new List<Input>();    //a list to hold the inputs to the transaction
+            tx.Outputs = new List<Output>();         //a list to hold the outputs from the transaction
+            tx.Outputs.Add(new Output(address, 10));  //add reward to the mine transaction
+            //sign the transaction with the server keys and add the public key so the signature can be checked
+            tx.Signature = _cryptoProvider.SignMessage(tx.ToString(), _privateKey, _publicKey);
+            tx.PublicKey = _publicKey.ToBase64String();
 
             //Rudimentary consensus algorithm
             //Resolve conflicts this and registered server nodes (ie. update the chain)
@@ -415,13 +424,16 @@ namespace BlockChain
         {
             Logger.Log(string.Format("Adding Transaction id={0} ", trx.id));
 
+            if (!trx.HasValidSignature(_cryptoProvider))
+                throw new Exception("Invalid Transaction Signature");
+
             //attempt to validate the transaction input signatures using address + signature + public key from the transaction, and the cryptoProvider
             if (trx.HasValidInputSignatures(_cryptoProvider))
             {
-                Logger.Log(string.Format("Signature is valid, Transaction added id={0}", trx.id));
+                Logger.Log(string.Format("Invalid Input signature, Transaction id={0}", trx.id));
 
                 //if the input transactions are valid, add them to the input list
-                List<string> inputAddresses = trx.InputAddressList.Select(x => x.address).ToList();
+                List<string> inputAddresses = trx.Inputs.Select(x => x.address).ToList();
 
                 //if not isMining, check the balance for input addresses >= Ouptut amount
                 if(!isMining)
@@ -430,19 +442,20 @@ namespace BlockChain
                     List<Output> inputBalances = GetBalance(inputAddresses);
 
                     int total = inputBalances.Sum(x => x.amount);
-                    int amount = trx.OutputList.First().amount;
+                    int amount = trx.Outputs.First().amount;
 
                     //if the total amount for the input nodes >= Ouptut amount
                     if (total >= amount)
                     {
                         //set the amount for the change address
-                        trx.OutputList[1].amount = total - amount;
+                        trx.Outputs[1].amount = total - amount;
                         _currentTransactions.Add(trx);
                     }
                     else
                     {
-                        Logger.Log(string.Format("Signature validation failed, transaction rejected id={0}", trx.id));
-                        throw new Exception("Message does not match signature");
+                        string msg = $"Insufficient funds. Input total={total}, Output required={amount}";
+                        Logger.Log(msg);
+                        throw new Exception(msg);
                     }
                 } else //we're mining, so just add the new transaction
                     _currentTransactions.Add(trx);
@@ -585,8 +598,7 @@ namespace BlockChain
         {
             foreach(Transaction tx in _currentTransactions)
             {
-                string line = JsonConvert.SerializeObject(tx);
-                System.Console.WriteLine(line);
+                System.Console.WriteLine(tx.ToString());
             }
         }
 
@@ -595,8 +607,7 @@ namespace BlockChain
         {
             foreach (Block b in _chain)
             {
-                string line = JsonConvert.SerializeObject(b);
-                System.Console.WriteLine(line);
+                System.Console.WriteLine(b.ToString());
             }
         }
 
@@ -635,7 +646,7 @@ namespace BlockChain
             List<Transaction> ordered = transactions.OrderBy(x => x.TimeStamp).ToList<Transaction>();
             foreach (Transaction t in ordered)
             {
-                foreach (Input i in t.InputAddressList)
+                foreach (Input i in t.Inputs)
                 {
                     if (i.address == address)
                     {
@@ -643,7 +654,7 @@ namespace BlockChain
                         txList.Add(string.Format("{0} Debit = 0", new System.DateTime(t.TimeStamp).ToString("yyyy-MM-dd HH:mm:ss.fff")));
                     }
                 }
-                foreach (Output o in t.OutputList)
+                foreach (Output o in t.Outputs)
                 {
                     if (o.address == address)
                     {
@@ -690,12 +701,12 @@ namespace BlockChain
             List<Transaction> ordered = txList.OrderBy(x => x.TimeStamp).ToList<Transaction>();
             foreach (Transaction t in ordered)
             {
-                foreach (Input i in t.InputAddressList)
+                foreach (Input i in t.Inputs)
                 {
                     if(addressBalances.ContainsKey(i.address))
                         addressBalances[i.address] = 0;
                 }
-                foreach (Output o in t.OutputList)
+                foreach (Output o in t.Outputs)
                 {
                     if (addressBalances.ContainsKey(o.address))
                         addressBalances[o.address] += o.amount;

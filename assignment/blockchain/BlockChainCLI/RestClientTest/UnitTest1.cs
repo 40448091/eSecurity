@@ -65,11 +65,11 @@ namespace RestClientTest
             string signature = CryptoProvider.AddressEncoder.SignAddress(address, provider);
 
             BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
-            t.id = Guid.NewGuid().ToString();
+            t.id = Guid.NewGuid();
 
 
-            t.InputAddressList.Add(new BlockChainClassLib.Input(address, signature, publicKey));
-            t.OutputList.Add(new BlockChainClassLib.Output("paul", 1));
+            t.Inputs.Add(new BlockChainClassLib.Input(address, signature, publicKey));
+            t.Outputs.Add(new BlockChainClassLib.Output("paul", 1));
 
             BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor("RLWE","localhost","12345");
             //string json = Newtonsoft.Json.JsonConvert.SerializeObject(t);

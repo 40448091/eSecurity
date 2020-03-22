@@ -1,24 +1,40 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BlockChain
 {
     public class Transaction
     {
-        public string id { get; set; }
+        public System.Guid id;
         public long TimeStamp = System.DateTime.UtcNow.Ticks;
-        public List<Input> InputAddressList = new List<Input>();
-        public List<Output> OutputList = new List<Output>();
+        public List<Input> Inputs = new List<Input>();
+        public List<Output> Outputs = new List<Output>();
+        public string PublicKey;
+        public string Signature;
  
         public bool HasValidInputSignatures(CryptoProvider.ICryptoProvider provider)
         {
             bool valid = true;
-            foreach (Input i in InputAddressList)
+            foreach (Input i in Inputs)
             {
                 valid = valid && i.HasValidSignature(provider);
                 if (!valid)
                     break;
             }
             return valid;
+        }
+
+        public bool HasValidSignature(CryptoProvider.ICryptoProvider provider)
+        {
+            return provider.VerifySignature(this.ToString(), Signature, provider.PublicKeyFromBase64(PublicKey));
+        }
+
+        public override string ToString()
+        {
+            string i = string.Join(",", Inputs.Select(x => x.address));
+            string o = string.Join(",", Outputs.Select(x => $"({x.address},{x.amount})"));
+            return $"ID={id.ToString()},TimeStamp={new System.DateTime(TimeStamp).ToString("yyyy-MM-dd HH:mm:ss.fff")},Inputs[{i}],Outputs[{o}]";
+
         }
     }
 
