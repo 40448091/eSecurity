@@ -1,0 +1,18 @@
+2020-03-23 18:14:53.404 : Creating new block
+2020-03-23 18:14:53.424 : Block added Index=0, previous hash=1
+2020-03-23 18:14:53.435 : BlockChain Initialized : NodeId=51a340061d234c7c8f35a95068fea9e5
+2020-03-23 18:14:53.442 : Node Registered : http://localhost:12345
+2020-03-23 18:14:53.456 : Web Service Listening on port: 12346
+2020-03-23 18:14:58.930 : Resolving conflicts
+2020-03-23 18:14:58.936 : getting chain from : http://localhost:12345/
+2020-03-23 18:15:08.674 : Request:/chain
+2020-03-23 18:15:30.822 : Request:/chain
+2020-03-23 18:19:03.447 : Request:/chain
+2020-03-23 18:19:07.758 : Resolving conflicts
+2020-03-23 18:19:07.766 : getting chain from : http://localhost:12345/
+2020-03-23 18:19:22.840 : Request:/chain
+2020-03-23 18:19:44.633 : Request:/chain
+2020-03-23 18:19:48.354 : Resolving conflicts
+2020-03-23 18:19:48.361 : getting chain from : http://localhost:12345/
+2020-03-23 18:19:54.962 : Saving checkpoint
+2020-03-23 18:19:54.995 : Checkpoint saved : 20200323181954.chk

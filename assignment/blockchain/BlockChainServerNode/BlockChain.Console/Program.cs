@@ -109,7 +109,7 @@ namespace BlockChain.Console
                         validate();
                         break;
                     case "resolve":
-                        Resolve();
+                        Resolve(false);
                         break;
                 }
             }
@@ -234,9 +234,9 @@ namespace BlockChain.Console
         }
 
         //sends a Resolve request to the server node (communicates with registered server nodes to determine consensus)
-        static void Resolve()
+        static void Resolve(bool fullChain=true)
         {
-            System.Console.WriteLine(chain.Resolve());
+            System.Console.WriteLine(chain.Resolve(fullChain));
         }
     }
 }

@@ -1,0 +1,9 @@
+2020-03-23 18:08:00.653 : Creating new block
+2020-03-23 18:08:00.676 : Block added Index=0, previous hash=1
+2020-03-23 18:08:00.687 : BlockChain Initialized : NodeId=b196f1f95f6a47fb95d289801e2b9002
+2020-03-23 18:08:00.694 : Node Registered : http://localhost:12345
+2020-03-23 18:08:00.704 : Web Service Listening on port: 12346
+2020-03-23 18:08:07.853 : Resolving conflicts
+2020-03-23 18:08:07.858 : getting chain from : http://localhost:12345/
+2020-03-23 18:08:23.378 : Saving checkpoint
+2020-03-23 18:08:23.408 : Checkpoint saved : 20200323180823.chk

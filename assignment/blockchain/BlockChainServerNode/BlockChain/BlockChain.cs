@@ -404,18 +404,34 @@ namespace BlockChain
         }
 
         //rudimentary consensus algorithm
-        internal string Consensus()
+        internal string Consensus(bool fullChain = true)
         {
             bool replaced = ResolveConflicts();
-            string message = replaced ? "was replaced" : "is authoritive";
-            
-            var response = new
-            {
-                Message = $"Our chain {message}",
-                Chain = _chain
-            };
+            string result = "";
 
-            return JsonConvert.SerializeObject(response);
+            string message = replaced ? "was replaced" : "is authoritive";
+
+            if (fullChain)
+            {
+                var response = new
+                {
+                    Message = $"Our chain {message}",
+                    Chain = _chain
+                };
+                
+                result = JsonConvert.SerializeObject(response);
+            } else
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.AppendLine($"Our Chain {message}");
+                foreach(Block b in _chain)
+                {
+                    builder.AppendLine(b.ToString());
+                }
+                result = builder.ToString();
+            }
+
+            return result;
         }
 
         //creates a new transaction and adds it to the uncommitted transaction list
@@ -721,9 +737,9 @@ namespace BlockChain
         }
 
         //process console request to Resolve / run consensus
-        public string Resolve()
+        public string Resolve(bool fullChain=true)
         {
-            return Consensus();
+            return Consensus(fullChain);
         }
     }
 }

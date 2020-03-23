@@ -74,7 +74,7 @@ namespace BlockChain
 
                         //GET: http://localhost:12345/nodes/resolve
                         case "/nodes/resolve":
-                            return chain.Consensus();
+                            return chain.Consensus(false);
 
                         case "/balance":
                             if (request.HttpMethod != HttpMethod.Post.Method)
