@@ -217,7 +217,7 @@ namespace BlockChain
                             Logger.Log("  Chain validation failed");
 
                         //if the chain is valid, and if it contains more blocks than this node, set newChain and maxLength
-                        if (data.chain.Count > _chain.Count && validChain)
+                        if ((data.chain.Count > _chain.Count) && validChain)
                         {
                             maxLength = data.chain.Count;
                             newChain = data.chain;
@@ -232,19 +232,19 @@ namespace BlockChain
                 }
             }
 
+            //remove any inactive nodes from the registerd server list
+            foreach (Node node in inactiveNodes)
+            {
+                _nodes.Remove(node);
+                Logger.Log(string.Format("Deregistering unresponsive node: {0}", node.Address));
+            }
+
             //if the newChain was set (ie. if the chain is valid, and if it contains more blocks than this node, set newChain and maxLength
             //replace the chain on this node, with the one returned from the registered node
             if (newChain != null)
             {
                 _chain = newChain;
                 return true;
-            }
-
-            //remove any inactive nodes from the registerd server list
-            foreach(Node node in inactiveNodes)
-            {
-                _nodes.Remove(node);
-                Logger.Log(string.Format("Deregistering unresponsive node: {0}",node.Address));
             }
 
             return false;
