@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 
 /********************************************************************
  * BlockChain Server Console
@@ -111,6 +112,12 @@ namespace BlockChain.Console
                     case "resolve":
                         Resolve(false);
                         break;
+                    case "miner.start":
+                        Miner_Start(cmdArgs);
+                        break;
+                    case "miner.stop":
+                        Miner_Stop();
+                        break;
                 }
             }
         }
@@ -127,6 +134,8 @@ namespace BlockChain.Console
             System.Console.WriteLine("  list blocks       : list blocks");
             System.Console.WriteLine("  validate          : validate chain");
             System.Console.WriteLine("  resolve           : resolve chain with registered nodes");
+            System.Console.WriteLine("  miner.start       : address [seconds] - starts miner thread");
+            System.Console.WriteLine("  miner.stop        : stops miner thread");
         }
 
         //save the current server node state to a checkpoint file
@@ -238,5 +247,19 @@ namespace BlockChain.Console
         {
             System.Console.WriteLine(chain.Resolve(fullChain));
         }
+
+        static void Miner_Start(string[] cmdArgs)
+        {
+            int seconds = 30;
+            if(cmdArgs.Length > 2)
+                int.TryParse(cmdArgs[2], out seconds);
+            chain.Miner_Start(cmdArgs[1],seconds);
+        }
+
+        static void Miner_Stop()
+        {
+            chain.Miner_Stop();
+        }
+
     }
 }

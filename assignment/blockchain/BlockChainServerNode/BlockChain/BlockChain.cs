@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using CryptoProvider;
 using System.Linq;
+using System.Threading;
 
 
 /********************************************************************
@@ -38,6 +39,8 @@ namespace BlockChain
         private Block _lastBlock => _chain.Last();                                      //the last block in the chain
         private CryptoProvider.IPrivateKey _privateKey;
         private CryptoProvider.IPublicKey _publicKey;
+        static BlockChainDemo.Miner _miner;
+
 
         //gets / sets the echo state. If on will echo server requests and responses to the console
         public bool echo
@@ -129,6 +132,17 @@ namespace BlockChain
             }
             throw new Exception("Invalid DLL, Interface not found!");
         }
+
+        public int BlockCount()
+        {
+            return _chain.Count();
+        }
+
+        public int TransactionCount()
+        {
+            return _currentTransactions.Count();
+        }
+
 
         //Registers the provided server node
         private void RegisterNode(string address)
@@ -741,5 +755,42 @@ namespace BlockChain
         {
             return Consensus(fullChain);
         }
+
+        public void Miner_Start(string[] cmdArgs)
+        {
+            int seconds = 30;
+            if (cmdArgs.Length >= 1)
+            {
+                if (cmdArgs.Length > 1)
+                {
+                    int.TryParse(cmdArgs[1], out seconds);
+                }
+                Miner_Start(cmdArgs[0], seconds);
+            }
+            else
+            {
+                System.Console.WriteLine("miner.start address [seconds=10]");
+            }
+        }
+
+        public void Miner_Start(string address, int seconds)
+        {
+            _miner = new BlockChainDemo.Miner(this, address, seconds);
+            _miner.Start();
+        }
+
+        public void Miner_Stop()
+        {
+            if (_miner != null)
+            {
+                _miner.Stop();
+                while (_miner.IsRunning())
+                {
+                    Thread.Sleep(100);
+                }
+                _miner = null;
+            }
+        }
+
     }
 }

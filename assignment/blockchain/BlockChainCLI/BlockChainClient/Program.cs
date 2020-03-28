@@ -111,6 +111,16 @@ namespace BlockChainClient
             System.Console.WriteLine("wallet save       : save wallet file");
             System.Console.WriteLine("wallet balance    : save wallet file");
             System.Console.WriteLine("history {address} : list transaction history for {address}");
+            System.Console.WriteLine();
+            System.Console.WriteLine("Test Server-side Commands:");
+            System.Console.WriteLine("test miner start  address [seconds] : start miner thread");
+            System.Console.WriteLine("test miner stop   : stop miner thread ");
+            System.Console.WriteLine("test start        : add start test marker to server logs");
+            System.Console.WriteLine("test end          : add end test marker to server logs");
+            System.Console.WriteLine("test server_init  : initialize the server, clear the block chain");
+            System.Console.WriteLine("test server_init  : initialize the server, clear the block chain");
+            System.Console.WriteLine("test checkpoint   : save checkpoint");
+            System.Console.WriteLine("test rollback     : rollback to last checkpoint");
         }
 
         //Wallet sub functions
@@ -278,6 +288,17 @@ namespace BlockChainClient
                     break;
                 case "rollback":
                     cmdProc.Test_Server_Rollback();
+                    break;
+                case "miner":
+                    if (cmdArgs[2] == "start")
+                    {
+                        int seconds = 30;
+                        int.TryParse(cmdArgs[4], out seconds);
+                        cmdProc.Test_Server_Miner_Start(cmdArgs[3], seconds);
+                    } else
+                        if (cmdArgs[2] == "stop")
+                        cmdProc.Test_Server_Miner_Stop();
+
                     break;
             }
         }

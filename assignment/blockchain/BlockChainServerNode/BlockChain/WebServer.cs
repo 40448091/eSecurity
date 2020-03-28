@@ -107,6 +107,15 @@ namespace BlockChain
                         case "/test/rollback":
                             return chain.Rollback();
 
+                        case "/test/miner/start":
+                            string[] cmdArgs = query.Split('&');
+                            chain.Miner_Start(cmdArgs);
+                            return "Miner started";
+
+                        case "/test/miner/stop":
+                            chain.Miner_Stop();
+                            return "Miner Stopped";
+
                     }
 
                     return "";
@@ -119,8 +128,9 @@ namespace BlockChain
                 $"http://{host}:{port}/balance/",
                 $"http://{host}:{port}/history/",
                 $"http://{host}:{port}/test/start/",
-                $"http://{host}:{port}/test/end/"
-
+                $"http://{host}:{port}/test/end/",
+                $"http://{host}:{port}/test/miner/start/",
+                $"http://{host}:{port}/test/miner/stop/"
             );
 
             server.Run();

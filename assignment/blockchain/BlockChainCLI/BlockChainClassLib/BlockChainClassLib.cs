@@ -408,6 +408,20 @@ namespace BlockChainClassLib
             string result = client.Get(url);
         }
 
+        public void Test_Server_Miner_Start(string address, int seconds)
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+            string url = $"{rootUrl}/test/miner/start?{address}&{seconds}";
+            string result = client.Get(url);
+        }
+
+        public void Test_Server_Miner_Stop()
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+            string url = $"{rootUrl}/test/miner/stop";
+            string result = client.Get(url);
+        }
+
     }
 
 }
