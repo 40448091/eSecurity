@@ -354,6 +354,10 @@ namespace BlockChain
         {
             Logger.Log(string.Format("Mining for new block for ID={0}", address));
 
+            //Rudimentary consensus algorithm
+            //Resolve conflicts this and registered server nodes (ie. update the chain)
+            Consensus();
+
             //create proof of work
             int proof = CreateProofOfWork(_lastBlock.Proof, _lastBlock.PreviousHash);
 
@@ -368,9 +372,6 @@ namespace BlockChain
             tx.Signature = _cryptoProvider.SignMessage(tx.ToString(), _privateKey, _publicKey);
             tx.PublicKey = _publicKey.ToBase64String();
 
-            //Rudimentary consensus algorithm
-            //Resolve conflicts this and registered server nodes (ie. update the chain)
-            Consensus();
 
             //create a new transaction containing the reward. IsMining == true, so there are no input nodes to validate
             CreateTransaction(tx,true);
@@ -462,20 +463,16 @@ namespace BlockChain
             return result;
         }
 
+
         //creates a new transaction and adds it to the uncommitted transaction list
         //if isMining is true then there are no input nodes to verify
         internal int CreateTransaction(Transaction trx, bool isMining = false)
         {
             Logger.Log(string.Format("Adding Transaction id={0} ", trx.id));
 
-            if (!trx.HasValidSignature(_cryptoProvider))
-                throw new Exception("Invalid Transaction Signature");
-
             //attempt to validate the transaction input signatures using address + signature + public key from the transaction, and the cryptoProvider
             if (trx.HasValidInputSignatures(_cryptoProvider))
             {
-                Logger.Log(string.Format("Invalid Input signature, Transaction id={0}", trx.id));
-
                 //if the input transactions are valid, add them to the input list
                 List<string> inputAddresses = trx.Inputs.Select(x => x.address).ToList();
 

@@ -1,0 +1,204 @@
+2020-03-29 13:26:09.415 : Creating new block
+2020-03-29 13:26:09.424 : Block added Index=0, previous hash=1
+2020-03-29 13:26:09.430 : BlockChain Initialized : NodeId=Node 1
+2020-03-29 13:26:09.436 : Node Registered : http://localhost:12346
+2020-03-29 13:26:09.444 : Web Service Listening on port: 12345
+2020-03-29 13:26:09.467 : Rolling back, loading previous : C:\repos\40448091\eSecurity\assignment\Example_Test_Environment\ServerNode01\RLWE\checkpoints\20200329132342.chk
+2020-03-29 13:26:09.691 : Rolling complete: C:\repos\40448091\eSecurity\assignment\Example_Test_Environment\ServerNode01\RLWE\checkpoints\20200329132342.chk
+2020-03-29 13:26:16.604 : Creating new block
+2020-03-29 13:26:16.611 : Block added Index=0, previous hash=1
+2020-03-29 13:26:16.619 : BlockChain Initialized : NodeId=Node 1
+2020-03-29 13:26:16.626 : Node Registered : http://localhost:12346
+2020-03-29 13:26:33.203 : Request:/balance
+2020-03-29 13:28:04.436 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:28:04.453 : Resolving conflicts
+2020-03-29 13:28:04.465 : getting chain from : http://localhost:12346/
+2020-03-29 13:28:04.823 : Adding Transaction id=b58f91d5-8a2f-4168-8f30-5bd0e9f532bf 
+2020-03-29 13:28:04.830 : Creating new block
+2020-03-29 13:28:04.835 : Block added Index=1, previous hash=32503bdcac14c61ac071e899c6b8930693e01681c9f91e2e99090f40afbfe574
+2020-03-29 13:28:04.841 : Mined new block Index=1, Proof=14342, previous Hash=32503bdcac14c61ac071e899c6b8930693e01681c9f91e2e99090f40afbfe574
+2020-03-29 13:28:19.113 : Request:/balance
+2020-03-29 13:28:20.735 : Request:/chain
+2020-03-29 13:28:26.866 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:28:26.879 : Resolving conflicts
+2020-03-29 13:28:26.892 : getting chain from : http://localhost:12346/
+2020-03-29 13:28:28.659 : Adding Transaction id=d467c2a2-e5af-4f62-afb7-0cea0b4cc952 
+2020-03-29 13:28:28.666 : Creating new block
+2020-03-29 13:28:28.673 : Block added Index=3, previous hash=d2c008062901202853028ff5cc219d6ae83132e537eb39ea12219e353f2686fb
+2020-03-29 13:28:28.680 : Mined new block Index=3, Proof=129917, previous Hash=d2c008062901202853028ff5cc219d6ae83132e537eb39ea12219e353f2686fb
+2020-03-29 13:28:39.626 : Request:/chain
+2020-03-29 13:28:41.694 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:28:41.707 : Resolving conflicts
+2020-03-29 13:28:41.721 : getting chain from : http://localhost:12346/
+2020-03-29 13:28:41.799 : Adding Transaction id=0cd1431f-a8fe-405a-98b0-a3616c4ea5d4 
+2020-03-29 13:28:41.806 : Creating new block
+2020-03-29 13:28:41.813 : Block added Index=5, previous hash=123c982130c801351b88efd45fe475670a392a883d2024f3bfba274cf676dced
+2020-03-29 13:28:41.819 : Mined new block Index=5, Proof=4752, previous Hash=123c982130c801351b88efd45fe475670a392a883d2024f3bfba274cf676dced
+2020-03-29 13:28:54.678 : Request:/balance
+2020-03-29 13:28:59.837 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:28:59.850 : Resolving conflicts
+2020-03-29 13:28:59.864 : getting chain from : http://localhost:12346/
+2020-03-29 13:29:00.684 : Adding Transaction id=2951b263-c46d-4ae9-992f-199ccc342909 
+2020-03-29 13:29:00.691 : Creating new block
+2020-03-29 13:29:00.698 : Block added Index=6, previous hash=89d58331213fa642f1f8438a4afa69dd75120302489bb0e27564659b4805d3a8
+2020-03-29 13:29:00.704 : Mined new block Index=6, Proof=61786, previous Hash=89d58331213fa642f1f8438a4afa69dd75120302489bb0e27564659b4805d3a8
+2020-03-29 13:29:05.786 : Request:/chain
+2020-03-29 13:29:16.439 : Request:/transactions/new
+2020-03-29 13:29:16.446 : Adding Transaction id=b5eb1278-be3a-47c4-89af-a7d5b5416dba 
+2020-03-29 13:29:20.664 : Request:/balance
+2020-03-29 13:29:27.681 : Request:/chain
+2020-03-29 13:29:29.732 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:29:29.748 : Resolving conflicts
+2020-03-29 13:29:29.763 : getting chain from : http://localhost:12346/
+2020-03-29 13:29:31.356 : Adding Transaction id=ba1d95f8-d86f-4d08-b1f4-d4ecb5e42578 
+2020-03-29 13:29:31.363 : Creating new block
+2020-03-29 13:29:31.370 : Block added Index=9, previous hash=1a2250f71744b62285763ba44484e03e2d39689c5f045339c4d87af46c39a059
+2020-03-29 13:29:31.377 : Mined new block Index=9, Proof=120648, previous Hash=1a2250f71744b62285763ba44484e03e2d39689c5f045339c4d87af46c39a059
+2020-03-29 13:29:37.874 : Request:/balance
+2020-03-29 13:29:39.912 : Request:/chain
+2020-03-29 13:29:47.396 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:29:47.410 : Resolving conflicts
+2020-03-29 13:29:47.424 : getting chain from : http://localhost:12346/
+2020-03-29 13:29:47.727 : Adding Transaction id=c9249184-923e-4842-8780-92e862ea9900 
+2020-03-29 13:29:47.734 : Creating new block
+2020-03-29 13:29:47.741 : Block added Index=11, previous hash=6a681a2da225e61cc35dabd33ed70b58ec5af828dfa8877c5f8b5fdf71611c10
+2020-03-29 13:29:47.747 : Mined new block Index=11, Proof=21236, previous Hash=6a681a2da225e61cc35dabd33ed70b58ec5af828dfa8877c5f8b5fdf71611c10
+2020-03-29 13:29:57.760 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:29:57.774 : Resolving conflicts
+2020-03-29 13:29:57.789 : getting chain from : http://localhost:12346/
+2020-03-29 13:29:59.172 : Adding Transaction id=5285d517-57f1-4b59-8358-4fbbd8b23c3e 
+2020-03-29 13:29:59.179 : Creating new block
+2020-03-29 13:29:59.186 : Block added Index=12, previous hash=ca1f4185da57f2c943b0949f987c2d4849fcb563200cf6484d9c4bbf8bcd1c8e
+2020-03-29 13:29:59.193 : Mined new block Index=12, Proof=104979, previous Hash=ca1f4185da57f2c943b0949f987c2d4849fcb563200cf6484d9c4bbf8bcd1c8e
+2020-03-29 13:29:59.228 : Request:/chain
+2020-03-29 13:30:21.214 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:30:21.228 : Resolving conflicts
+2020-03-29 13:30:21.243 : getting chain from : http://localhost:12346/
+2020-03-29 13:30:21.571 : Adding Transaction id=ec6c8467-bf63-42fb-b863-b5762d0e8a64 
+2020-03-29 13:30:21.577 : Creating new block
+2020-03-29 13:30:21.585 : Block added Index=14, previous hash=c5ea19568bb3be79d31a13937829fcd0d3a910c83218cea2082be296a0789401
+2020-03-29 13:30:21.592 : Mined new block Index=14, Proof=20564, previous Hash=c5ea19568bb3be79d31a13937829fcd0d3a910c83218cea2082be296a0789401
+2020-03-29 13:30:27.066 : Request:/chain
+2020-03-29 13:30:45.672 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:30:46.615 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:30:46.629 : Resolving conflicts
+2020-03-29 13:30:46.643 : getting chain from : http://localhost:12346/
+2020-03-29 13:30:47.316 : Adding Transaction id=cf7bc53e-66e6-422b-8378-26c4161daa7e 
+2020-03-29 13:30:47.323 : Creating new block
+2020-03-29 13:30:47.330 : Block added Index=16, previous hash=6e6314a8f721a89e19088ad83b9699049aff370350e6208313c72c3ca0bc8d4e
+2020-03-29 13:30:47.337 : Mined new block Index=16, Proof=48069, previous Hash=6e6314a8f721a89e19088ad83b9699049aff370350e6208313c72c3ca0bc8d4e
+2020-03-29 13:30:55.414 : Request:/chain
+2020-03-29 13:31:05.757 : Request:/chain
+2020-03-29 13:31:08.359 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:31:08.374 : Resolving conflicts
+2020-03-29 13:31:08.388 : getting chain from : http://localhost:12346/
+2020-03-29 13:31:09.017 : Adding Transaction id=9d7a1a5e-28c7-4a41-ba70-8106471419f8 
+2020-03-29 13:31:09.024 : Creating new block
+2020-03-29 13:31:09.031 : Block added Index=19, previous hash=8e17ea42d5581096b97dbba7308e975ef751a5e7038e14e28de979558de53716
+2020-03-29 13:31:09.038 : Mined new block Index=19, Proof=45509, previous Hash=8e17ea42d5581096b97dbba7308e975ef751a5e7038e14e28de979558de53716
+2020-03-29 13:31:19.051 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:31:19.057 : Resolving conflicts
+2020-03-29 13:31:19.064 : getting chain from : http://localhost:12346/
+2020-03-29 13:31:21.257 : Adding Transaction id=ff8f7082-8e9b-40d8-8b55-bb2015239170 
+2020-03-29 13:31:21.264 : Creating new block
+2020-03-29 13:31:21.271 : Block added Index=20, previous hash=a2ef06d61a5a407b8b5580cc30a681162a431510ff5205ad4581f9faf83daff1
+2020-03-29 13:31:21.278 : Mined new block Index=20, Proof=164938, previous Hash=a2ef06d61a5a407b8b5580cc30a681162a431510ff5205ad4581f9faf83daff1
+2020-03-29 13:31:26.331 : Request:/chain
+2020-03-29 13:31:34.292 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:31:34.309 : Resolving conflicts
+2020-03-29 13:31:34.324 : getting chain from : http://localhost:12346/
+2020-03-29 13:31:35.929 : Adding Transaction id=06094098-a037-4a6d-8ca1-61ff2ba3d7c2 
+2020-03-29 13:31:35.936 : Creating new block
+2020-03-29 13:31:35.943 : Block added Index=22, previous hash=84daf49482944b43b7a63bd68009ce7af89aa8aa42ea641a7bb17eaac3f55897
+2020-03-29 13:31:35.950 : Mined new block Index=22, Proof=122872, previous Hash=84daf49482944b43b7a63bd68009ce7af89aa8aa42ea641a7bb17eaac3f55897
+2020-03-29 13:31:49.504 : Request:/chain
+2020-03-29 13:31:58.972 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:31:58.986 : Resolving conflicts
+2020-03-29 13:31:59.001 : getting chain from : http://localhost:12346/
+2020-03-29 13:32:00.579 : Adding Transaction id=6765b617-4f41-4e1e-afd4-773b7503de0f 
+2020-03-29 13:32:00.586 : Creating new block
+2020-03-29 13:32:00.594 : Block added Index=24, previous hash=84f1ec0ef1f4fc2fcea85fd86e0f662c56885e0a1045d830f20b92cb266dc3bb
+2020-03-29 13:32:00.600 : Mined new block Index=24, Proof=120781, previous Hash=84f1ec0ef1f4fc2fcea85fd86e0f662c56885e0a1045d830f20b92cb266dc3bb
+2020-03-29 13:32:12.621 : Request:/chain
+2020-03-29 13:32:21.540 : Request:/balance
+2020-03-29 13:32:29.626 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:32:29.640 : Resolving conflicts
+2020-03-29 13:32:29.656 : getting chain from : http://localhost:12346/
+2020-03-29 13:32:30.272 : Adding Transaction id=fbf419c7-acef-498f-a972-5a8f7cc3c583 
+2020-03-29 13:32:30.280 : Creating new block
+2020-03-29 13:32:30.287 : Block added Index=26, previous hash=7c62a5e676820aa2aa6a7dfc1c452c7b59132959b42e571ffe95f2c01e049ce0
+2020-03-29 13:32:30.295 : Mined new block Index=26, Proof=44194, previous Hash=7c62a5e676820aa2aa6a7dfc1c452c7b59132959b42e571ffe95f2c01e049ce0
+2020-03-29 13:32:31.375 : Request:/chain
+2020-03-29 13:32:41.309 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:32:41.324 : Resolving conflicts
+2020-03-29 13:32:41.338 : getting chain from : http://localhost:12346/
+2020-03-29 13:32:42.200 : Adding Transaction id=f99f7f9e-b92f-4b36-83ec-bdba4be33edb 
+2020-03-29 13:32:42.207 : Creating new block
+2020-03-29 13:32:42.215 : Block added Index=28, previous hash=93d61cb4c7a708cab3cad6ce60f26815fc00f7f98de5c1f21a42bad9de538ede
+2020-03-29 13:32:42.221 : Mined new block Index=28, Proof=63626, previous Hash=93d61cb4c7a708cab3cad6ce60f26815fc00f7f98de5c1f21a42bad9de538ede
+2020-03-29 13:32:49.040 : Request:/chain
+2020-03-29 13:32:51.025 : Request:/transactions/new
+2020-03-29 13:32:51.035 : Adding Transaction id=a770b9b6-937e-4928-9a4f-b9e8cc2f4333 
+2020-03-29 13:32:55.153 : Request:/balance
+2020-03-29 13:33:03.243 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:33:03.257 : Resolving conflicts
+2020-03-29 13:33:03.272 : getting chain from : http://localhost:12346/
+2020-03-29 13:33:03.818 : Adding Transaction id=3eb06502-c4be-48d4-8812-27da949964dc 
+2020-03-29 13:33:03.825 : Creating new block
+2020-03-29 13:33:03.832 : Block added Index=30, previous hash=10fca1998dfc5646181617f15820fcf7abd0b7be8cc5f64bd342fa6fecb97dd5
+2020-03-29 13:33:03.840 : Mined new block Index=30, Proof=36407, previous Hash=10fca1998dfc5646181617f15820fcf7abd0b7be8cc5f64bd342fa6fecb97dd5
+2020-03-29 13:33:12.024 : Request:/balance
+2020-03-29 13:33:12.931 : Request:/chain
+2020-03-29 13:33:15.855 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:33:15.870 : Resolving conflicts
+2020-03-29 13:33:15.885 : getting chain from : http://localhost:12346/
+2020-03-29 13:33:16.588 : Adding Transaction id=a093f893-3bc7-4a51-b4c2-11646502832c 
+2020-03-29 13:33:16.595 : Creating new block
+2020-03-29 13:33:16.602 : Block added Index=32, previous hash=1e3a3a003ddd2c7eb6fc84b051b550fd7c14004804e6fdb28c19ea24a5308296
+2020-03-29 13:33:16.609 : Mined new block Index=32, Proof=49894, previous Hash=1e3a3a003ddd2c7eb6fc84b051b550fd7c14004804e6fdb28c19ea24a5308296
+2020-03-29 13:33:32.134 : Request:/chain
+2020-03-29 13:33:35.509 : Request:/transactions/new
+2020-03-29 13:33:35.519 : Adding Transaction id=573e3bcf-a4f1-43c2-8101-110bcbef5f8c 
+2020-03-29 13:33:40.204 : Request:/balance
+2020-03-29 13:33:44.633 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:33:44.647 : Resolving conflicts
+2020-03-29 13:33:44.662 : getting chain from : http://localhost:12346/
+2020-03-29 13:33:44.822 : Adding Transaction id=35c0c852-5d5d-416e-a7c5-a159e31291a5 
+2020-03-29 13:33:44.829 : Creating new block
+2020-03-29 13:33:44.836 : Block added Index=34, previous hash=a10ba871b28c89992acebee527301b7258fd232ccb7cae9bf9430c5193911dae
+2020-03-29 13:33:44.843 : Mined new block Index=34, Proof=7622, previous Hash=a10ba871b28c89992acebee527301b7258fd232ccb7cae9bf9430c5193911dae
+2020-03-29 13:33:50.771 : Request:/balance
+2020-03-29 13:34:00.812 : Request:/chain
+2020-03-29 13:34:01.860 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:34:01.875 : Resolving conflicts
+2020-03-29 13:34:01.885 : getting chain from : http://localhost:12346/
+2020-03-29 13:34:02.038 : Adding Transaction id=5fd1772c-d69b-460b-b234-b8f29743666d 
+2020-03-29 13:34:02.045 : Creating new block
+2020-03-29 13:34:02.052 : Block added Index=36, previous hash=4a90a299b31079f823c0947201243a5fe83205140abc67c3bfb4f7ab6e48cd41
+2020-03-29 13:34:02.058 : Mined new block Index=36, Proof=9576, previous Hash=4a90a299b31079f823c0947201243a5fe83205140abc67c3bfb4f7ab6e48cd41
+2020-03-29 13:34:18.074 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:34:18.089 : Resolving conflicts
+2020-03-29 13:34:18.104 : getting chain from : http://localhost:12346/
+2020-03-29 13:34:18.845 : Adding Transaction id=77dc7b6e-f17e-493a-bf7b-c5484510d9a6 
+2020-03-29 13:34:18.852 : Creating new block
+2020-03-29 13:34:18.859 : Block added Index=37, previous hash=c52de330fcd13cc6ede0f0e56787dbfcc600e4f3e6aa6ce736f5bac5c9453d08
+2020-03-29 13:34:18.867 : Mined new block Index=37, Proof=52988, previous Hash=c52de330fcd13cc6ede0f0e56787dbfcc600e4f3e6aa6ce736f5bac5c9453d08
+2020-03-29 13:34:22.895 : Request:/history?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:34:29.141 : Request:/chain
+2020-03-29 13:34:34.660 : Request:/balance
+2020-03-29 13:34:41.325 : Request:/chain
+2020-03-29 13:34:42.889 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-03-29 13:34:42.896 : Resolving conflicts
+2020-03-29 13:34:42.903 : getting chain from : http://localhost:12346/
+2020-03-29 13:34:47.105 : Adding Transaction id=8337b169-40c5-46ec-bdf6-b35e3510e6f6 
+2020-03-29 13:34:47.112 : Creating new block
+2020-03-29 13:34:47.119 : Block added Index=39, previous hash=d2def9c55c0b9988eb147328e25bec3d6bc1f026071082cc5a6fdd0df342a5d4
+2020-03-29 13:34:47.126 : Mined new block Index=39, Proof=312325, previous Hash=d2def9c55c0b9988eb147328e25bec3d6bc1f026071082cc5a6fdd0df342a5d4
+2020-03-29 13:36:08.341 : Request:/balance
+2020-03-29 13:36:23.546 : Resolving conflicts
+2020-03-29 13:36:23.554 : getting chain from : http://localhost:12346/
+2020-03-29 13:36:34.826 : Request:/chain
+2020-03-29 13:36:46.059 : Resolving conflicts
+2020-03-29 13:36:46.068 : getting chain from : http://localhost:12346/
+2020-03-29 13:37:01.816 : Saving checkpoint
+2020-03-29 13:37:01.836 : Checkpoint saved : 20200329133701.chk
