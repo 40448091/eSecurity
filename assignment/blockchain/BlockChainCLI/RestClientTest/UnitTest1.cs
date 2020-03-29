@@ -74,7 +74,7 @@ namespace RestClientTest
             BlockChainClassLib.CommandProcessor cmdProc = new BlockChainClassLib.CommandProcessor("RLWE","localhost","12345");
             //string json = Newtonsoft.Json.JsonConvert.SerializeObject(t);
 
-            cmdProc.transaction(t);
+            cmdProc.Transfer(t);
             cmdProc.mine(address);
         }
 

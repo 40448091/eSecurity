@@ -43,7 +43,7 @@ namespace BlockChain
 
                         //POST: http://localhost:12345/transactions/new
                         //{ "Amount":123, "Recipient":"ebeabf5cc1d54abdbca5a8fe9493b479", "Sender":"31de2e0ef1cb4937830fcfd5d2b3b24f" }
-                        case "/transactions/new":
+                        case "/transfer":
                             if (request.HttpMethod != HttpMethod.Post.Method)
                                 return $"{new HttpResponseMessage(HttpStatusCode.MethodNotAllowed)}";
 
@@ -89,8 +89,10 @@ namespace BlockChain
                             List<string> history = chain.TransactionHistory(query);
                             return JsonConvert.SerializeObject(history);
 
+                        case "/pending":
+                            return JsonConvert.SerializeObject(chain.PendingTransactions());
+
                         case "/test/start":
-                            
                             Logger.Log($"Test {query} Start ----------------------------------------");
                             return $"Test {query} Start";
 
@@ -110,7 +112,7 @@ namespace BlockChain
 
                         case "/test/miner/start":
                             string[] cmdArgs = query.Split('&');
-                            chain.Miner_Start(cmdArgs);
+                            chain.Miner_Start(cmdArgs[0]);
                             return "Miner started";
 
                         case "/test/miner/stop":
@@ -122,12 +124,13 @@ namespace BlockChain
                     return "";
                 },
                 $"http://{host}:{port}/mine/",
-                $"http://{host}:{port}/transactions/new/",
+                $"http://{host}:{port}/transfer/",
                 $"http://{host}:{port}/chain/",
                 $"http://{host}:{port}/nodes/register/",
                 $"http://{host}:{port}/nodes/resolve/",
                 $"http://{host}:{port}/balance/",
                 $"http://{host}:{port}/history/",
+                $"http://{host}:{port}/pending/",
                 $"http://{host}:{port}/test/init/",
                 $"http://{host}:{port}/test/start/",
                 $"http://{host}:{port}/test/end/",

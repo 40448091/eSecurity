@@ -632,6 +632,7 @@ namespace BlockChain
             }
             System.Console.WriteLine(string.Format("Current Transactions={0}", _currentTransactions.Count()));
             System.Console.WriteLine(string.Format("Blocks in Chain={0}", _chain.Count()));
+            System.Console.WriteLine(string.Format("Miner is {0}", _miner != null ? "Running" : "Stopped"));
         }
 
         //lists current uncommitted transactions
@@ -641,6 +642,11 @@ namespace BlockChain
             {
                 System.Console.WriteLine(tx.ToString());
             }
+        }
+
+        public List<Transaction> PendingTransactions()
+        {
+            return _currentTransactions;
         }
 
         //lists blocks in the chain
@@ -765,23 +771,6 @@ namespace BlockChain
         public string Resolve(bool fullChain=true)
         {
             return Consensus(fullChain);
-        }
-
-        public void Miner_Start(string[] cmdArgs)
-        {
-            int seconds = 30;
-            if (cmdArgs.Length >= 1)
-            {
-                if (cmdArgs.Length > 1)
-                {
-                    int.TryParse(cmdArgs[1], out seconds);
-                }
-                Miner_Start(cmdArgs[0]);
-            }
-            else
-            {
-                System.Console.WriteLine("miner.start address [seconds=10]");
-            }
         }
 
         public void Miner_Start(string address)

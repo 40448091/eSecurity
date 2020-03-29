@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
 
 /**********************************************************************
  * Block Chain command line client
@@ -61,12 +62,12 @@ namespace BlockChainClient
                         case "help":
                             help();
                             break;
-                        case "mine":
-                            result = cmdProc.mine(cmdArgs[1]);
-                            Console.WriteLine(result);
-                            break;
-                        case "transaction":
-                            InteractiveCreateTransaction(cmdArgs, cmdProc);
+                        //case "mine":
+                        //    result = cmdProc.mine(cmdArgs[1]);
+                        //    Console.WriteLine(result);
+                        //    break;
+                        case "transfer":
+                            Transfer(cmdArgs, cmdProc);
                             break;
                         case "exit":
                             exit = true;
@@ -80,6 +81,10 @@ namespace BlockChainClient
                             break;
                         case "history":
                             result = cmdProc.history(cmdArgs[1]);
+                            Console.Write(result);
+                            break;
+                        case "pending":
+                            result = cmdProc.PendingTransactions();
                             Console.Write(result);
                             break;
                         case "test":
@@ -102,9 +107,11 @@ namespace BlockChainClient
         {
             System.Console.WriteLine("help              : this message");
             System.Console.WriteLine("exit              : close the client");
-            System.Console.WriteLine("transaction       : create a new transaction ");
-            System.Console.WriteLine("mine {address}    : mine a new block place coins in {address}");
+            System.Console.WriteLine("transfer          : create a transaction : {enter} for interactive or");
+            System.Console.WriteLine("                  :                        from=addr1 from=addrn to=addr amount=99 change=address");
+            //System.Console.WriteLine("mine {address}    : mine a new block place coins in {address}");
             System.Console.WriteLine("chain             : get the chain");
+            System.Console.WriteLine("transactions      : get the chain");
             System.Console.WriteLine("wallet add        : creates a new address and adds to the wallet");
             System.Console.WriteLine("wallet list       : lists addresses in the wallet");
             System.Console.WriteLine("wallet load       : load wallet file");
@@ -122,6 +129,44 @@ namespace BlockChainClient
             System.Console.WriteLine("test checkpoint   : save checkpoint");
             System.Console.WriteLine("test rollback     : rollback to last checkpoint");
         }
+
+
+        static void Transfer(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
+        {
+            if(cmdArgs.Length == 1)
+                InteractiveCreateTransaction(cmdArgs, cmdProc);
+            else
+            {
+                List<string> from = new List<string>();
+                string to = "";
+                int amount = 0;
+                string change = "";
+
+                foreach (string arg in cmdArgs)
+                {
+                    string[] a = arg.Split('=');
+                    switch (a[0])
+                    {
+                        case "from":
+                            from.Add(a[1]);
+                            break;
+                        case "to":
+                            to = a[1];
+                            break;
+                        case "amount":
+                            amount = int.Parse(a[1]);
+                            break;
+                        case "change":
+                            change = a[1];
+                            break;
+                    }
+                }
+
+                CreateTransaction(from, to, amount, change, cmdProc);
+            }
+
+        }
+
 
         //Wallet sub functions
         static void Wallet(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
@@ -242,6 +287,9 @@ namespace BlockChainClient
                 System.Console.WriteLine("Address added to your wallet: " + changeAddress);
             }
 
+            CreateTransaction(addressList, paymentAddress, amount, changeAddress, cmdProc);
+
+            /*
             //build the transaction:
             BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
             t.id = Guid.NewGuid();
@@ -267,6 +315,38 @@ namespace BlockChainClient
 
             //Instruct the command processor to submit the transaction
             cmdProc.transaction(t);
+            */
+        }
+
+        static void CreateTransaction(List<string> from, string to, int amount, string change, BlockChainClassLib.CommandProcessor cmdProc)
+        {
+            WalletLib.WalletEntry we;
+
+            //build the transaction:
+            BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
+            t.id = Guid.NewGuid();
+
+            foreach (string address in from)
+            {
+                we = cmdProc.Wallet_FindEntry(address);
+                string publicKey = we.publicKey;
+                string signature = cmdProc.SignAddress(address, we.publicKey, we.privateKey);
+                t.Inputs.Add(new BlockChainClassLib.Input(address, signature, publicKey));
+            }
+
+            //add the primary payment address
+            t.Outputs.Add(new BlockChainClassLib.Output(to, amount));
+
+            //add the address to collect change
+            t.Outputs.Add(new BlockChainClassLib.Output(change, 0));
+
+            //sign the transaction
+            we = cmdProc.Wallet_FindEntry(from[0]);
+            t.PublicKey = we.publicKey;
+            cmdProc.SignTransaction(t, we.publicKey, we.privateKey);
+
+            //Instruct the command processor to submit the transaction
+            cmdProc.Transfer(t);
         }
 
         static void Test(string[] cmdArgs, BlockChainClassLib.CommandProcessor cmdProc)
@@ -292,9 +372,7 @@ namespace BlockChainClient
                 case "miner":
                     if (cmdArgs[2] == "start")
                     {
-                        int seconds = 30;
-                        int.TryParse(cmdArgs[4], out seconds);
-                        cmdProc.Test_Server_Miner_Start(cmdArgs[3], seconds);
+                        cmdProc.Test_Server_Miner_Start(cmdArgs[3]);
                     } else
                         if (cmdArgs[2] == "stop")
                         cmdProc.Test_Server_Miner_Stop();
@@ -347,7 +425,7 @@ namespace BlockChainClient
                     cmdProc.SignTransaction(t, we.publicKey, we.privateKey);
 
                     //send the transaction
-                    cmdProc.transaction(t);
+                    cmdProc.Transfer(t);
                     break;
                 case "history":
                     string txList = cmdProc.history(cmdArgs[1]);
@@ -364,6 +442,5 @@ namespace BlockChainClient
                     break;
             }
         }
-
     }
 }

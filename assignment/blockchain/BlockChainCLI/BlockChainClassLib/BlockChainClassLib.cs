@@ -46,6 +46,10 @@ namespace BlockChainClassLib
         public string signature { get; set; }           //Used by the BlockChain server to verify the owner of the Input address
         public string base64PublicKey { get; set; }     //Used by the BlockChain server to verify the owner of the Input address
 
+        public Input()
+        {
+
+        }
         //constructor
         public Input(string address, string signature, string base64PublicKey)
         {
@@ -144,13 +148,13 @@ namespace BlockChainClassLib
         }
 
         //Sends a create Transaction request to the BlockChain server
-        public void transaction(Transaction t)
+        public void Transfer(Transaction t)
         {
             //serialize the Transaction object
             string json = JsonConvert.SerializeObject(t);
 
             //build the request url
-            string url = rootUrl + "/transactions/new";
+            string url = rootUrl + "/transfer";
 
             //send the request via the REST Client
             RestClientLib.RestClient client = new RestClientLib.RestClient();
@@ -210,6 +214,28 @@ namespace BlockChainClassLib
             foreach(string tx in txList)
             {
                 b.AppendLine(tx);
+            }
+
+            return b.ToString();
+        }
+
+        public string PendingTransactions()
+        {
+            RestClientLib.RestClient client = new RestClientLib.RestClient();
+
+            //send the Get request
+            string url = rootUrl + "/pending";
+            string json = client.Get(url);
+
+            //deserialize the list of transactions retured from the server
+            var json_serializer = new JavaScriptSerializer();
+            List<Transaction> txList = json_serializer.Deserialize<List<Transaction>>(json);
+
+            StringBuilder b = new StringBuilder();
+            //output each transaction returned to the console
+            foreach (Transaction tx in txList)
+            {
+                b.AppendLine(tx.ToString());
             }
 
             return b.ToString();
@@ -408,10 +434,10 @@ namespace BlockChainClassLib
             string result = client.Get(url);
         }
 
-        public void Test_Server_Miner_Start(string address, int seconds)
+        public void Test_Server_Miner_Start(string address)
         {
             RestClientLib.RestClient client = new RestClientLib.RestClient();
-            string url = $"{rootUrl}/test/miner/start?{address}&{seconds}";
+            string url = $"{rootUrl}/test/miner/start?{address}";
             string result = client.Get(url);
         }
 

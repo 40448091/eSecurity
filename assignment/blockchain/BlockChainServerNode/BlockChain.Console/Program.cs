@@ -112,11 +112,8 @@ namespace BlockChain.Console
                     case "resolve":
                         Resolve(false);
                         break;
-                    case "miner.start":
-                        Miner_Start(cmdArgs);
-                        break;
-                    case "miner.stop":
-                        Miner_Stop();
+                    case "miner":
+                        miner(cmdArgs);
                         break;
                 }
             }
@@ -124,18 +121,18 @@ namespace BlockChain.Console
 
         static void help(string[] cmdArgs)
         {
-            System.Console.WriteLine("  help              : This message ");
-            System.Console.WriteLine("  status            : Current Server Node State ");
-            System.Console.WriteLine("  exit              : Shut down the service ");
-            System.Console.WriteLine("  checkpoint        : saves the BlockChain state to new checkpoint file");
-            System.Console.WriteLine("  rollback          : rolls-back the blockChain to the last checkpoint");
-            System.Console.WriteLine("  init              : Re-initialize with an empty BlockChain");
-            System.Console.WriteLine("  list transactions : list pending transactions");
-            System.Console.WriteLine("  list blocks       : list blocks");
-            System.Console.WriteLine("  validate          : validate chain");
-            System.Console.WriteLine("  resolve           : resolve chain with registered nodes");
-            System.Console.WriteLine("  miner.start       : address [seconds] - starts miner thread");
-            System.Console.WriteLine("  miner.stop        : stops miner thread");
+            System.Console.WriteLine("  help                  : This message ");
+            System.Console.WriteLine("  status                : Current Server Node State ");
+            System.Console.WriteLine("  exit                  : Shut down the service ");
+            System.Console.WriteLine("  checkpoint            : saves the BlockChain state to new checkpoint file");
+            System.Console.WriteLine("  rollback              : rolls-back the blockChain to the last checkpoint");
+            System.Console.WriteLine("  init                  : Re-initialize with an empty BlockChain");
+            System.Console.WriteLine("  list transactions     : list pending transactions");
+            System.Console.WriteLine("  list blocks           : list blocks");
+            System.Console.WriteLine("  validate              : validate chain");
+            System.Console.WriteLine("  resolve               : resolve chain with registered nodes");
+            System.Console.WriteLine("  miner start {address} : starts miner thread");
+            System.Console.WriteLine("  miner stop            : stops miner thread");
         }
 
         //save the current server node state to a checkpoint file
@@ -196,6 +193,22 @@ namespace BlockChain.Console
             }
         }
 
+        static void miner(string[] cmdArgs)
+        {
+            switch (cmdArgs[1])
+            {
+                case "start":
+                    Miner_Start(cmdArgs[2]);
+                    break;
+                case "stop":
+                    Miner_Stop();
+                    break;
+                default:
+                    System.Console.WriteLine("list transactions|blocks");
+                    break;
+            }
+        }
+
         //exports the server nodes public key
         static void publicKey(string[] cmdArgs)
         {
@@ -248,9 +261,9 @@ namespace BlockChain.Console
             System.Console.WriteLine(chain.Resolve(fullChain));
         }
 
-        static void Miner_Start(string[] cmdArgs)
+        static void Miner_Start(string address)
         {
-            chain.Miner_Start(cmdArgs[1]);
+            chain.Miner_Start(address);
         }
 
         static void Miner_Stop()
