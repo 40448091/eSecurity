@@ -11,6 +11,7 @@ namespace BlockChain
     {
         public WebServer(BlockChain chain)
         {
+            //start the web-server
             var settings = ConfigurationManager.AppSettings;
             string host = settings["host"]?.Length > 1 ? settings["host"] : "localhost";
             string port = settings["port"]?.Length > 1 ? settings["port"] : "12345";
@@ -98,7 +99,7 @@ namespace BlockChain
                             return $"Test {query} end";
 
                         case "/test/init":
-                            chain = new BlockChain();
+                            chain.Init();
                             return $"BlockChain initialized";
 
                         case "/test/checkpoint":
@@ -127,6 +128,7 @@ namespace BlockChain
                 $"http://{host}:{port}/nodes/resolve/",
                 $"http://{host}:{port}/balance/",
                 $"http://{host}:{port}/history/",
+                $"http://{host}:{port}/test/init/",
                 $"http://{host}:{port}/test/start/",
                 $"http://{host}:{port}/test/end/",
                 $"http://{host}:{port}/test/miner/start/",

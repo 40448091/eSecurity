@@ -62,10 +62,20 @@ namespace BlockChain
         //BlockChain constructor
         public BlockChain()
         {
-            NodeId = Guid.NewGuid().ToString().Replace("-", "");
+            Init();
+        }
+
+        public void Init()
+        {
+            //remove all blocks
+            _chain = new List<Block>();
+            _currentTransactions = new List<Transaction>();
+            _nodes = new List<Node>();
+
+            NodeId = System.Configuration.ConfigurationManager.AppSettings["NodeId"];
 
             //create the genesis block
-            CreateNewBlock(proof: 100, previousHash: "1"); 
+            CreateNewBlock(proof: 100, previousHash: "1");
 
             //get the crytpo provider name from the 
             string cp = System.Configuration.ConfigurationManager.AppSettings["cryptoProvider"];
@@ -92,6 +102,7 @@ namespace BlockChain
             RegisterNodes();
         }
 
+        //Loads the named crypto provider
         public bool LoadCryptoProvider(string name)
         {
             string cryptoProviderFilename = Path.Combine(appDir, name + "_CryptoProvider.dll");
@@ -116,6 +127,7 @@ namespace BlockChain
             return true;
         }
 
+        //Loads the crypto provider given the full path, using reflection
         private static CryptoProvider.ICryptoProvider LoadCryptoProviderDLL(string assemblyPath)
         {
             string assembly = Path.GetFullPath(assemblyPath);
@@ -133,11 +145,13 @@ namespace BlockChain
             throw new Exception("Invalid DLL, Interface not found!");
         }
 
+        //returns the number of blocks in the chain
         public int BlockCount()
         {
             return _chain.Count();
         }
 
+        //returns the number of pending transactions on the node
         public int TransactionCount()
         {
             return _currentTransactions.Count();
@@ -765,7 +779,7 @@ namespace BlockChain
                 {
                     int.TryParse(cmdArgs[1], out seconds);
                 }
-                Miner_Start(cmdArgs[0], seconds);
+                Miner_Start(cmdArgs[0]);
             }
             else
             {
@@ -773,9 +787,9 @@ namespace BlockChain
             }
         }
 
-        public void Miner_Start(string address, int seconds)
+        public void Miner_Start(string address)
         {
-            _miner = new BlockChainDemo.Miner(this, address, seconds);
+            _miner = new BlockChainDemo.Miner(this, address);
             _miner.Start();
         }
 

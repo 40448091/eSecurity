@@ -159,7 +159,7 @@ namespace BlockChain.Console
             string response = System.Console.ReadLine().Trim().ToLower();
             if(response.StartsWith("y"))
             {
-                chain = new BlockChain();
+                chain.Init();
                 System.Console.WriteLine("Initialized with an empty BlockChain");
             }
         }
@@ -250,10 +250,7 @@ namespace BlockChain.Console
 
         static void Miner_Start(string[] cmdArgs)
         {
-            int seconds = 30;
-            if(cmdArgs.Length > 2)
-                int.TryParse(cmdArgs[2], out seconds);
-            chain.Miner_Start(cmdArgs[1],seconds);
+            chain.Miner_Start(cmdArgs[1]);
         }
 
         static void Miner_Stop()

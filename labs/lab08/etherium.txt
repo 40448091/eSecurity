@@ -1,0 +1,148 @@
+🔗 
+
+Create new accounts (note the ID's):
+$ sudo geth --datadir=mynapier account new
+$ sudo geth --datadir=mynapier account new
+$ sudo geth --datadir=mynapier account new
+
+
+1) 0xd702034f1237E5f5DF2dCc92eA64179DC49CD7F1
+2) 0xdB5E62FB2714A9DaFBc8D497182EDd8eE69a6e2A
+3) 0xc9Fe18Af73a2e0D7e1f40D0B551a616Fdab4F8f8
+
+
+
+custom.json
+{
+    "config": {
+        "chainId": 15,
+        "homesteadBlock": 0,
+        "eip150Block": 0,
+        "eip155Block": 0
+    },
+    "difficulty": "1",
+    "gasLimit": "0x5268"
+    "alloc": {
+        "39a18a459b2475925e3014679707e4970a6a836d": { "balance": "30000000000000000000" },
+        "3a5b61aeb069dc7df1b8f1b58e883118ea8bef3f": { "balance": "40000000000000000000" },
+        "a2cda8c68259cc314bd12b67873ce7380b3dc496": { "balance": "0x4000000000000000000" }
+    }
+}
+
+
+
+Init the server:
+$ sudo geth –-nousb --datadir=mynapier init custom.json 
+
+Start the server:
+$ sudo geth –-nousb --datadir=mynapier –-networkid=15 
+
+Connect to server:
+$ sudo geth attach /home/napier/mynapier/geth.ipc
+
+List Accounts:
+$ web3.eth.accounts
+
+
+
+eth.getBalance("0xd702034f1237E5f5DF2dCc92eA64179DC49CD7F1")
+eth.getBalance("0xdB5E62FB2714A9DaFBc8D497182EDd8eE69a6e2A")
+eth.getBalance("0xc9Fe18Af73a2e0D7e1f40D0B551a616Fdab4F8f8")
+eth.getBalance("0x31f3f0b68b4e84e93b56c19aa445113c0fd0e1d0")
+
+personal.unlockAccount("0xd702034f1237E5f5DF2dCc92eA64179DC49CD7F1","Qwerty1")
+personal.unlockAccount("0xdB5E62FB2714A9DaFBc8D497182EDd8eE69a6e2A","Qwerty1")
+personal.unlockAccount("0xc9Fe18Af73a2e0D7e1f40D0B551a616Fdab4F8f8","Qwerty1")
+
+personal.unlockAccount("0xc9Fe18Af73a2e0D7e1f40D0B551a616Fdab4F8f8","Qwerty1")
+
+
+[
+"0xd702034f1237e5f5df2dcc92ea64179dc49cd7f1", 
+"0xdb5e62fb2714a9dafbc8d497182edd8ee69a6e2a", 
+"0xc9fe18af73a2e0d7e1f40d0b551a616fdab4f8f8", 
+"0x31f3f0b68b4e84e93b56c19aa445113c0fd0e1d0"
+]
+
+Unlock account:
+$ personal.unlockAccount("0xd702034f1237E5f5DF2dCc92eA64179DC49CD7F1","Qwerty1")
+
+Send transaction:
+$ eth.sendTransaction({from: '0xd702034f1237E5f5DF2dCc92eA64179DC49CD7F1', to: '0xdB5E62FB2714A9DaFBc8D497182EDd8eE69a6e2A',value:100000})
+"0x6e17d30840126cb5c7fd3dd558aff0f99faee7b9e83bc87ed2afbef7600dc82a"
+
+> eth.getBalance("0xd702034f1237E5f5DF2dCc92eA64179DC49CD7F1")
+395000000000000000000
+> eth.getBalance("0xdB5E62FB2714A9DaFBc8D497182EDd8eE69a6e2A")
+0
+> 
+
+> eth.getTransaction("0x6e17d30840126cb5c7fd3dd558aff0f99faee7b9e83bc87ed2afbef7600dc82a")
+{
+  blockHash: null,
+  blockNumber: null,
+  from: "0xd702034f1237e5f5df2dcc92ea64179dc49cd7f1",
+  gas: 21000,
+  gasPrice: 1000000000,
+  hash: "0x6e17d30840126cb5c7fd3dd558aff0f99faee7b9e83bc87ed2afbef7600dc82a",
+  input: "0x",
+  nonce: 0,
+  r: "0xe947b239e5d43b4d05aedce40c56434a0d0df3accc88d22cd0e34abe4f477d54",
+  s: "0x550f554ef2f3797132f92490757f42921d3e33614366250cf233e80d1bdfae3b",
+  to: "0xdb5e62fb2714a9dafbc8d497182edd8ee69a6e2a",
+  transactionIndex: null,
+  v: "0x41",
+  value: 100000
+}
+
+
+Start the miner:
+> miner.start()
+null
+
+Stop the miner:
+> miner.stop()
+
+----------------
+
+Solidity contract script:
+
+pragma solidity >0.4.0;
+contract test2{
+   uint a;
+   constructor () public {
+       a = 1;
+   }
+   function val() public returns(uint){
+       return a;
+   }  
+}
+contract test3 is test2{ 
+    uint b = a++;
+    function show() public returns(uint){
+        return b; 
+    }
+}
+
+
+Solidity compiler: 
+http://remix.ethereum.org/ 
+
+
+Compiled script (ByteCode):
+{
+	"linkReferences": {},
+	"object": "6080604052348015600f57600080fd5b5060016000819055506088806100266000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80633c6bb43614602d575b600080fd5b60336049565b6040518082815260200191505060405180910390f35b6000805490509056fea26469706673582212205c76948ea77403dcca04be807809e69341029f5a7f270f88c27024a0052daf2264736f6c63430006010033",
+	"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x1 PUSH1 0x0 DUP2 SWAP1 SSTORE POP PUSH1 0x88 DUP1 PUSH2 0x26 PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH1 0x28 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x3C6BB436 EQ PUSH1 0x2D JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x33 PUSH1 0x49 JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 DUP3 DUP2 MSTORE PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH1 0x0 DUP1 SLOAD SWAP1 POP SWAP1 JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0x5C PUSH23 0x948EA77403DCCA04BE807809E69341029F5A7F270F88C2 PUSH17 0x24A0052DAF2264736F6C63430006010033 ",
+	"sourceMap": "25:146:0:-:0;;;57:44;8:9:-1;5:2;;;30:1;27;20:12;5:2;57:44:0;93:1;89;:5;;;;25:146;;;;;;"
+}
+
+
+load the bycodes script:
+> loadScript('sayhello2.js')
+
+Set the default account:
+> web3.eth.defaultAccount = '0xdB5E62FB2714A9DaFBc8D497182EDd8eE69a6e2A'
+
+
+

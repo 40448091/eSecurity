@@ -20,17 +20,22 @@ namespace BlockChainDemo
         bool _stopping = false;
         bool _running = false;
         int _sleep = 1000;
+        int _minSeconds = 0;
+        int _rndSeconds = 0;
         string _address = "";
         BlockChain.BlockChain _chain;
 
-        public Miner(BlockChain.BlockChain chain, string address, int sleep = 10000)
+        public Miner(BlockChain.BlockChain chain, string address)
         {
             _chain = chain;
-            _sleep = sleep;
+            _sleep = 0;
             _address = address;
             _thread = null;
             _running = false;
             _stopping = false;
+
+            _minSeconds = int.Parse(System.Configuration.ConfigurationManager.AppSettings["miner_difficulty_min_seconds"]);
+            _rndSeconds = int.Parse(System.Configuration.ConfigurationManager.AppSettings["miner_difficulty_rnd_seconds"]);
         }
 
         public void Start()
@@ -58,6 +63,10 @@ namespace BlockChainDemo
 
         private void DoWork()
         {
+            Random rnd = new Random();
+
+            _sleep = _minSeconds + rnd.Next(_rndSeconds);
+
             System.Console.WriteLine("Miner started");
             _running = true;
             int counter = 0;
@@ -69,8 +78,9 @@ namespace BlockChainDemo
                     _chain.Mine(_address);
                     counter = 0;
                     System.Console.WriteLine($"Blocks={_chain.BlockCount()}, Transactions={_chain.TransactionCount()}");
+                    _sleep = _minSeconds + rnd.Next(_rndSeconds);
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(1000);     //sleep for 1 second
             }
             _running = false;
 
