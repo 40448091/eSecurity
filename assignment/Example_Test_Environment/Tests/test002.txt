@@ -1,9 +1,0 @@
-test start 002
-mine 193fdac90384c9c1371ec33636c2bf17f3dbf75b
-transaction {"Inputs":[{"address":"9b9cb6e9ca5754ead6737bfb5da6f7c2c1bf7ed6"}],"Outputs":[{"address":"d762dc8779080d95ef828914e9612abbe792fe24","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"Inputs":[{"address":"d762dc8779080d95ef828914e9612abbe792fe24"}],"Outputs":[{"address":"cec3637ff4d236c3f81b256d4ef97bcc334f878d","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"Inputs":[{"address":"cec3637ff4d236c3f81b256d4ef97bcc334f878d"}],"Outputs":[{"address":"5f8a1ec808bd398f31152d0f82656062f121aae7","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"Inputs":[{"address":"5f8a1ec808bd398f31152d0f82656062f121aae7"}],"Outputs":[{"address":"9dec36037136de076acfc290014cea35d012788c","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-transaction {"Inputs":[{"address":"9dec36037136de076acfc290014cea35d012788c"}],"Outputs":[{"address":"193fdac90384c9c1371ec33636c2bf17f3dbf75b","amount":4},{"address":"7965298d2ad058cd4d22f909f215109042924753","amount":0}],"id":"d88e9e1b-17d1-4469-8abe-354bedec4f57"}
-mine 193fdac90384c9c1371ec33636c2bf17f3dbf75b
-test end

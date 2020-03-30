@@ -82,6 +82,8 @@ namespace BlockChainDemo
                 }
                 Thread.Sleep(1000);     //sleep for 1 second
             }
+            _thread.Abort();
+            _thread = null;
             _running = false;
 
             System.Console.WriteLine("Miner stopped");

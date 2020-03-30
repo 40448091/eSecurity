@@ -62,10 +62,6 @@ namespace BlockChainClient
                         case "help":
                             help();
                             break;
-                        //case "mine":
-                        //    result = cmdProc.mine(cmdArgs[1]);
-                        //    Console.WriteLine(result);
-                        //    break;
                         case "transfer":
                             Transfer(cmdArgs, cmdProc);
                             break;
@@ -125,9 +121,9 @@ namespace BlockChainClient
             System.Console.WriteLine("test start        : add start test marker to server logs");
             System.Console.WriteLine("test end          : add end test marker to server logs");
             System.Console.WriteLine("test server_init  : initialize the server, clear the block chain");
-            System.Console.WriteLine("test server_init  : initialize the server, clear the block chain");
             System.Console.WriteLine("test checkpoint   : save checkpoint");
             System.Console.WriteLine("test rollback     : rollback to last checkpoint");
+            System.Console.WriteLine("test run {file}   : run test command file");
         }
 
 
@@ -289,33 +285,6 @@ namespace BlockChainClient
 
             CreateTransaction(addressList, paymentAddress, amount, changeAddress, cmdProc);
 
-            /*
-            //build the transaction:
-            BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
-            t.id = Guid.NewGuid();
-
-            foreach (string address in addressList)
-            {
-                we = cmdProc.Wallet_FindEntry(address);
-                string publicKey = we.publicKey;
-                string signature = cmdProc.SignAddress(address, we.publicKey, we.privateKey);
-                t.Inputs.Add(new BlockChainClassLib.Input(address, signature, publicKey));
-            }
-
-            //add the primary payment address
-            t.Outputs.Add(new BlockChainClassLib.Output(paymentAddress, int.Parse(paymentAmount)));
-
-            //add the address to collect change
-            t.Outputs.Add(new BlockChainClassLib.Output(changeAddress, 0));
-
-            //sign the transaction
-            we = cmdProc.Wallet_FindEntry(addressList[0]);
-            t.PublicKey = we.publicKey;
-            cmdProc.SignTransaction(t,we.publicKey,we.privateKey);
-
-            //Instruct the command processor to submit the transaction
-            cmdProc.transaction(t);
-            */
         }
 
         static void CreateTransaction(List<string> from, string to, int amount, string change, BlockChainClassLib.CommandProcessor cmdProc)
@@ -369,14 +338,17 @@ namespace BlockChainClient
                 case "rollback":
                     cmdProc.Test_Server_Rollback();
                     break;
+                case "mine":
+                    string result = cmdProc.mine(cmdArgs[2]);
+                    Console.WriteLine(result);
+                    break;
                 case "miner":
                     if (cmdArgs[2] == "start")
                     {
                         cmdProc.Test_Server_Miner_Start(cmdArgs[3]);
                     } else
                         if (cmdArgs[2] == "stop")
-                        cmdProc.Test_Server_Miner_Stop();
-
+                            cmdProc.Test_Server_Miner_Stop();
                     break;
             }
         }
@@ -402,30 +374,8 @@ namespace BlockChainClient
             string[] cmdArgs = cmd.ToLower().Split(' ');
             switch (cmdArgs[0])
             {
-                case "mine":
-                    cmdProc.mine(cmdArgs[1]);
-                    break;
-                case "transaction":
-                    WalletLib.WalletEntry we;
-
-                    //deserialize the transaction 
-                    BlockChainClassLib.Transaction t = Newtonsoft.Json.JsonConvert.DeserializeObject<BlockChainClassLib.Transaction>(cmdArgs[1]);
-
-                    //sign each input
-                    foreach(BlockChainClassLib.Input i in t.Inputs)
-                    {
-                        we = cmdProc.Wallet_FindEntry(i.address);
-                        i.base64PublicKey = we.publicKey;
-                        i.signature = cmdProc.SignAddress(i.address, we.publicKey, we.privateKey);
-                    }
-
-                    //sign the transaction with the private key of the first address
-                    we = cmdProc.Wallet_FindEntry(t.Inputs[0].address);
-                    t.PublicKey = we.publicKey;
-                    cmdProc.SignTransaction(t, we.publicKey, we.privateKey);
-
-                    //send the transaction
-                    cmdProc.Transfer(t);
+                case "transfer":
+                    Transfer(cmdArgs, cmdProc);
                     break;
                 case "history":
                     string txList = cmdProc.history(cmdArgs[1]);

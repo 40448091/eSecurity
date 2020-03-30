@@ -1,0 +1,20 @@
+2020-03-30 23:05:45.180 : Creating new block
+2020-03-30 23:05:45.185 : Block added Index=0, previous hash=1
+2020-03-30 23:05:45.192 : BlockChain Initialized : NodeId=Node 2
+2020-03-30 23:05:45.199 : Node Registered : http://localhost:12345
+2020-03-30 23:05:45.206 : Web Service Listening on port: 12346
+2020-03-30 23:05:45.230 : Rolling back, loading previous : C:\repos\40448091\eSecurity\assignment\Example_Test_Environment\ServerNode02\RLWE\checkpoints\20200329194137.chk
+2020-03-30 23:05:45.418 : Rolling complete: C:\repos\40448091\eSecurity\assignment\Example_Test_Environment\ServerNode02\RLWE\checkpoints\20200329194137.chk
+2020-03-30 23:06:18.721 : Request:/chain
+2020-03-30 23:06:35.475 : Request:/chain
+2020-03-30 23:06:51.710 : Request:/chain
+2020-03-30 23:07:07.516 : Request:/chain
+2020-03-30 23:07:25.223 : Request:/chain
+2020-03-30 23:13:32.737 : Request:/chain
+2020-03-30 23:13:48.408 : Request:/chain
+2020-03-30 23:14:03.977 : Request:/chain
+2020-03-30 23:14:19.266 : Request:/chain
+2020-03-30 23:14:34.407 : Request:/chain
+2020-03-30 23:15:49.507 : Request:/chain
+2020-03-30 23:17:33.970 : Saving checkpoint
+2020-03-30 23:17:33.991 : Checkpoint saved : 20200330231733.chk

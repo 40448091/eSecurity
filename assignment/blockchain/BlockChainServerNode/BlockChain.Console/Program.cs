@@ -100,9 +100,6 @@ namespace BlockChain.Console
                     case "publickey":
                         publicKey(cmdArgs);
                         break;
-                    case "mine":
-                        Mine(cmdArgs);
-                        break;
                     case "balance":
                         Balance(cmdArgs);
                         break;
@@ -112,9 +109,13 @@ namespace BlockChain.Console
                     case "resolve":
                         Resolve(false);
                         break;
+                    case "mine":
+                        Mine(cmdArgs);
+                        break;
                     case "miner":
                         miner(cmdArgs);
                         break;
+
                 }
             }
         }

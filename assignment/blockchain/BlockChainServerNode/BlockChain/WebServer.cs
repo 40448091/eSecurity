@@ -134,6 +134,8 @@ namespace BlockChain
                 $"http://{host}:{port}/test/init/",
                 $"http://{host}:{port}/test/start/",
                 $"http://{host}:{port}/test/end/",
+                $"http://{host}:{port}/test/checkpoint/",
+                $"http://{host}:{port}/test/rollback/",
                 $"http://{host}:{port}/test/miner/start/",
                 $"http://{host}:{port}/test/miner/stop/"
             );
