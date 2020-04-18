@@ -106,13 +106,13 @@ namespace BlockChainClient
             System.Console.WriteLine("transfer          : create a transaction : {enter} for interactive or");
             System.Console.WriteLine("                  :                        from=addr1 from=addrn to=addr amount=99 change=address");
             //System.Console.WriteLine("mine {address}    : mine a new block place coins in {address}");
-            System.Console.WriteLine("chain             : get the chain");
-            System.Console.WriteLine("transactions      : get the chain");
+            System.Console.WriteLine("chain             : get blocks the chain");
+            System.Console.WriteLine("transactions      : gets pending transactions");
             System.Console.WriteLine("wallet add        : creates a new address and adds to the wallet");
             System.Console.WriteLine("wallet list       : lists addresses in the wallet");
             System.Console.WriteLine("wallet load       : load wallet file");
             System.Console.WriteLine("wallet save       : save wallet file");
-            System.Console.WriteLine("wallet balance    : save wallet file");
+            System.Console.WriteLine("wallet balance    : balance each address in the wallet");
             System.Console.WriteLine("history {address} : list transaction history for {address}");
             System.Console.WriteLine();
             System.Console.WriteLine("Test Server-side Commands:");

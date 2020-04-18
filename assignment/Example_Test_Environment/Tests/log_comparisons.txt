@@ -1,0 +1,91 @@
+Overall Tests:-
+
+ED25519 Tests
+2020-04-18 16:38:50.558 : Test 001 Start ----------------------------------------
+2020-04-18 16:41:18.257 : Test 001 End ------------------------------------------
+==147.699 seconds (2 mins = 27.699 seconds)
+
+RLWE Tests
+2020-04-18 16:55:44.863 : Test 001 Start ----------------------------------------
+2020-04-18 16:55:53.975 : Test 001 End ------------------------------------------
+==9.112 seconds
+
+----------------------
+
+ED25519 - Mine block 1 -- Mine for a new block (transaction creating new Bitcoin):
+2020-04-18 16:38:50.599 : Request:/mine?215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-18 16:38:50.607 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-18 16:38:50.618 : Resolving conflicts
+2020-04-18 16:38:50.626 : getting chain from : http://localhost:12346/
+2020-04-18 16:38:54.769 : Adding Transaction id=8dacbf49-fe4e-4c1d-a2b5-7057d7e9c535 
+2020-04-18 16:38:54.775 : Creating new block
+2020-04-18 16:38:54.781 : Block added Index=1, previous hash=55c28472f76abefe801572df739984a80fabd53618958ee1e08f1513e37a4176
+2020-04-18 16:38:54.787 : Mined new block Index=1, Proof=14342, previous Hash=55c28472f76abefe801572df739984a80fabd53618958ee1e08f1513e37a4176
+==‭4.188‬ seconds
+
+RLWE - Mine block 1 -- Mine for a new block (transaction creating new Bitcoin):
+2020-04-18 16:55:44.882 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-18 16:55:44.889 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-18 16:55:44.900 : Resolving conflicts
+2020-04-18 16:55:44.906 : getting chain from : http://localhost:12346/
+2020-04-18 16:55:45.530 : Adding Transaction id=98c8c719-2077-461b-8cbc-1484bdb16b79 
+2020-04-18 16:55:45.536 : Creating new block
+2020-04-18 16:55:45.542 : Block added Index=1, previous hash=77e36972ac3f99830e0d5cbcb47b7494540d0f95a124df26e7279e0400f5173b
+2020-04-18 16:55:45.548 : Mined new block Index=1, Proof=14342, previous Hash=77e36972ac3f99830e0d5cbcb47b7494540d0f95a124df26e7279e0400f5173b
+
+==0.66 seconds
+
+--------------------------------------
+
+ED25519 - Adding 6 transactions, mining for new block
+2020-04-18 16:40:06.846 : Request:/transfer
+2020-04-18 16:40:06.853 : Adding Transaction id=f0d5b769-f53a-4b24-a6a4-7becb0ea387e 
+2020-04-18 16:40:18.923 : Request:/transfer
+2020-04-18 16:40:18.929 : Adding Transaction id=a086f367-514d-44fe-915d-105bafe05568 
+2020-04-18 16:40:30.843 : Request:/transfer
+2020-04-18 16:40:30.850 : Adding Transaction id=a389071a-b727-424f-be25-963ea34d27e7 
+2020-04-18 16:40:42.786 : Request:/transfer
+2020-04-18 16:40:42.793 : Adding Transaction id=11bd747b-b68f-4f40-9d79-97b518942172 
+2020-04-18 16:40:54.839 : Request:/transfer
+2020-04-18 16:40:54.846 : Adding Transaction id=4de0a1c6-9d1e-4e91-b4c2-45948fdda1f7 
+2020-04-18 16:41:06.879 : Request:/transfer
+2020-04-18 16:41:06.886 : Adding Transaction id=42c31ab3-b9d3-40a5-8ce6-e2b15be78daf 
+2020-04-18 16:41:12.048 : Request:/mine?215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-18 16:41:12.054 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-18 16:41:12.063 : Resolving conflicts
+2020-04-18 16:41:12.070 : getting chain from : http://localhost:12346/
+2020-04-18 16:41:18.184 : Adding Transaction id=c8c6da64-bc9e-4359-ab1f-ce138dc7be97 
+2020-04-18 16:41:18.191 : Creating new block
+2020-04-18 16:41:18.198 : Block added Index=6, previous hash=5c5c4b93b14d5f818ddd367e8a3141bed1b5a6346e1779cce353f334d0607470
+2020-04-18 16:41:18.205 : Mined new block Index=6, Proof=202941, previous Hash=5c5c4b93b14d5f818ddd367e8a3141bed1b5a6346e1779cce353f334d0607470
+==71.359‬ seconds
+
+RLWE - Adding 6 transactions - Mining 
+2020-04-18 16:55:50.673 : Request:/transfer
+2020-04-18 16:55:50.681 : Adding Transaction id=d707e29c-76b3-4417-baa4-749d32345527 
+2020-04-18 16:55:50.694 : Request:/transfer
+2020-04-18 16:55:50.703 : Adding Transaction id=d812cdbd-76b2-41f0-bbb0-ebc8b70e18ae 
+2020-04-18 16:55:50.716 : Request:/transfer
+2020-04-18 16:55:50.724 : Adding Transaction id=761edf70-3f03-4dd8-a769-816cdd5ed169 
+2020-04-18 16:55:50.735 : Request:/transfer
+2020-04-18 16:55:50.742 : Adding Transaction id=2ad2362d-1b5b-4cee-880f-2d147c53ec04 
+2020-04-18 16:55:50.753 : Request:/transfer
+2020-04-18 16:55:50.760 : Adding Transaction id=a62cebd0-a79b-4a79-ad3d-591488c0df05 
+2020-04-18 16:55:50.770 : Request:/transfer
+2020-04-18 16:55:50.777 : Adding Transaction id=6eb7a4b4-3570-480e-ba32-41c9ece5792f 
+2020-04-18 16:55:50.786 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-18 16:55:50.793 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-18 16:55:50.801 : Resolving conflicts
+2020-04-18 16:55:50.807 : getting chain from : http://localhost:12346/
+2020-04-18 16:55:53.899 : Adding Transaction id=4400fa6e-5674-46cf-9f08-de6c18111ed0 
+2020-04-18 16:55:53.907 : Creating new block
+2020-04-18 16:55:53.915 : Block added Index=6, previous hash=05b98c2e40d8dac640e4dfd6e9fe9717bc7bc40c08f619f096ff2ee771acd9b1
+2020-04-18 16:55:53.922 : Mined new block Index=6, Proof=229628, previous Hash=05b98c2e40d8dac640e4dfd6e9fe9717bc7bc40c08f619f096ff2ee771acd9b1
+==3.249 seconds
+
+
+
+
+
+
+
