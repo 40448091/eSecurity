@@ -1,5 +1,0 @@
-2020-03-28 19:55:57.272 : Creating new block
-2020-03-28 19:55:57.280 : Block added Index=0, previous hash=1
-2020-03-28 19:55:57.288 : BlockChain Initialized : NodeId=5bddf59d3c564fae9ca3bb13d6a6a397
-2020-03-28 19:55:57.295 : Node Registered : http://localhost:12346
-2020-03-28 19:55:57.322 : Web Service Listening on port: 12345

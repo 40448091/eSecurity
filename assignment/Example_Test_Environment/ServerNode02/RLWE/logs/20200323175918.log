@@ -1,7 +1,0 @@
-2020-03-23 17:59:18.578 : Creating new block
-2020-03-23 17:59:18.599 : Block added Index=0, previous hash=1
-2020-03-23 17:59:18.616 : BlockChain Initialized : NodeId=75174f3c0ff64eed9a6fcac3a8a84152
-2020-03-23 17:59:18.624 : Node Registered : http://localhost:12346
-2020-03-23 17:59:18.638 : Web Service Listening on port: 12345
-2020-03-23 17:59:18.673 : Rolling back, loading previous : C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChain.Console\bin\Debug\RLWE\checkpoints\20200323173111.chk
-2020-03-23 17:59:18.943 : Rolling complete: C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainServerNode\BlockChain.Console\bin\Debug\RLWE\checkpoints\20200323173111.chk
