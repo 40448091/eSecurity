@@ -8,8 +8,8 @@ The Blockchain itself is built on and extends the work by Daniel van Flyman:
 
 * "Learn Blockchains by Building One", by Daniel van Flymen  
   Original Source: 
-      [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)  
-      [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)  
+      &nbsp;&nbsp;[https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)  
+      &nbsp;&nbsp;[https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)  
   Project Source: [/master/assignment/blockchain/BlockChainServerNode](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode)  
 
 The extended Blockchain server code allows any public-key cryptographic provider that implements the ICryptoProvider interface to be dynamically loaded. It introduces a Bitcoin-like address, input address validation and multiple input and output addresses similar to the way Bitcoin operates.  
