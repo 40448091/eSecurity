@@ -17,7 +17,7 @@ The extended Blockchain server code allows any public-key cryptographic provider
 Two public-key based crytographic providers are included:  
 
 * Elliptic Curve: _presumed to be at risk from Shor's algorithm
-  Incorporates "C# .NET Port of the Curve25519 Diffie-Hellman function" by Hans Wolff
+  Incorporates "C# .NET Port of the Curve25519 Diffie-Hellman function" by Hans Wolff  
   Original Source: [https://github.com/hanswolff/curve25519](https://github.com/hanswolff/curve25519)  
   Project Source: [/master/assignment/CryptoProvider/ed25519](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ed25519)  
   _NB: Bitcoin uses Elliptic Curve secp256k1 to protect addresses
@@ -33,7 +33,7 @@ Additional public-key cryptographic providers can be added by creating .NET wrap
 A Server-Node console was added to allow the user to interact with the server for test purposes:
 Project Source: [/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console)  
 
-A Client Console Application was added to allow the user to submit requests to the server via the command line and display results:
+A Client Console Application was added to allow the user to submit requests to the server via the command line and display results:  
 Project Source: [/master/assignment/blockchain/BlockChainCLI](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainCLI)  
 _Additionally the client has a batch-file interpreter so consistent and comparable tests can be performed across cryptographic providers
 
