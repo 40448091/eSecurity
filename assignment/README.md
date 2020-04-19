@@ -72,7 +72,7 @@ To run a test, navigate to the the [/master/assignment/Example_Test_Environment/
    - Files in the [Logs](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519/logs) directory contain timed log entries showing requests received by the server, and output generated from those requests. 
    _NB: To help with file analysis, special commands can be sent from the client to add "Test xxx" start and end markers into the log
 
-### Client and Server Console
+### Test Notes
 
-Notes on the Client and Server console applications can be found in this document [Notes.docx](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Notes.docx)
+Additional Test notes can be found in this document [Notes.docx](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Notes.docx)
 
