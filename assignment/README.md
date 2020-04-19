@@ -68,7 +68,7 @@ To run a test, navigate to the the [/master/assignment/Example_Test_Environment/
    * ED25519 [/master/assignment/Example_Test_Environment/ServerNode01/ED25519](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519)
    * RLWE [/master/assignment/Example_Test_Environment/ServerNode01/RLWE](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/RLWE)
 
-   - Files in the [Checkpoints](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519/checkpoints) directory contain the Blockchain states (or contents). Use these to see what Blockchain contents before and after tests.
+   - Files in the [Checkpoints](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519/checkpoints) directory contain the Blockchain states (or contents). Use these to see what the Blockchain contents before and after tests.
    - Files in the [Logs](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519/logs) directory contain timed log entries showing requests received by the server, and output generated from those requests. 
    _NB: To help with file analysis, special commands can be sent from the client to add "Test xxx" start and end markers into the log
 
