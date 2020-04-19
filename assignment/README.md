@@ -10,6 +10,7 @@ The Blockchain itself is built on and extends the work by Daniel van Flyman:
   Original Source: 
       [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)
       [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)
+      
   Project Source: [/master/assignment/blockchain/BlockChainServerNode](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode)
 
 The extended Blockchain server code allows any public-key cryptographic provider that implements the ICryptoProvider interface to be dynamically loaded. It introduces a Bitcoin-like address, input address validation and multiple input and output addresses similar to the way Bitcoin operates.
@@ -19,12 +20,14 @@ Two public-key based crytographic providers are included:
 * Elliptic Curve: _presumed to be at risk from Shor's algorithm
   Incorporates "C# .NET Port of the Curve25519 Diffie-Hellman function" by Hans Wolff
   Original Source: [https://github.com/hanswolff/curve25519](https://github.com/hanswolff/curve25519)
+  
   Project Source: [/master/assignment/CryptoProvider/ed25519](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ed25519)
   _NB: Bitcoin uses Elliptic Curve secp256k1 to protect addresses
 
 * Ring Learning With Errors: _presumed to be Quantum-Safe
   Incorproates "An implementation of Ring-LWE in C#" created by John G. Underhill (Steppenwolfe65)
   Original Source: [https://github.com/Steppenwolfe65/RingLWE-NET](https://github.com/Steppenwolfe65/RingLWE-NET)
+  
   Project Source: [/master/assignment/CryptoProvider/RingLWE](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/RingLWE)
 
 Additional public-key cryptographic providers can be added by creating .NET wrapper DLL's that implement the ICryptoProvider interface
@@ -47,7 +50,7 @@ It contains sub-directories for one interactive Client and Two Server Nodes.
 
 Example Client Test Scripts can be found here: [/master/assignment/Example_Test_Environment/Tests](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Tests)
 
-To run a test, in the [/master/assignment/Example_Test_Environment/Tests]((https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Tests) directory:
+To run a test, navigate to the the [/master/assignment/Example_Test_Environment/Tests](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Tests) directory:
 
 1. Amend the following config files to ensure "CryptoProvider" key is set to the same provider:
    * [/master/assignment/Example_Test_Environment/Client/](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Client/)_BlockChainClient.exe.config_
@@ -67,22 +70,7 @@ To run a test, in the [/master/assignment/Example_Test_Environment/Tests]((https
    - Files in the [Logs](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519/logs) directory contain timed log entries showing requests received by the server, and output generated from those requests. 
    _NB: To help with file analysis, special commands can be sent from the client to add "Test xxx" start and end markers into the log
 
+### Test Notes
 
+Notes on the Client and Server console applications can be found in this document [Notes.docx](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Notes.docx)
 
-## Bitcoin-like Blockchain Test Framework with dynamically loadabled Crytographic Providers 
-
-1. Introduction and Code Structure
-
-This code
-
-2. Test Framework Installation 
-
-```c#
-installation 
-```
-
-2. Running 
-
-```
-details of running the code, and test documentation
-``` 
