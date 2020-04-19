@@ -41,7 +41,8 @@ A Client Console Application was added to allow the user to submit requests to t
 Project Source: [/master/assignment/blockchain/BlockChainCLI](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainCLI)  
 _Additionally the client has a batch-file interpreter so consistent and comparable tests can be performed across cryptographic providers_
 
-_NB: The source code can be downloaded and amended as required, though additional cryptographic providers (implementing the ICryptoProvider interface) are dynamically loaded (by placing the compiled .DLL file into the client and server __bin__ directory, and amending the CrytoProvider key in the corresponding application __.config__ files. Client and Server code does not need to be recompiled._
+### Downloading, compiling and running
+The source code can be downloaded and amended as required, though additional cryptographic providers (implementing the ICryptoProvider interface) are dynamically loaded (by placing the compiled .DLL file into the client and server __bin__ directory, and amending the CrytoProvider key in the corresponding application __.config__ files. Client and Server code does not need to be recompiled.
 
 ### A precompiled Example Test Environment 
 
