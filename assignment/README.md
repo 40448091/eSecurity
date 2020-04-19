@@ -1,5 +1,4 @@
-# Implications of Quantum Computing on Bitcoin  
-# A Bitcoin-like Test Framework
+# Implications of Quantum Computing on Bitcoin - A Bitcoin-like Test Framework
 
 Advances in Quantum Computing put the cryptographic primitives that protect the Bitcoin Blockchain at risk.
 
