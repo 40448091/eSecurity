@@ -6,7 +6,7 @@ The aim of this project was to build a Bitcoin-like Blockchain Test Framework in
 
 The Blockchain itself is built on and extends the work by Daniel van Flyman:
 
-* "Learn Blockchains by Building One", by Daniel van Flymen
+* "Learn Blockchains by Building One", by Daniel van Flymen  
   Original Source: 
       [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)  
       [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)  
