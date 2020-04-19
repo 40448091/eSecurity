@@ -20,7 +20,7 @@ Two public-key based crytographic providers are included:
   Incorporates "C# .NET Port of the Curve25519 Diffie-Hellman function" by Hans Wolff  
   Original Source: [https://github.com/hanswolff/curve25519](https://github.com/hanswolff/curve25519)  
   Project Source: [/master/assignment/CryptoProvider/ed25519](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ed25519)  
-  _NB: Bitcoin uses Elliptic Curve secp256k1 to protect addresses
+  _NB: Bitcoin uses Elliptic Curve secp256k1 to protect addresses_
 
 * Ring Learning With Errors: _presumed to be Quantum-Safe
   Incorproates "An implementation of Ring-LWE in C#" created by John G. Underhill (Steppenwolfe65)  
@@ -35,7 +35,7 @@ Project Source: [/master/assignment/blockchain/BlockChainServerNode/BlockChain.C
 
 A Client Console Application was added to allow the user to submit requests to the server via the command line and display results:  
 Project Source: [/master/assignment/blockchain/BlockChainCLI](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainCLI)  
-_Additionally the client has a batch-file interpreter so consistent and comparable tests can be performed across cryptographic providers
+_Additionally the client has a batch-file interpreter so consistent and comparable tests can be performed across cryptographic providers_
 
 _NB: The source code can be downloaded and amended as required, though additional cryptographic providers (implementing the ICryptoProvider interface) are dynamically loaded (by placing the compiled .DLL file into the client and server __bin__ directory, and amending the CrytoProvider key in the corresponding application __.config__ files. Client and Server code does not need to be recompiled._
 
@@ -67,7 +67,7 @@ To run a test, navigate to the the [/master/assignment/Example_Test_Environment/
    - Files in the [Logs](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01/ED25519/logs) directory contain timed log entries showing requests received by the server, and output generated from those requests. 
    _NB: To help with file analysis, special commands can be sent from the client to add "Test xxx" start and end markers into the log
 
-### Test Notes
+### Client and Server Console
 
 Notes on the Client and Server console applications can be found in this document [Notes.docx](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Notes.docx)
 
