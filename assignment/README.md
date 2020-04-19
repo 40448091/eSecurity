@@ -56,8 +56,8 @@ To run a test, navigate to the the [/master/assignment/Example_Test_Environment/
 
 1. Amend the following config files to ensure "CryptoProvider" key is set to the same provider:
    * [/master/assignment/Example_Test_Environment/Client/](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Client/)_BlockChainClient.exe.config_
-   * [/master/assignment/Example_Test_Environment/ServerNode01](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01)_BlockChainDemo.Console.exe.config_
-   * [/master/assignment/Example_Test_Environment/ServerNode02](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode02)_BlockChainDemo.Console.exe.config_
+   * [/master/assignment/Example_Test_Environment/ServerNode01/](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode01)_BlockChainDemo.Console.exe.config_
+   * [/master/assignment/Example_Test_Environment/ServerNode02/](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/ServerNode02)_BlockChainDemo.Console.exe.config_
 2. Execute the _run_2_Servers.bat_ batch file to launch two interconnected Server-Nodes (loading the specified CryptoProvider)
 
 3. Execute either of the following batch files to launch the appropriate client:
