@@ -11,18 +11,23 @@ The Blockchain itself is built on and extends the work by Daniel van Flyman:
       [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)
       [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)
 
-Two crytographic providers are included:
+The extended Blockchain server code allows any public-key cryptographic provider that implements the ICryptoProvider interface to be dynamically loaded.
 
-* Elliptic Curve: 
+Two public-key based crytographic providers are included:
+
+* Elliptic Curve: _presumed to be at risk from Shor's algorithm
   Incorporates "C# .NET Port of the Curve25519 Diffie-Hellman function" by Hans Wolff
   Original Source: [https://github.com/hanswolff/curve25519](https://github.com/hanswolff/curve25519)
-  _Bitcoin uses Elliptic Curve secp256k1 to protect addresses
+  Project Source: [/master/assignment/CryptoProvider/ed25519](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ed25519)
+  _NB: Bitcoin uses Elliptic Curve secp256k1 to protect addresses
 
-* Ring Learning With Errors:
+* Ring Learning With Errors: _presumed to be Quantum-Safe
   Incorproates "An implementation of Ring-LWE in C#" created by John G. Underhill (Steppenwolfe65)
   Original Source: [https://github.com/Steppenwolfe65/RingLWE-NET](https://github.com/Steppenwolfe65/RingLWE-NET)
+  Project Source: [/master/assignment/CryptoProvider/RingLWE](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/RingLWE)
 
-
+Additional public-key cryptographic providers can be added by creating .NET wrapper DLL's that implement the ICryptoProvider interface
+  [/master/assignment/CryptoProvider/ICryptoProvider](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ICryptoProvider)
 
 ## Bitcoin-like Blockchain Test Framework with dynamically loadabled Crytographic Providers 
 
