@@ -27,12 +27,16 @@ Two public-key based crytographic providers are included:
   Original Source: [https://github.com/Steppenwolfe65/RingLWE-NET](https://github.com/Steppenwolfe65/RingLWE-NET)  
   Project Source: [/master/assignment/CryptoProvider/RingLWE](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/RingLWE)
 
+
+### Additional Crypto-Providers
 Additional public-key cryptographic providers can be added by creating .NET wrapper DLL's that implement the ICryptoProvider interface
   [/master/assignment/CryptoProvider/ICryptoProvider](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ICryptoProvider)  
 
+### Server-Console
 A Server-Node console was added to allow the user to interact with the server for test purposes:
 Project Source: [/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console)  
 
+### Client-Console 
 A Client Console Application was added to allow the user to submit requests to the server via the command line and display results:  
 Project Source: [/master/assignment/blockchain/BlockChainCLI](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainCLI)  
 _Additionally the client has a batch-file interpreter so consistent and comparable tests can be performed across cryptographic providers_
