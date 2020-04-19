@@ -52,7 +52,7 @@ It contains sub-directories for one interactive Client and Two Server Nodes.
 
 Example Client Test Scripts can be found here: [/master/assignment/Example_Test_Environment/Tests](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Tests)
 
-To run a test, navigate to the the [/master/assignment/Example_Test_Environment/Tests](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Tests) directory:
+To run a test, navigate to the the [/master/assignment/Example_Test_Environment/](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/) directory:
 
 1. Amend the following config files to ensure "CryptoProvider" key is set to the same provider:
    * [/master/assignment/Example_Test_Environment/Client/](https://github.com/40448091/eSecurity/tree/master/assignment/Example_Test_Environment/Client/)_BlockChainClient.exe.config_
