@@ -1,7 +1,7 @@
 # Implications of Quantum Computing on Bitcoin
 
-###This project builds on "Learn Blockchains by Building One", by Daniel van Flymen 
-   Original Source: 
+### This project builds on "Learn Blockchains by Building One", by Daniel van Flymen 
+ Original Source: 
       [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)
       [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)
 
