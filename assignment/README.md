@@ -8,36 +8,33 @@ The Blockchain itself is built on and extends the work by Daniel van Flyman:
 
 * "Learn Blockchains by Building One", by Daniel van Flymen
   Original Source: 
-      [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)
-      [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)
-      
-  Project Source: [/master/assignment/blockchain/BlockChainServerNode](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode)
+      [https://github.com/dvf/blockchain/tree/master/csharp/BlockChain](https://github.com/dvf/blockchain/tree/master/csharp/BlockChain)  
+      [https://github.com/dvf/blockchain](https://github.com/dvf/blockchain)  
+  Project Source: [/master/assignment/blockchain/BlockChainServerNode](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode)  
 
-The extended Blockchain server code allows any public-key cryptographic provider that implements the ICryptoProvider interface to be dynamically loaded. It introduces a Bitcoin-like address, input address validation and multiple input and output addresses similar to the way Bitcoin operates.
+The extended Blockchain server code allows any public-key cryptographic provider that implements the ICryptoProvider interface to be dynamically loaded. It introduces a Bitcoin-like address, input address validation and multiple input and output addresses similar to the way Bitcoin operates.  
 
-Two public-key based crytographic providers are included:
+Two public-key based crytographic providers are included:  
 
 * Elliptic Curve: _presumed to be at risk from Shor's algorithm
   Incorporates "C# .NET Port of the Curve25519 Diffie-Hellman function" by Hans Wolff
-  Original Source: [https://github.com/hanswolff/curve25519](https://github.com/hanswolff/curve25519)
-  
-  Project Source: [/master/assignment/CryptoProvider/ed25519](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ed25519)
+  Original Source: [https://github.com/hanswolff/curve25519](https://github.com/hanswolff/curve25519)  
+  Project Source: [/master/assignment/CryptoProvider/ed25519](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ed25519)  
   _NB: Bitcoin uses Elliptic Curve secp256k1 to protect addresses
 
 * Ring Learning With Errors: _presumed to be Quantum-Safe
-  Incorproates "An implementation of Ring-LWE in C#" created by John G. Underhill (Steppenwolfe65)
-  Original Source: [https://github.com/Steppenwolfe65/RingLWE-NET](https://github.com/Steppenwolfe65/RingLWE-NET)
-  
+  Incorproates "An implementation of Ring-LWE in C#" created by John G. Underhill (Steppenwolfe65)  
+  Original Source: [https://github.com/Steppenwolfe65/RingLWE-NET](https://github.com/Steppenwolfe65/RingLWE-NET)  
   Project Source: [/master/assignment/CryptoProvider/RingLWE](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/RingLWE)
 
 Additional public-key cryptographic providers can be added by creating .NET wrapper DLL's that implement the ICryptoProvider interface
-  [/master/assignment/CryptoProvider/ICryptoProvider](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ICryptoProvider)
+  [/master/assignment/CryptoProvider/ICryptoProvider](https://github.com/40448091/eSecurity/tree/master/assignment/CryptoProvider/ICryptoProvider)  
 
 A Server-Node console was added to allow the user to interact with the server for test purposes:
-Project Source: [/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console)
+Project Source: [/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainServerNode/BlockChain.Console)  
 
 A Client Console Application was added to allow the user to submit requests to the server via the command line and display results:
-Project Source: [/master/assignment/blockchain/BlockChainCLI](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainCLI)
+Project Source: [/master/assignment/blockchain/BlockChainCLI](https://github.com/40448091/eSecurity/tree/master/assignment/blockchain/BlockChainCLI)  
 _Additionally the client has a batch-file interpreter so consistent and comparable tests can be performed across cryptographic providers
 
 _NB: The source code can be downloaded and amended as required, though additional cryptographic providers (implementing the ICryptoProvider interface) are dynamically loaded (by placing the compiled .DLL file into the client and server __bin__ directory, and amending the CrytoProvider key in the corresponding application __.config__ files. Client and Server code does not need to be recompiled._
