@@ -17,3 +17,4 @@ C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\RLWE_CryptoProvide
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\RLWE_CryptoProvider_Tests\obj\Debug\RLWE_CryptoProvider_Tests.csproj.CopyComplete
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\RLWE_CryptoProvider_Tests\obj\Debug\RLWE_CryptoProvider_Tests.dll
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\RLWE_CryptoProvider_Tests\obj\Debug\RLWE_CryptoProvider_Tests.pdb
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\RLWE_CryptoProvider_Tests\obj\Debug\RLWE_CryptoProvider_Tests.csproj.CoreCompileInputs.cache

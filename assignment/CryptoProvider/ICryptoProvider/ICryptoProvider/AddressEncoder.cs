@@ -26,18 +26,18 @@ namespace CryptoProvider
         /*********************************************
          * Creates a signature for an address string
          *********************************************/
-        public static string SignAddress(string address, ICryptoProvider provider)
+        public static string SignAddress(string address,string salt, ICryptoProvider provider)
         {
-            return provider.SignMessage(address);
+            return provider.SignMessage(salt+address);
         }
 
         /***********************************************************
          * Validates an address and public key against a signature 
          ***********************************************************/
-        public static bool Verify(string address,string signature, string base64PublicKey, ICryptoProvider provider)
+        public static bool Verify(string address,string salt,string signature, string base64PublicKey, ICryptoProvider provider)
         {
             IPublicKey pubKey = provider.PublicKeyFromBase64(base64PublicKey);
-            bool valid = provider.VerifySignature(address,signature,pubKey);
+            bool valid = provider.VerifySignature(salt+address,signature,pubKey);
             valid = valid && (CreateAddress(base64PublicKey) == address);
             return valid;
         }

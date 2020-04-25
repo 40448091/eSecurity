@@ -79,8 +79,8 @@ namespace UnitTestProject1
             p.ImportKeyPairFromFile("C:\\temp\\keyPair.ecc");
             string b64PublicKey = p.ExportPublicKey();
             string address = CryptoProvider.AddressEncoder.CreateAddress(b64PublicKey);
-            string signature = CryptoProvider.AddressEncoder.SignAddress(address,p);
-            bool verify = CryptoProvider.AddressEncoder.Verify(address, signature, b64PublicKey,p);
+            string signature = CryptoProvider.AddressEncoder.SignAddress(address,"123",p);
+            bool verify = CryptoProvider.AddressEncoder.Verify(address,"124", signature, b64PublicKey,p);
 
             Assert.IsTrue(verify);
         }

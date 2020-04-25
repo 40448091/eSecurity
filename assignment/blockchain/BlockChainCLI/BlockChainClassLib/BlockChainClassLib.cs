@@ -60,9 +60,9 @@ namespace BlockChainClassLib
 
         //Uses the cryptographic provider specified to verify the owner of the address
         //Uses the address, public key and signature from input itself
-        public bool HasValidSignature(CryptoProvider.ICryptoProvider provider)
+        public bool HasValidSignature(string salt,CryptoProvider.ICryptoProvider provider)
         {
-            return CryptoProvider.AddressEncoder.Verify(address, signature, base64PublicKey, provider);
+            return CryptoProvider.AddressEncoder.Verify(address,salt, signature, base64PublicKey, provider);
         }
     }
 
@@ -323,14 +323,14 @@ namespace BlockChainClassLib
         }
 
         //Creates and address signature (used when creating transactions to send to the BlockChain Server)
-        public string SignAddress(string address, string publicKey, string privateKey)
+        public string SignAddress(string address, string salt, string publicKey, string privateKey)
         {
             //initialize public and private keys for the crypto provider
             _cryptoProvider.ImportPublicKey(publicKey);
             _cryptoProvider.ImportPrivateKey(privateKey);
 
             //call the sign-address method on the Crypto Providers AddressEncoder
-            return CryptoProvider.AddressEncoder.SignAddress(address, _cryptoProvider);
+            return CryptoProvider.AddressEncoder.SignAddress(address,salt, _cryptoProvider);
         }
 
         public string SignTransaction(Transaction t, string publicKey, string privateKey)

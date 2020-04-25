@@ -1,0 +1,29 @@
+2020-04-25 20:20:34.199 : Creating new block
+2020-04-25 20:20:34.210 : Block added Index=0, previous hash=1
+2020-04-25 20:20:34.237 : BlockChain Initialized : NodeId=Node 1
+2020-04-25 20:20:34.250 : Node Registered : http://localhost:12346
+2020-04-25 20:20:34.264 : Web Service Listening on port: 12345
+2020-04-25 20:20:41.046 : Request:/balance
+2020-04-25 20:20:49.939 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-25 20:20:49.953 : Resolving conflicts
+2020-04-25 20:20:49.974 : getting chain from : http://localhost:12346/
+2020-04-25 20:20:54.059 : Deregistering unresponsive node: http://localhost:12346/
+2020-04-25 20:20:58.224 : Adding Transaction id=79908671-f5e3-4c2f-86cd-1f75abb4d371 
+2020-04-25 20:20:58.231 : Creating new block
+2020-04-25 20:20:58.247 : Block added Index=1, previous hash=55d0ca56d76ecfa38b9d814371b31190ab77dcab6e68a07ddb32c5d5e07b8fde
+2020-04-25 20:20:58.263 : Mined new block Index=1, Proof=14342, previous Hash=55d0ca56d76ecfa38b9d814371b31190ab77dcab6e68a07ddb32c5d5e07b8fde
+2020-04-25 20:21:01.445 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-25 20:21:01.453 : Resolving conflicts
+2020-04-25 20:21:06.019 : Adding Transaction id=d16250ee-67c0-4efe-8f08-adeb41cf9b81 
+2020-04-25 20:21:06.026 : Creating new block
+2020-04-25 20:21:06.042 : Block added Index=2, previous hash=012587ba0a233c58ae984f94db745885fff3f173eed93ad1a6e2444f004e5422
+2020-04-25 20:21:06.055 : Mined new block Index=2, Proof=50716, previous Hash=012587ba0a233c58ae984f94db745885fff3f173eed93ad1a6e2444f004e5422
+2020-04-25 20:21:08.921 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-25 20:21:08.932 : Resolving conflicts
+2020-04-25 20:21:14.213 : Adding Transaction id=28b1abab-126a-4ed8-8927-321b23b03d2d 
+2020-04-25 20:21:14.220 : Creating new block
+2020-04-25 20:21:14.237 : Block added Index=3, previous hash=301f137bb2a4dbdd6cc2d30495a0d506339d267e4d4f1689ec0088052a09bbfe
+2020-04-25 20:21:14.259 : Mined new block Index=3, Proof=105696, previous Hash=301f137bb2a4dbdd6cc2d30495a0d506339d267e4d4f1689ec0088052a09bbfe
+2020-04-25 20:21:18.414 : Request:/balance
+2020-04-25 20:21:30.128 : Saving checkpoint
+2020-04-25 20:21:30.175 : Checkpoint saved : 20200425202130.chk

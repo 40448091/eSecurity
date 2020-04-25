@@ -1,0 +1,5 @@
+2020-04-25 20:18:30.181 : Creating new block
+2020-04-25 20:18:30.196 : Block added Index=0, previous hash=1
+2020-04-25 20:18:30.219 : BlockChain Initialized : NodeId=Node 2
+2020-04-25 20:18:30.233 : Node Registered : http://localhost:12345
+2020-04-25 20:18:30.248 : Web Service Listening on port: 12346

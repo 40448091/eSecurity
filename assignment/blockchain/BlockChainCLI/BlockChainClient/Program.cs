@@ -299,7 +299,7 @@ namespace BlockChainClient
             {
                 we = cmdProc.Wallet_FindEntry(address);
                 string publicKey = we.publicKey;
-                string signature = cmdProc.SignAddress(address, we.publicKey, we.privateKey);
+                string signature = cmdProc.SignAddress(address,t.id.ToString(), we.publicKey, we.privateKey);
                 t.Inputs.Add(new BlockChainClassLib.Input(address, signature, publicKey));
             }
 

@@ -6,3 +6,4 @@ C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\Test\obj\Debug\Tes
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\Test\obj\Debug\Test.csproj.CopyComplete
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\Test\obj\Debug\Test.exe
 C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\Test\obj\Debug\Test.pdb
+C:\repos\40448091\eSecurity\assignment\CryptoProvider\RingLWE\Test\obj\Debug\Test.csproj.CoreCompileInputs.cache

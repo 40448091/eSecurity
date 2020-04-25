@@ -60,13 +60,12 @@ namespace RestClientTest
             CryptoProvider.RLWE_Provider provider = new CryptoProvider.RLWE_Provider();
             provider.GenerateKeyPair();
 
-            string publicKey = provider.ExportPublicKey();
-            string address = CryptoProvider.AddressEncoder.CreateAddress(publicKey);
-            string signature = CryptoProvider.AddressEncoder.SignAddress(address, provider);
-
             BlockChainClassLib.Transaction t = new BlockChainClassLib.Transaction();
             t.id = Guid.NewGuid();
 
+            string publicKey = provider.ExportPublicKey();
+            string address = CryptoProvider.AddressEncoder.CreateAddress(publicKey);
+            string signature = CryptoProvider.AddressEncoder.SignAddress(address,t.id.ToString(), provider);
 
             t.Inputs.Add(new BlockChainClassLib.Input(address, signature, publicKey));
             t.Outputs.Add(new BlockChainClassLib.Output("paul", 1));

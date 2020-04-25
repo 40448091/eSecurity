@@ -1,0 +1,9 @@
+Node 1|ED25519|0
+4
+0|637234392342096568|100|1|0
+1|637234392582476983|14342|55d0ca56d76ecfa38b9d814371b31190ab77dcab6e68a07ddb32c5d5e07b8fde|1
+{"id":"79908671-f5e3-4c2f-86cd-1f75abb4d371","TimeStamp":637234392544446953,"Inputs":[],"Outputs":[{"address":"215ae9d987de4bfbb11a43856fb25340531bbdf7","amount":10}],"PublicKey":"WPBG5CzNjDntD4TaFelDRuFw6DmvHKpuQkh+LsVwA/8=","Signature":"I3NkB7F/HFoNR7ooVJ1gy26WoaVBN1bAzqn4/lwSfZkYupLIRe2zrgPWgptgB7GleF8+01nu8QCKt/gYwWoiCw=="}
+2|637234392660423855|50716|012587ba0a233c58ae984f94db745885fff3f173eed93ad1a6e2444f004e5422|1
+{"id":"d16250ee-67c0-4efe-8f08-adeb41cf9b81","TimeStamp":637234392621423859,"Inputs":[],"Outputs":[{"address":"215ae9d987de4bfbb11a43856fb25340531bbdf7","amount":10}],"PublicKey":"WPBG5CzNjDntD4TaFelDRuFw6DmvHKpuQkh+LsVwA/8=","Signature":"Wyr8qOYDVS72ozM0lMkQ3/TIDn+M/2UD+J1hn9slJy/uCt89fruzE3XFRM2B10sbqtp0RZrxKv5BAVuNHfUvCw=="}
+3|637234392742377043|105696|301f137bb2a4dbdd6cc2d30495a0d506339d267e4d4f1689ec0088052a09bbfe|1
+{"id":"28b1abab-126a-4ed8-8927-321b23b03d2d","TimeStamp":637234392706947028,"Inputs":[],"Outputs":[{"address":"215ae9d987de4bfbb11a43856fb25340531bbdf7","amount":10}],"PublicKey":"WPBG5CzNjDntD4TaFelDRuFw6DmvHKpuQkh+LsVwA/8=","Signature":"bQcWRQNsUphboY15Ydx9v9jnTJpwIgUXEfzFN7SKYUWt6k/MFNggU7OehRLskVtqPZ1gt/1GXwsYNvtIlBHtBQ=="}

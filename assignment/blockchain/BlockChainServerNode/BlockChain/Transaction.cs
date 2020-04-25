@@ -12,12 +12,12 @@ namespace BlockChain
         public string PublicKey;
         public string Signature;
  
-        public bool HasValidInputSignatures(CryptoProvider.ICryptoProvider provider)
+        public bool HasValidInputSignatures(string salt,CryptoProvider.ICryptoProvider provider)
         {
             bool valid = true;
             foreach (Input i in Inputs)
             {
-                valid = valid && i.HasValidSignature(provider);
+                valid = valid && i.HasValidSignature(salt,provider);
                 if (!valid)
                     break;
             }
@@ -51,9 +51,9 @@ namespace BlockChain
             this.base64PublicKey = base64PublicKey;
         }
 
-        public bool HasValidSignature(CryptoProvider.ICryptoProvider provider)
+        public bool HasValidSignature(string salt,CryptoProvider.ICryptoProvider provider)
         {
-            return CryptoProvider.AddressEncoder.Verify(address, signature, base64PublicKey, provider);
+            return CryptoProvider.AddressEncoder.Verify(address,salt, signature, base64PublicKey, provider);
         }
     }
 

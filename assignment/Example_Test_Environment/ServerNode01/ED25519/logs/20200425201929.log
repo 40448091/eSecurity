@@ -1,0 +1,25 @@
+2020-04-25 20:19:29.063 : Creating new block
+2020-04-25 20:19:29.076 : Block added Index=0, previous hash=1
+2020-04-25 20:19:29.090 : BlockChain Initialized : NodeId=Node 1
+2020-04-25 20:19:29.104 : Node Registered : http://localhost:12346
+2020-04-25 20:19:29.121 : Web Service Listening on port: 12345
+2020-04-25 20:19:45.640 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-25 20:19:45.667 : Resolving conflicts
+2020-04-25 20:19:45.683 : getting chain from : http://localhost:12346/
+2020-04-25 20:19:49.768 : Deregistering unresponsive node: http://localhost:12346/
+2020-04-25 20:19:53.913 : Adding Transaction id=f1df3561-f3d9-4ada-9985-31eb12496e35 
+2020-04-25 20:19:53.920 : Creating new block
+2020-04-25 20:19:53.930 : Block added Index=1, previous hash=0e1bb0b9f7e920ce19fdafd8fc9d14477187f714870ec1500b9abc9baf52db90
+2020-04-25 20:19:53.945 : Mined new block Index=1, Proof=14342, previous Hash=0e1bb0b9f7e920ce19fdafd8fc9d14477187f714870ec1500b9abc9baf52db90
+2020-04-25 20:20:03.994 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-25 20:20:04.011 : Resolving conflicts
+2020-04-25 20:20:08.771 : Adding Transaction id=210acb1b-0ea1-46c1-b686-946c42055f71 
+2020-04-25 20:20:08.778 : Creating new block
+2020-04-25 20:20:08.791 : Block added Index=2, previous hash=e1c20b0d8d225bac2a98ba88063255c8d9ad3edf6e3de4d6a06baf86c0cf0de7
+2020-04-25 20:20:08.807 : Mined new block Index=2, Proof=31962, previous Hash=e1c20b0d8d225bac2a98ba88063255c8d9ad3edf6e3de4d6a06baf86c0cf0de7
+2020-04-25 20:20:20.832 : Mining for new block for ID=215ae9d987de4bfbb11a43856fb25340531bbdf7
+2020-04-25 20:20:20.847 : Resolving conflicts
+2020-04-25 20:20:25.460 : Adding Transaction id=0211e83e-d003-4773-b551-b8fb8d4e5292 
+2020-04-25 20:20:25.467 : Creating new block
+2020-04-25 20:20:25.479 : Block added Index=3, previous hash=e1c5bb9fb485a4d4a6560b3a8f89ec9850b69a159e1420fe8eafbaf44fe0dd08
+2020-04-25 20:20:25.491 : Mined new block Index=3, Proof=16177, previous Hash=e1c5bb9fb485a4d4a6560b3a8f89ec9850b69a159e1420fe8eafbaf44fe0dd08

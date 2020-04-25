@@ -471,7 +471,7 @@ namespace BlockChain
             Logger.Log(string.Format("Adding Transaction id={0} ", trx.id));
 
             //attempt to validate the transaction input signatures using address + signature + public key from the transaction, and the cryptoProvider
-            if (trx.HasValidInputSignatures(_cryptoProvider))
+            if (trx.HasValidInputSignatures(trx.id.ToString(),_cryptoProvider))
             {
                 //if the input transactions are valid, add them to the input list
                 List<string> inputAddresses = trx.Inputs.Select(x => x.address).ToList();

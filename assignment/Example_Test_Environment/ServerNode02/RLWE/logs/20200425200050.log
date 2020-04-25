@@ -1,0 +1,13 @@
+2020-04-25 20:00:50.490 : Creating new block
+2020-04-25 20:00:50.508 : Block added Index=0, previous hash=1
+2020-04-25 20:00:50.527 : BlockChain Initialized : NodeId=Node 2
+2020-04-25 20:00:50.540 : Node Registered : http://localhost:12345
+2020-04-25 20:00:50.555 : Web Service Listening on port: 12346
+2020-04-25 20:01:41.007 : Request:/chain
+2020-04-25 20:01:42.219 : Request:/chain
+2020-04-25 20:01:44.357 : Request:/chain
+2020-04-25 20:01:45.503 : Request:/chain
+2020-04-25 20:01:45.690 : Request:/chain
+2020-04-25 20:01:46.420 : Request:/chain
+2020-04-25 20:02:20.688 : Saving checkpoint
+2020-04-25 20:02:20.711 : Checkpoint saved : 20200425200220.chk

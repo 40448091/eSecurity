@@ -22,3 +22,4 @@ C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClassL
 C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClassLib\bin\Debug\WalletLib.pdb
 C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClassLib\bin\Debug\Newtonsoft.Json.dll
 C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClassLib\bin\Debug\Newtonsoft.Json.xml
+C:\repos\40448091\eSecurity\assignment\blockchain\BlockChainCLI\BlockChainClassLib\obj\Debug\BlockChainClassLib.csproj.CoreCompileInputs.cache

@@ -1,0 +1,34 @@
+2020-04-25 19:45:42.562 : Creating new block
+2020-04-25 19:45:42.572 : Block added Index=0, previous hash=1
+2020-04-25 19:45:42.585 : BlockChain Initialized : NodeId=Node 1
+2020-04-25 19:45:42.593 : Node Registered : http://localhost:12346
+2020-04-25 19:45:42.621 : Web Service Listening on port: 12345
+2020-04-25 19:45:53.378 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 19:45:53.388 : Resolving conflicts
+2020-04-25 19:45:53.399 : getting chain from : http://localhost:12346/
+2020-04-25 19:45:57.542 : Deregistering unresponsive node: http://localhost:12346/
+2020-04-25 19:47:12.018 : Adding Transaction id=8e69cb8e-c897-41cf-83e1-5db0a8581e41 
+2020-04-25 19:47:14.208 : Creating new block
+2020-04-25 19:47:14.216 : Block added Index=1, previous hash=5516f84dc9fbf23df8d61d105b20e8a2d50814573a518c5fcde144a8d23b6370
+2020-04-25 19:47:16.411 : Mined new block Index=1, Proof=14342, previous Hash=5516f84dc9fbf23df8d61d105b20e8a2d50814573a518c5fcde144a8d23b6370
+2020-04-25 19:47:42.994 : Request:/balance
+2020-04-25 19:49:04.445 : Request:/transfer
+2020-04-25 19:49:04.527 : Adding Transaction id=ac030233-d5ef-4742-9a27-617d16d05994 
+2020-04-25 19:49:49.045 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 19:49:49.056 : Resolving conflicts
+2020-04-25 19:49:53.989 : Adding Transaction id=6d9d6cf0-6252-400d-acbb-62a9f011cf6d 
+2020-04-25 19:49:53.996 : Creating new block
+2020-04-25 19:49:54.008 : Block added Index=2, previous hash=af9b1141a1361318bccb631c37229c0cbc868e8d60b3a05f5177d700aad56cd9
+2020-04-25 19:49:54.024 : Mined new block Index=2, Proof=5042, previous Hash=af9b1141a1361318bccb631c37229c0cbc868e8d60b3a05f5177d700aad56cd9
+2020-04-25 19:50:07.567 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 19:50:07.576 : Resolving conflicts
+2020-04-25 19:50:09.487 : Adding Transaction id=8c96224e-3944-4ebe-9f44-b8530685081c 
+2020-04-25 19:50:09.494 : Creating new block
+2020-04-25 19:50:09.502 : Block added Index=3, previous hash=067eaabe62c74815d6462e3a427590c6ca35e71e74f835303c30c5a9e408b482
+2020-04-25 19:50:09.509 : Mined new block Index=3, Proof=100400, previous Hash=067eaabe62c74815d6462e3a427590c6ca35e71e74f835303c30c5a9e408b482
+2020-04-25 19:50:26.311 : Request:/balance
+2020-04-25 19:51:05.482 : Request:/transfer
+2020-04-25 19:51:05.496 : Adding Transaction id=17b2e916-4043-4cf0-aab0-0ea01e650caf 
+2020-04-25 19:51:14.131 : Request:/balance
+2020-04-25 19:51:31.047 : Saving checkpoint
+2020-04-25 19:51:31.080 : Checkpoint saved : 20200425195131.chk

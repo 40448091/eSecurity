@@ -1,0 +1,82 @@
+2020-04-25 20:00:50.537 : Creating new block
+2020-04-25 20:00:50.562 : Block added Index=0, previous hash=1
+2020-04-25 20:00:50.580 : BlockChain Initialized : NodeId=Node 1
+2020-04-25 20:00:50.605 : Node Registered : http://localhost:12346
+2020-04-25 20:00:50.635 : Web Service Listening on port: 12345
+2020-04-25 20:01:40.773 : Request:/test/start?001
+2020-04-25 20:01:40.780 : Test 001 Start ----------------------------------------
+2020-04-25 20:01:40.816 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:40.832 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:40.847 : Resolving conflicts
+2020-04-25 20:01:40.868 : getting chain from : http://localhost:12346/
+2020-04-25 20:01:41.879 : Adding Transaction id=f7c5229c-3161-451c-b5ee-57d1a7f2ace3 
+2020-04-25 20:01:41.886 : Creating new block
+2020-04-25 20:01:41.893 : Block added Index=1, previous hash=ecb18951b7b09eedb35155429026a0a0169f90c86eafe0ef4326e132f651bc79
+2020-04-25 20:01:41.900 : Mined new block Index=1, Proof=14342, previous Hash=ecb18951b7b09eedb35155429026a0a0169f90c86eafe0ef4326e132f651bc79
+2020-04-25 20:01:42.163 : Request:/transfer
+2020-04-25 20:01:42.175 : Adding Transaction id=c8305c0f-4982-4399-a31f-98bbda5a5fe7 
+2020-04-25 20:01:42.190 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:42.197 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:42.204 : Resolving conflicts
+2020-04-25 20:01:42.211 : getting chain from : http://localhost:12346/
+2020-04-25 20:01:44.280 : Adding Transaction id=568fe3ce-d059-4e29-8cb7-845b5cc68297 
+2020-04-25 20:01:44.287 : Creating new block
+2020-04-25 20:01:44.295 : Block added Index=2, previous hash=d050af24454b1ad64cd5003a5f0215937794838cf39c1395b6a6259a2a842f31
+2020-04-25 20:01:44.302 : Mined new block Index=2, Proof=116218, previous Hash=d050af24454b1ad64cd5003a5f0215937794838cf39c1395b6a6259a2a842f31
+2020-04-25 20:01:44.313 : Request:/transfer
+2020-04-25 20:01:44.321 : Adding Transaction id=964a9123-f58e-4097-b8f7-c909e567401c 
+2020-04-25 20:01:44.329 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:44.336 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:44.343 : Resolving conflicts
+2020-04-25 20:01:44.350 : getting chain from : http://localhost:12346/
+2020-04-25 20:01:45.346 : Adding Transaction id=ed97c8bb-7d1f-4baa-91ed-643d8e700aec 
+2020-04-25 20:01:45.356 : Creating new block
+2020-04-25 20:01:45.367 : Block added Index=3, previous hash=38e8f471fda07858a79229c85b372f498268e9ec02adf885bd2e28a7cb77f708
+2020-04-25 20:01:45.380 : Mined new block Index=3, Proof=53268, previous Hash=38e8f471fda07858a79229c85b372f498268e9ec02adf885bd2e28a7cb77f708
+2020-04-25 20:01:45.402 : Request:/transfer
+2020-04-25 20:01:45.418 : Adding Transaction id=528a558f-e092-4a77-849c-32bc0e52e8f8 
+2020-04-25 20:01:45.437 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:45.453 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:45.470 : Resolving conflicts
+2020-04-25 20:01:45.485 : getting chain from : http://localhost:12346/
+2020-04-25 20:01:45.566 : Adding Transaction id=6aebe001-743a-4ac8-a788-5044f65ea53d 
+2020-04-25 20:01:45.576 : Creating new block
+2020-04-25 20:01:45.587 : Block added Index=4, previous hash=b7efe2ac0cf451c9524f469f8526fb21b4dfebdce99f41320f9f4f2e7c7c737c
+2020-04-25 20:01:45.598 : Mined new block Index=4, Proof=2146, previous Hash=b7efe2ac0cf451c9524f469f8526fb21b4dfebdce99f41320f9f4f2e7c7c737c
+2020-04-25 20:01:45.618 : Request:/transfer
+2020-04-25 20:01:45.630 : Adding Transaction id=6fa29bf0-1445-40cf-8864-1b9dc1da961f 
+2020-04-25 20:01:45.645 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:45.655 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:45.668 : Resolving conflicts
+2020-04-25 20:01:45.679 : getting chain from : http://localhost:12346/
+2020-04-25 20:01:46.232 : Adding Transaction id=3e151cd9-087b-47b6-9aa7-4b12c6bc2d43 
+2020-04-25 20:01:46.239 : Creating new block
+2020-04-25 20:01:46.248 : Block added Index=5, previous hash=0900cced3e0e2c6e2e65a8a5e3e608d44bbf1d9d59357752527515eb3cb1edb5
+2020-04-25 20:01:46.255 : Mined new block Index=5, Proof=33653, previous Hash=0900cced3e0e2c6e2e65a8a5e3e608d44bbf1d9d59357752527515eb3cb1edb5
+2020-04-25 20:01:46.267 : Request:/transfer
+2020-04-25 20:01:46.275 : Adding Transaction id=7e208100-0a2a-4a1a-a98b-f8e862284b1b 
+2020-04-25 20:01:46.290 : Request:/transfer
+2020-04-25 20:01:46.299 : Adding Transaction id=e4a2b8a2-ecb1-4f4d-884f-caf28582bf5e 
+2020-04-25 20:01:46.311 : Request:/transfer
+2020-04-25 20:01:46.318 : Adding Transaction id=4c0013d7-8616-484a-9b5d-81947af7b975 
+2020-04-25 20:01:46.331 : Request:/transfer
+2020-04-25 20:01:46.338 : Adding Transaction id=e6c0c287-3391-481d-9c53-63eb06a750d1 
+2020-04-25 20:01:46.350 : Request:/transfer
+2020-04-25 20:01:46.357 : Adding Transaction id=83d9ced1-6329-4b3a-8393-5f9e6f8df653 
+2020-04-25 20:01:46.370 : Request:/transfer
+2020-04-25 20:01:46.378 : Adding Transaction id=c02889dc-b234-4cc7-829b-82a1101abe0e 
+2020-04-25 20:01:46.387 : Request:/mine?193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:46.396 : Mining for new block for ID=193fdac90384c9c1371ec33636c2bf17f3dbf75b
+2020-04-25 20:01:46.403 : Resolving conflicts
+2020-04-25 20:01:46.411 : getting chain from : http://localhost:12346/
+2020-04-25 20:01:46.517 : Adding Transaction id=dae08c7c-39ce-48ee-a8bd-e4e0b3673e2f 
+2020-04-25 20:01:46.524 : Creating new block
+2020-04-25 20:01:46.533 : Block added Index=6, previous hash=3fa4eba46b5a2cd255ad624a23737147a99c7078fb234d46b6f936c7a8b70c73
+2020-04-25 20:01:46.540 : Mined new block Index=6, Proof=6508, previous Hash=3fa4eba46b5a2cd255ad624a23737147a99c7078fb234d46b6f936c7a8b70c73
+2020-04-25 20:01:46.553 : Request:/test/checkpoint
+2020-04-25 20:01:46.562 : Saving checkpoint
+2020-04-25 20:01:46.581 : Checkpoint saved : 20200425200146.chk
+2020-04-25 20:01:46.589 : Request:/test/end?001
+2020-04-25 20:01:46.597 : Test 001 End ------------------------------------------
+2020-04-25 20:02:13.119 : Saving checkpoint
+2020-04-25 20:02:13.161 : Checkpoint saved : 20200425200213.chk
